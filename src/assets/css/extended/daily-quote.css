@@ -1,0 +1,259 @@
+/* 每日金句弹窗 */
+.daily-quote-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease;
+}
+
+.daily-quote-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.daily-quote-card {
+  position: relative;
+  background: linear-gradient(160deg, #fff9f5 0%, #fef6f0 40%, #fff 100%);
+  border-radius: 20px;
+  padding: 36px 32px 28px;
+  overflow: hidden;
+  max-width: 380px;
+  width: 88%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(219, 101, 83, 0.08);
+  transform: translateY(30px) scale(0.92);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.daily-quote-overlay.active .daily-quote-card {
+  transform: translateY(0) scale(1);
+}
+
+.daily-quote-deco {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 20px 20px 0 0;
+  background: linear-gradient(90deg, #db6553, #e8a67a, #db6553);
+}
+
+@keyframes quoteFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.daily-quote-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #3a3028;
+  line-height: 1.9;
+  margin-bottom: 10px;
+  padding: 0 8px;
+  text-align: center;
+}
+
+.daily-quote-author {
+  font-size: 0.82rem;
+  color: #b8a090;
+  margin-bottom: 18px;
+  font-style: italic;
+}
+
+.daily-quote-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  border-top: 1px solid rgba(219, 101, 83, 0.1);
+}
+
+.daily-quote-date {
+  font-size: 0.72rem;
+  color: #c8a898;
+  letter-spacing: 1px;
+}
+
+.daily-quote-hint {
+  font-size: 0.68rem;
+  color: #d0b8a8;
+  letter-spacing: 0.5px;
+}
+
+/* 暗色模式 */
+[data-theme="dark"] .daily-quote-card {
+  background: linear-gradient(160deg, #2a2018 0%, #1f1a15 40%, #252220 100%);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(219, 101, 83, 0.1);
+}
+
+[data-theme="dark"] .daily-quote-text {
+  color: #e8e0d8;
+}
+
+[data-theme="dark"] .daily-quote-author {
+  color: #8a7a6a;
+}
+
+[data-theme="dark"] .daily-quote-footer {
+  border-top-color: rgba(219, 101, 83, 0.15);
+}
+
+[data-theme="dark"] .daily-quote-date {
+  color: #7a6a5a;
+}
+
+[data-theme="dark"] .daily-quote-hint {
+  color: #6a5a4a;
+}
+
+/* 金句身份标识 */
+.daily-quote-identity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.daily-quote-avatar-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  animation: quoteFloat 3s ease-in-out infinite;
+  object-fit: cover;
+}
+
+.daily-quote-name {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #9a8a7a;
+  letter-spacing: 0.5px;
+}
+
+[data-theme="dark"] .daily-quote-name {
+  color: #7a6a5a;
+}
+
+/* ===== 顶部按钮组（关闭+点赞）===== */
+.daily-quote-top-btns {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  z-index: 2;
+}
+
+/* 点赞按钮 */
+.daily-quote-like {
+  background: rgba(219, 101, 83, 0.08);
+  border: none;
+  font-size: 14px;
+  color: #db6553;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  padding: 0;
+  line-height: 1;
+}
+
+.daily-quote-like:hover {
+  background: rgba(219, 101, 83, 0.18);
+  transform: scale(1.1);
+}
+
+.daily-quote-like.liked {
+  background: #db6553;
+  color: #fff;
+  animation: likeHeart 0.4s ease;
+}
+
+@keyframes likeHeart {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.3); }
+  60% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+[data-theme="dark"] .daily-quote-like {
+  background: rgba(219, 101, 83, 0.12);
+  color: #db6553;
+}
+
+[data-theme="dark"] .daily-quote-like.liked {
+  background: #db6553;
+  color: #fff;
+}
+
+/* 关闭按钮（在top-btns内，用flex排列，不用绝对定位） */
+.daily-quote-top-btns .daily-quote-close {
+  position: relative;
+  top: auto;
+  right: auto;
+  background: rgba(0, 0, 0, 0.04);
+  border: none;
+  font-size: 12px;
+  color: #bbb;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  padding: 0;
+  line-height: 1;
+}
+
+.daily-quote-top-btns .daily-quote-close:hover {
+  background: rgba(0, 0, 0, 0.08);
+  color: #999;
+}
+
+[data-theme="dark"] .daily-quote-top-btns .daily-quote-close {
+  background: rgba(255, 255, 255, 0.06);
+  color: #666;
+}
+
+[data-theme="dark"] .daily-quote-top-btns .daily-quote-close:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #999;
+}
+
+/* 移动端 */
+@media (max-width: 768px) {
+  .daily-quote-card {
+    padding: 30px 24px 24px;
+    max-width: 340px;
+  }
+  .daily-quote-text {
+    font-size: 1rem;
+  }
+  .daily-quote-top-btns {
+    top: 10px;
+    right: 10px;
+    gap: 4px;
+  }
+  .daily-quote-like,
+  .daily-quote-top-btns .daily-quote-close {
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
+  }
+}
