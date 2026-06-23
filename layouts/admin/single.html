@@ -1,0 +1,749 @@
+{{- define "main" }}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>联考网管理后台</title>
+  <style>
+    :root {
+      --warm-bg: #faf8f5;
+      --warm-card: #fff;
+      --warm-border: #e8e0d5;
+      --warm-text: #5c4a3d;
+      --warm-text-light: #8b7a6b;
+      --warm-accent: #d97706;
+      --warm-accent-hover: #b45309;
+      --warm-success: #059669;
+      --warm-danger: #dc2626;
+      --warm-shadow: rgba(92, 74, 61, 0.08);
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--warm-bg);
+      color: var(--warm-text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    .container { max-width: 1000px; margin: 0 auto; padding: 24px 16px; }
+    
+    /* 登录界面 */
+    #loginScreen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .login-box {
+      background: var(--warm-card);
+      border-radius: var(--radius);
+      padding: 48px 40px;
+      box-shadow: 0 4px 24px var(--warm-shadow);
+      text-align: center;
+      max-width: 380px;
+      width: 100%;
+    }
+    .login-box h1 { font-size: 24px; margin-bottom: 8px; color: var(--warm-text); }
+    .login-box p { color: var(--warm-text-light); margin-bottom: 24px; font-size: 14px; }
+    .login-box input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid var(--warm-border);
+      border-radius: 8px;
+      font-size: 16px;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+    .login-box input:focus { outline: none; border-color: var(--warm-accent); }
+    .login-box button {
+      width: 100%;
+      padding: 14px;
+      background: var(--warm-accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .login-box button:hover { background: var(--warm-accent-hover); }
+    .login-error { color: var(--warm-danger); font-size: 14px; margin-top: 12px; display: none; }
+    
+    /* 管理界面 */
+    #adminScreen { display: none; }
+    .header {
+      background: var(--warm-card);
+      padding: 20px 24px;
+      border-radius: var(--radius);
+      margin-bottom: 24px;
+      box-shadow: 0 2px 12px var(--warm-shadow);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header h1 { font-size: 20px; color: var(--warm-text); }
+    .header-actions { display: flex; gap: 12px; }
+    .btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--warm-accent); color: white; }
+    .btn-primary:hover { background: var(--warm-accent-hover); }
+    .btn-secondary { background: var(--warm-border); color: var(--warm-text); }
+    .btn-secondary:hover { background: #ddd0c0; }
+    .btn-success { background: var(--warm-success); color: white; }
+    .btn-success:hover { background: #047857; }
+    
+    .card {
+      background: var(--warm-card);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 12px var(--warm-shadow);
+    }
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--warm-border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-title .icon { font-size: 20px; }
+    
+    /* 表单样式 */
+    .form-group { margin-bottom: 16px; }
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--warm-text-light);
+      margin-bottom: 6px;
+    }
+    .form-input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 2px solid var(--warm-border);
+      border-radius: 8px;
+      font-size: 14px;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus { outline: none; border-color: var(--warm-accent); }
+    
+    /* 头条卡片 */
+    .headline-card {
+      background: var(--warm-bg);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .headline-card .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .headline-card .badge {
+      background: var(--warm-accent);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .headline-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 600px) { .headline-grid { grid-template-columns: 1fr; } }
+    
+    /* 输出区域 */
+    .output-area {
+      background: #2d2a26;
+      color: #e5e0d8;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 20px;
+      font-family: "Monaco", "Menlo", monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    
+    /* Toast 提示 */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--warm-text);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 1000;
+    }
+    .toast.show { opacity: 1; }
+    
+    /* 标签编辑 */
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .tag-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--warm-bg);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+    .tag-item input {
+      width: 80px;
+      padding: 4px 8px;
+      border: 1px solid var(--warm-border);
+      border-radius: 4px;
+      font-size: 13px;
+    }
+    
+    /* 广告位编辑 */
+    .ad-section { margin-bottom: 24px; }
+    .ad-section:last-child { margin-bottom: 0; }
+    .ad-title {
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    /* 部署指令 */
+    .deploy-section {
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .deploy-section h3 { margin-bottom: 12px; color: var(--warm-text); }
+    .deploy-commands { margin-bottom: 16px; }
+    .command-box {
+      background: #2d2a26;
+      color: #e5e0d8;
+      padding: 14px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 12px;
+      margin-bottom: 12px;
+      position: relative;
+    }
+    .command-box code { white-space: pre-wrap; word-break: break-all; }
+    .copy-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      padding: 4px 10px;
+      font-size: 11px;
+      background: rgba(255,255,255,0.1);
+      color: #e5e0d8;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,0.2); }
+    
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .container { padding: 16px 12px; }
+      .header { flex-direction: column; gap: 12px; text-align: center; }
+      .header-actions { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 登录界面 -->
+  <div id="loginScreen" class="container">
+    <div class="login-box">
+      <h1>🔐 联考网管理后台</h1>
+      <p>请输入访问密码</p>
+      <input type="password" id="passwordInput" placeholder="请输入密码" onkeypress="if(event.key==='Enter')tryLogin()">
+      <button onclick="tryLogin()">进入后台</button>
+      <p class="login-error" id="loginError">密码错误，请重试</p>
+    </div>
+  </div>
+  
+  <!-- 管理界面 -->
+  <div id="adminScreen" class="container">
+    <div class="header">
+      <h1>📊 联考网管理后台</h1>
+      <div class="header-actions">
+        <button class="btn btn-secondary" onclick="location.reload()">刷新</button>
+        <button class="btn btn-primary" onclick="generateConfig()">📋 生成配置</button>
+        <button class="btn btn-success" onclick="logout()">退出</button>
+      </div>
+    </div>
+    
+    <!-- 公众号头条管理 -->
+    <div class="card">
+      <div class="card-title">
+        <span class="icon">📰</span>
+        公众号头条管理
+      </div>
+      <div id="headlineList">
+        <!-- 头条1 -->
+        <div class="headline-card">
+          <div class="card-header">
+            <span>头条 1</span>
+            <span class="badge" id="tag1-preview">MPA</span>
+          </div>
+          <div class="headline-grid">
+            <div class="form-group">
+              <label class="form-label">标题</label>
+              <input type="text" class="form-input" id="title1" placeholder="输入文章标题">
+            </div>
+            <div class="form-group">
+              <label class="form-label">标签</label>
+              <input type="text" class="form-input" id="tag1" placeholder="如：MPA、备考" oninput="document.getElementById('tag1-preview').textContent=this.value">
+            </div>
+            <div class="form-group">
+              <label class="form-label">链接</label>
+              <input type="text" class="form-input" id="url1" placeholder="https://mp.weixin.qq.com/...">
+            </div>
+            <div class="form-group">
+              <label class="form-label">日期</label>
+              <input type="date" class="form-input" id="date1">
+            </div>
+          </div>
+        </div>
+        
+        <!-- 头条2 -->
+        <div class="headline-card">
+          <div class="card-header">
+            <span>头条 2</span>
+            <span class="badge" id="tag2-preview">趋势</span>
+          </div>
+          <div class="headline-grid">
+            <div class="form-group">
+              <label class="form-label">标题</label>
+              <input type="text" class="form-input" id="title2" placeholder="输入文章标题">
+            </div>
+            <div class="form-group">
+              <label class="form-label">标签</label>
+              <input type="text" class="form-input" id="tag2" placeholder="如：MPA、备考" oninput="document.getElementById('tag2-preview').textContent=this.value">
+            </div>
+            <div class="form-group">
+              <label class="form-label">链接</label>
+              <input type="text" class="form-input" id="url2" placeholder="https://mp.weixin.qq.com/...">
+            </div>
+            <div class="form-group">
+              <label class="form-label">日期</label>
+              <input type="date" class="form-input" id="date2">
+            </div>
+          </div>
+        </div>
+        
+        <!-- 头条3 -->
+        <div class="headline-card">
+          <div class="card-header">
+            <span>头条 3</span>
+            <span class="badge" id="tag3-preview">备考</span>
+          </div>
+          <div class="headline-grid">
+            <div class="form-group">
+              <label class="form-label">标题</label>
+              <input type="text" class="form-input" id="title3" placeholder="输入文章标题">
+            </div>
+            <div class="form-group">
+              <label class="form-label">标签</label>
+              <input type="text" class="form-input" id="tag3" placeholder="如：MPA、备考" oninput="document.getElementById('tag3-preview').textContent=this.value">
+            </div>
+            <div class="form-group">
+              <label class="form-label">链接</label>
+              <input type="text" class="form-input" id="url3" placeholder="https://mp.weixin.qq.com/...">
+            </div>
+            <div class="form-group">
+              <label class="form-label">日期</label>
+              <input type="date" class="form-input" id="date3">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 广告位管理 -->
+    <div class="card">
+      <div class="card-title">
+        <span class="icon">📢</span>
+        广告位管理
+      </div>
+      
+      <div class="ad-section">
+        <div class="ad-title">🏠 首页大横幅</div>
+        <div class="headline-grid">
+          <div class="form-group">
+            <label class="form-label">标题</label>
+            <input type="text" class="form-input" id="homeBannerTitle" placeholder="广告标题">
+          </div>
+          <div class="form-group">
+            <label class="form-label">副标题</label>
+            <input type="text" class="form-input" id="homeBannerSubtitle" placeholder="广告副标题">
+          </div>
+          <div class="form-group">
+            <label class="form-label">链接</label>
+            <input type="text" class="form-input" id="homeBannerUrl" placeholder="https://...">
+          </div>
+          <div class="form-group">
+            <label class="form-label">按钮文字</label>
+            <input type="text" class="form-input" id="homeBannerBtn" placeholder="立即咨询">
+          </div>
+        </div>
+      </div>
+      
+      <div class="ad-section">
+        <div class="ad-title">📜 文章顶部横幅</div>
+        <div class="headline-grid">
+          <div class="form-group">
+            <label class="form-label">显示文本</label>
+            <input type="text" class="form-input" id="bannerTopText" placeholder="横幅显示的文字">
+          </div>
+          <div class="form-group">
+            <label class="form-label">链接</label>
+            <input type="text" class="form-input" id="bannerTopUrl" placeholder="https://...">
+          </div>
+        </div>
+      </div>
+      
+      <div class="ad-section">
+        <div class="ad-title">📜 文章底部横幅</div>
+        <div class="form-group">
+          <label class="form-label">显示文本</label>
+          <input type="text" class="form-input" id="bannerBottomText" placeholder="横幅显示的文字">
+        </div>
+        <div class="form-group">
+          <label class="form-label">链接</label>
+          <input type="text" class="form-input" id="bannerBottomUrl" placeholder="https://...">
+        </div>
+      </div>
+      
+      <div class="ad-section">
+        <div class="ad-title">📌 侧栏卡片广告</div>
+        <div class="headline-grid">
+          <div class="form-group">
+            <label class="form-label">名称</label>
+            <input type="text" class="form-input" id="sidebarName" placeholder="广告名称">
+          </div>
+          <div class="form-group">
+            <label class="form-label">描述</label>
+            <input type="text" class="form-input" id="sidebarDesc" placeholder="广告描述">
+          </div>
+          <div class="form-group">
+            <label class="form-label">链接</label>
+            <input type="text" class="form-input" id="sidebarUrl" placeholder="https://...">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Logo URL</label>
+            <input type="text" class="form-input" id="sidebarLogo" placeholder="https://...(可选)">
+          </div>
+        </div>
+      </div>
+      
+      <div class="ad-section">
+        <div class="ad-title">📃 列表页插卡广告</div>
+        <div class="headline-grid">
+          <div class="form-group">
+            <label class="form-label">名称</label>
+            <input type="text" class="form-input" id="listCardName" placeholder="广告名称">
+          </div>
+          <div class="form-group">
+            <label class="form-label">描述</label>
+            <input type="text" class="form-input" id="listCardDesc" placeholder="广告描述">
+          </div>
+          <div class="form-group" style="grid-column: 1/-1;">
+            <label class="form-label">链接</label>
+            <input type="text" class="form-input" id="listCardUrl" placeholder="https://...">
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 配置输出 -->
+    <div class="card" id="configCard" style="display:none;">
+      <div class="card-title">
+        <span class="icon">📋</span>
+        生成的 hugo.toml 配置片段
+      </div>
+      <p style="color: var(--warm-text-light); font-size: 13px; margin-bottom: 12px;">
+        👆 请复制以下配置内容，发给石头Stone执行文件修改和部署
+      </p>
+      <div class="output-area" id="configOutput"></div>
+      <div style="margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap;">
+        <button class="btn btn-primary" onclick="copyConfig()">📋 复制配置</button>
+        <button class="btn btn-secondary" onclick="document.getElementById('configCard').style.display='none'">收起</button>
+      </div>
+    </div>
+    
+    <!-- 一键部署指令 -->
+    <div class="card">
+      <div class="card-title">
+        <span class="icon">🚀</span>
+        构建与部署
+      </div>
+      <div class="deploy-section">
+        <h3>📝 执行步骤</h3>
+        <div class="deploy-commands">
+          <div class="command-box">
+            <strong>步骤 1：构建 Hugo</strong>
+            <code id="buildCmd">cd /app/data/所有对话/主对话/网站内容/hugo-site && rm -rf resources && hugo --quiet</code>
+            <button class="copy-btn" onclick="copyText(document.getElementById('buildCmd').textContent)">复制</button>
+          </div>
+          <div class="command-box">
+            <strong>步骤 2：部署到 Vercel</strong>
+            <code id="deployCmd">rm -rf /tmp/liankao-deploy && mkdir -p /tmp/liankao-deploy/.vercel && echo '{"projectId":"prj_a7ksfSUaZYSPmAV3gZ3n9Bktzujj","orgId":"team_JM9bInQCrDYvXx2ibjlVNurg"}' > /tmp/liankao-deploy/.vercel/project.json && cp -r /app/data/所有对话/主对话/网站内容/hugo-site/public/* /tmp/liankao-deploy/ && cd /tmp/liankao-deploy && /usr/bin/vercel deploy . --token vcp_5asDlpLSpZelOiGcWLXHHasUu3ZJCFmItUHyBW9f2yGi4fCRWb3ViDk1 --yes --prod</code>
+            <button class="copy-btn" onclick="copyText(document.getElementById('deployCmd').textContent)">复制</button>
+          </div>
+        </div>
+        <p style="font-size: 13px; color: var(--warm-text-light);">
+          💡 <strong>提示：</strong>修改配置后需要执行以上命令才能生效。请将命令复制给石头Stone执行，或手动在终端运行。
+        </p>
+      </div>
+    </div>
+    
+    <!-- 金句管理说明 -->
+    <div class="card">
+      <div class="card-title">
+        <span class="icon">💬</span>
+        金句管理说明
+      </div>
+      <p style="color: var(--warm-text-light); font-size: 14px; line-height: 1.8;">
+        金句点赞数据存储在用户浏览器的 localStorage 中，后台无法直接读取。
+        如需管理金句内容，请直接编辑金句相关的 Markdown 文件（位于 <code>/content/</code> 目录下）。
+      </p>
+    </div>
+  </div>
+  
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // 当前配置（从 Hugo 变量注入）
+    const currentConfig = {
+      wxHeadline: [
+        {{ range .Site.Params.wxHeadline }}
+        { title: {{ .title | jsonify }}, url: {{ .url | jsonify }}, date: {{ .date | jsonify }}, tag: {{ .tag | jsonify }} },
+        {{ end }}
+      ],
+      ads: {
+        homeBanner: {
+          enabled: {{ .Site.Params.ads.homeBanner.enabled }},
+          url: {{ .Site.Params.ads.homeBanner.url | jsonify }},
+          title: {{ .Site.Params.ads.homeBanner.title | jsonify }},
+          subtitle: {{ .Site.Params.ads.homeBanner.subtitle | jsonify }},
+          btnText: {{ .Site.Params.ads.homeBanner.btnText | jsonify }}
+        },
+        bannerTop: {
+          enabled: {{ .Site.Params.ads.bannerTop.enabled }},
+          url: {{ .Site.Params.ads.bannerTop.url | jsonify }},
+          text: {{ .Site.Params.ads.bannerTop.text | jsonify }}
+        },
+        bannerBottom: {
+          enabled: {{ .Site.Params.ads.bannerBottom.enabled }},
+          url: {{ .Site.Params.ads.bannerBottom.url | jsonify }},
+          text: {{ .Site.Params.ads.bannerBottom.text | jsonify }}
+        },
+        sidebarCard: {
+          enabled: {{ .Site.Params.ads.sidebarCard.enabled }},
+          name: {{ .Site.Params.ads.sidebarCard.name | jsonify }},
+          desc: {{ .Site.Params.ads.sidebarCard.desc | jsonify }},
+          url: {{ .Site.Params.ads.sidebarCard.url | jsonify }},
+          logo: {{ .Site.Params.ads.sidebarCard.logo | jsonify }}
+        },
+        listCard: {
+          enabled: {{ .Site.Params.ads.listCard.enabled }},
+          name: {{ .Site.Params.ads.listCard.name | jsonify }},
+          desc: {{ .Site.Params.ads.listCard.desc | jsonify }},
+          url: {{ .Site.Params.ads.listCard.url | jsonify }}
+        }
+      }
+    };
+
+    const ADMIN_PASSWORD = 'liankao2026';
+
+    function tryLogin() {
+      const pwd = document.getElementById('passwordInput').value;
+      if (pwd === ADMIN_PASSWORD) {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('adminScreen').style.display = 'block';
+        loadCurrentConfig();
+        showToast('登录成功！');
+      } else {
+        document.getElementById('loginError').style.display = 'block';
+        document.getElementById('passwordInput').value = '';
+      }
+    }
+
+    function logout() {
+      document.getElementById('adminScreen').style.display = 'none';
+      document.getElementById('loginScreen').style.display = 'flex';
+      document.getElementById('passwordInput').value = '';
+      document.getElementById('loginError').style.display = 'none';
+    }
+
+    function loadCurrentConfig() {
+      // 加载公众号头条
+      for (let i = 0; i < 3; i++) {
+        const item = currentConfig.wxHeadline[i];
+        if (item) {
+          document.getElementById('title' + (i+1)).value = item.title;
+          document.getElementById('url' + (i+1)).value = item.url;
+          document.getElementById('date' + (i+1)).value = item.date;
+          document.getElementById('tag' + (i+1)).value = item.tag;
+          document.getElementById('tag' + (i+1) + '-preview').textContent = item.tag;
+        }
+      }
+      
+      // 加载广告位配置
+      document.getElementById('homeBannerTitle').value = currentConfig.ads.homeBanner.title;
+      document.getElementById('homeBannerSubtitle').value = currentConfig.ads.homeBanner.subtitle;
+      document.getElementById('homeBannerUrl').value = currentConfig.ads.homeBanner.url;
+      document.getElementById('homeBannerBtn').value = currentConfig.ads.homeBanner.btnText;
+      
+      document.getElementById('bannerTopText').value = currentConfig.ads.bannerTop.text;
+      document.getElementById('bannerTopUrl').value = currentConfig.ads.bannerTop.url;
+      
+      document.getElementById('bannerBottomText').value = currentConfig.ads.bannerBottom.text;
+      document.getElementById('bannerBottomUrl').value = currentConfig.ads.bannerBottom.url;
+      
+      document.getElementById('sidebarName').value = currentConfig.ads.sidebarCard.name;
+      document.getElementById('sidebarDesc').value = currentConfig.ads.sidebarCard.desc;
+      document.getElementById('sidebarUrl').value = currentConfig.ads.sidebarCard.url;
+      document.getElementById('sidebarLogo').value = currentConfig.ads.sidebarCard.logo;
+      
+      document.getElementById('listCardName').value = currentConfig.ads.listCard.name;
+      document.getElementById('listCardDesc').value = currentConfig.ads.listCard.desc;
+      document.getElementById('listCardUrl').value = currentConfig.ads.listCard.url;
+    }
+
+    function generateConfig() {
+      const headlines = [];
+      for (let i = 1; i <= 3; i++) {
+        headlines.push({
+          title: document.getElementById('title' + i).value,
+          url: document.getElementById('url' + i).value,
+          date: document.getElementById('date' + i).value,
+          tag: document.getElementById('tag' + i).value
+        });
+      }
+      
+      const config = `# ============================================
+# 联考网配置更新 - 请将以下内容替换到 hugo.toml 中
+# ============================================
+
+# --- 公众号头条配置 ---
+  [[params.wxHeadline]]
+    title = "${headlines[0].title}"
+    url = "${headlines[0].url}"
+    date = "${headlines[0].date}"
+    tag = "${headlines[0].tag}"
+
+  [[params.wxHeadline]]
+    title = "${headlines[1].title}"
+    url = "${headlines[1].url}"
+    date = "${headlines[1].date}"
+    tag = "${headlines[1].tag}"
+
+  [[params.wxHeadline]]
+    title = "${headlines[2].title}"
+    url = "${headlines[2].url}"
+    date = "${headlines[2].date}"
+    tag = "${headlines[2].tag}"
+
+# --- 广告位配置 ---
+  # 首页大横幅广告
+  [params.ads.homeBanner]
+    enabled = true
+    url = "${document.getElementById('homeBannerUrl').value}"
+    title = "${document.getElementById('homeBannerTitle').value}"
+    subtitle = "${document.getElementById('homeBannerSubtitle').value}"
+    btnText = "${document.getElementById('homeBannerBtn').value}"
+
+  # 文章顶部横幅广告
+  [params.ads.bannerTop]
+    enabled = true
+    url = "${document.getElementById('bannerTopUrl').value}"
+    text = "${document.getElementById('bannerTopText').value}"
+
+  # 文章底部横幅广告
+  [params.ads.bannerBottom]
+    enabled = true
+    url = "${document.getElementById('bannerBottomUrl').value}"
+    text = "${document.getElementById('bannerBottomText').value}"
+
+  # 侧栏卡片广告
+  [params.ads.sidebarCard]
+    enabled = true
+    name = "${document.getElementById('sidebarName').value}"
+    desc = "${document.getElementById('sidebarDesc').value}"
+    url = "${document.getElementById('sidebarUrl').value}"
+    logo = "${document.getElementById('sidebarLogo').value}"
+
+  # 列表页插卡广告
+  [params.ads.listCard]
+    enabled = true
+    name = "${document.getElementById('listCardName').value}"
+    desc = "${document.getElementById('listCardDesc').value}"
+    url = "${document.getElementById('listCardUrl').value}"
+`;
+      
+      document.getElementById('configOutput').textContent = config;
+      document.getElementById('configCard').style.display = 'block';
+      document.getElementById('configCard').scrollIntoView({ behavior: 'smooth' });
+      showToast('配置已生成！请复制发给石头Stone执行');
+    }
+
+    function copyConfig() {
+      const config = document.getElementById('configOutput').textContent;
+      copyText(config);
+    }
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('已复制到剪贴板！');
+      }).catch(() => {
+        // 降级方案
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        showToast('已复制到剪贴板！');
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+  </script>
+</body>
+</html>
+{{- end }}

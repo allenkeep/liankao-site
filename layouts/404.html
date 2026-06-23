@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>页面走丢了 - 果芽MBA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #5a3e36;
+        }
+        .container {
+            text-align: center;
+            padding: 3rem 2rem;
+            max-width: 520px;
+        }
+        .emoji {
+            font-size: 7rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #e07a5f;
+        }
+        .actions {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.85rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary {
+            background: #e07a5f;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(224, 122, 95, 0.4);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(224, 122, 95, 0.5);
+        }
+        /* 弹窗样式 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        .modal {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 360px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+        .modal h3 {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        .wechat-id {
+            background: #f7f7f7;
+            border-radius: 8px;
+            padding: 1rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #07c160;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            font-family: "SF Mono", Monaco, monospace;
+        }
+        .modal p {
+            font-size: 0.9rem;
+            color: #999;
+            margin-bottom: 1.5rem;
+        }
+        .modal .btn {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 0.9rem;
+        }
+        .copy-success {
+            color: #07c160;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        .copy-success.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="emoji">🧭</div>
+        <h1>404</h1>
+        <div class="actions">
+            <button class="btn btn-primary" onclick="showWechat()">💬 联系我们</button>
+        </div>
+    </div>
+
+    <!-- 微信弹窗 -->
+    <div class="modal-overlay" id="wechatModal" onclick="closeModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <h3>添加果芽MBA咨询微信</h3>
+            <div class="wechat-id">guoyamba666</div>
+            <p>长按复制微信号，打开微信添加好友</p>
+            <button class="btn btn-primary" onclick="copyWechat()">复制微信号</button>
+            <div class="copy-success" id="copySuccess">✓ 已复制，去微信添加吧～</div>
+        </div>
+    </div>
+
+    <script>
+        function showWechat() {
+            document.getElementById('wechatModal').classList.add('active');
+        }
+
+        function closeModal(event) {
+            if (event.target.id === 'wechatModal') {
+                document.getElementById('wechatModal').classList.remove('active');
+            }
+        }
+
+        function copyWechat() {
+            const wechatId = 'guoyamba666';
+            navigator.clipboard.writeText(wechatId).then(() => {
+                document.getElementById('copySuccess').classList.add('show');
+                setTimeout(() => {
+                    document.getElementById('copySuccess').classList.remove('show');
+                }, 2000);
+            }).catch(() => {
+                // 降级方案
+                const textarea = document.createElement('textarea');
+                textarea.value = wechatId;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                document.getElementById('copySuccess').classList.add('show');
+                setTimeout(() => {
+                    document.getElementById('copySuccess').classList.remove('show');
+                }, 2000);
+            });
+        }
+
+        // ESC关闭弹窗
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.getElementById('wechatModal').classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

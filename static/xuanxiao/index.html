@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AI择校助手 - 智能推荐管理类联考院校</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=52ad4eb6">
+</head>
+<body>
+  <div id="app">
+    <!-- 顶部导航 -->
+    <header class="chat-header">
+      <button class="back-btn" onclick="goBack()">←</button>
+      <div class="header-avatar">
+        <div class="avatar-inner">🎓</div>
+      </div>
+      <div class="header-info">
+        <div class="header-name">果果</div>
+        <div class="header-status">在线 · 随时为你解答</div>
+      </div>
+      <button class="more-btn">⋯</button>
+    </header>
+
+    <!-- 聊天内容区 -->
+    <main class="chat-container" id="chatContainer">
+      <!-- 欢迎消息 -->
+      <div class="message-group ai-message">
+        <div class="message-avatar">
+          <div class="avatar-inner">🎓</div>
+        </div>
+        <div class="message-bubble welcome-bubble">
+          <p>Hi～我是果果 👋</p>
+          <p>告诉我你的背景和需求，帮你找到最合适的MBA/EMBA/MEM院校～</p>
+        </div>
+      </div>
+
+      <!-- 快捷问题 -->
+      <div class="quick-questions" id="quickQuestions">
+        <p class="section-title">您可以这样问我</p>
+        <div class="question-grid">
+          <button class="question-btn" onclick="askQuestion('本科毕业5年，想在北京读个MBA，预算20万左右，有什么推荐吗？')">
+            本科5年工作经验，北京读MBA预算20万
+          </button>
+          <button class="question-btn" onclick="askQuestion('985本科，8年互联网经验，想考清北复交的MBA，有机会吗？')">
+            985本科8年经验，能上清北复交吗
+          </button>
+          <button class="question-btn" onclick="askQuestion('专科毕业6年，想考MEM，有没有性价比高的学校推荐？')">
+            专科6年，求MEM性价比院校
+          </button>
+          <button class="question-btn" onclick="askQuestion('我英语不好，有没有对英语要求低的MPA院校？')">
+            英语不好，求MPA好考的学校
+          </button>
+        </div>
+      </div>
+
+      <!-- 标签选择区 -->
+      <div class="tag-section" id="tagSection">
+        <p class="section-title">也可以先选选你的情况（可多选）</p>
+        
+        <div class="tag-group">
+          <p class="tag-group-title">🎯 目标专业</p>
+          <div class="tag-list" data-field="majors">
+            <span class="tag" data-value="MBA" onclick="toggleTag(this)">MBA</span>
+            <span class="tag" data-value="EMBA" onclick="toggleTag(this)">EMBA</span>
+            <span class="tag" data-value="MEM" onclick="toggleTag(this)">MEM</span>
+            <span class="tag" data-value="MPA" onclick="toggleTag(this)">MPA</span>
+          </div>
+        </div>
+
+        <div class="tag-group">
+          <p class="tag-group-title">📍 目标地区</p>
+          <div class="tag-list" data-field="region">
+            <span class="tag" data-value="beijing" onclick="toggleTag(this)">北京</span>
+            <span class="tag" data-value="shanghai" onclick="toggleTag(this)">上海</span>
+            <span class="tag" data-value="guangdong" onclick="toggleTag(this)">广东</span>
+            <span class="tag" data-value="jiangsu" onclick="toggleTag(this)">江苏</span>
+            <span class="tag" data-value="zhejiang" onclick="toggleTag(this)">浙江</span>
+            <span class="tag" data-value="other" onclick="toggleTag(this)">其他</span>
+          </div>
+        </div>
+
+        <div class="tag-group">
+          <p class="tag-group-title">💰 预算范围</p>
+          <div class="tag-list" data-field="budget">
+            <span class="tag" data-value="0-10" onclick="toggleTag(this)">10万以内</span>
+            <span class="tag" data-value="10-20" onclick="toggleTag(this)">10-20万</span>
+            <span class="tag" data-value="20-40" onclick="toggleTag(this)">20-40万</span>
+            <span class="tag" data-value="40+" onclick="toggleTag(this)">40万以上</span>
+          </div>
+        </div>
+
+        <button class="btn-generate" onclick="generateFromTags()">
+          开始智能匹配
+          <span class="btn-arrow">→</span>
+        </button>
+      </div>
+
+      <!-- 动态消息会插入到这里 -->
+      <div id="messagesEnd"></div>
+    </main>
+
+    <!-- 底部输入区 -->
+    <footer class="input-footer">
+      <div class="input-wrapper">
+        <input 
+          type="text" 
+          id="messageInput" 
+          class="message-input" 
+          placeholder="说说你的情况，比如：本科3年，想在上海读MBA..."
+          onkeypress="handleKeyPress(event)"
+        >
+        <button class="send-btn" onclick="sendMessage()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </div>
+      <p class="disclaimer">内容由 AI 生成，仅供参考</p>
+    </footer>
+  </div>
+
+  <!-- 院校详情弹窗 -->
+  <div id="schoolModal" class="school-modal">
+    <div class="modal-overlay" onclick="closeSchoolModal()"></div>
+    <div class="school-modal-content">
+      <div class="modal-handle"></div>
+      <div id="schoolModalBody">
+        <!-- 动态填充 -->
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js?v=ef4e98f4"></script>
+</body>
+</html>

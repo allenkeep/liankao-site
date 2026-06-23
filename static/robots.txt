@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://liankao.org.cn/sitemap.xml

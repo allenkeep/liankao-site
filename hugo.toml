@@ -1,0 +1,280 @@
+# 联考网 Hugo站点配置文件
+
+baseURL = "https://liankao.org.cn/"
+languageCode = "zh-CN"
+defaultContentLanguage = "zh"
+title = "果芽-MBA联考及合作办学硕士报名与辅导"
+description = "在职考研一站式信息平台"
+copyright = "Copyright © 2024 果芽MBA All Rights Reserved"
+theme = "PaperMod"
+
+# 启用功能
+enableRobotsTXT = true
+enableSitemap = true
+enableRSS = true
+
+# 构建配置
+buildDrafts = false
+buildExpired = false
+buildFuture = true
+
+# 语法高亮
+pygmentsCodeFences = true
+pygmentsUseClasses = true
+
+# 解析配置
+summaryLength = 70
+timeout = "120s"
+
+# sitemap配置
+[sitemap]
+  changefreq = "daily"
+  filename = "sitemap.xml"
+  priority = 0.5
+
+# 参数配置
+[params]
+  # SEO配置
+  description = "在职考研一站式信息平台，提供管理类联考和中外合作办学硕士的最新招生动态、政策解读、院校对比和备考攻略"
+
+  # 导航栏品牌
+  [params.label]
+    text = ""
+    icon = "/img/logo.png"
+    iconHeight = 28
+
+  # 日期格式
+  dateFormat = "2006-01-02"
+
+  # RSS配置
+  rssFullContent = true
+
+  # 暗色模式配置
+  defaultTheme = "auto"
+  enableThemeToggle = true
+
+  # 显示配置
+  ShowBreadCrumbs = true
+  ShowReadingTime = true
+  ShowWordCount = true
+  ShowToc = true
+  ShowPostNavLinks = true
+  ShowCodeCopyButtons = true
+
+  # 搜索配置
+  [params.fuseOpts]
+    isCaseSensitive = false
+    shouldSort = true
+    location = 0
+    distance = 1000
+    threshold = 0.4
+    minMatchCharLength = 1
+    keys = ["title", "permalink", "summary", "content"]
+
+  # 社交链接
+  [[params.socialIcons]]
+    icon = "github"
+    title = "GitHub"
+    url = ""
+
+  [[params.socialIcons]]
+    icon = "wechat"
+    title = "微信公众号"
+    url = "#"
+
+  # 广告位配置
+  [params.ads]
+    [params.ads.homeBanner]
+      enabled = true
+    [params.ads.bannerTop]
+      enabled = true
+      text = "🔥 添加微信，免费获取MBA/MEM/MPA选校匹配分析"
+    [params.ads.bannerBottom]
+      enabled = true
+      text = "💡 1对1咨询：院校对比、备考规划、政策解读"
+    [params.ads.sidebarCard]
+      enabled = true
+      name = "果芽MBA"
+      desc = "在职考研一站式服务"
+      logo = "/img/logo.png"
+    [params.ads.listCard]
+      enabled = true
+
+  # 轮播图配置
+  [[params.carouselSlides]]
+    image = "/img/carousel/slide1.jpg?v=26"
+    alt = "长江商学院MBA"
+    url = "https://www.ckgsb.edu.cn/mba"
+
+  [[params.carouselSlides]]
+    image = "/img/carousel/slide2.jpg?v=14"
+    alt = "中国人民大学商学院EMBA"
+    url = "https://emba.rmbs.ruc.edu.cn/"
+
+  [[params.carouselSlides]]
+    image = "/img/carousel/slide3.jpg?v=8"
+    alt = "北京交通大学MEM"
+    url = "https://sem.bjtu.edu.cn/me"
+
+  # 公众号头条
+  [[params.wxHeadline]]
+    title = "划重点！无需笔试的中外合作硕士一定要知道，完整攻略来啦"
+    url = "https://mp.weixin.qq.com/s/8od9BcLGxzky-SMKv-GVLg"
+    date = "2026-06-09"
+    tag = "中外合作"
+
+  [[params.wxHeadline]]
+    title = "倒计时201天！管理类联考6-12月各科拆解，数学背这些……"
+    url = "https://mp.weixin.qq.com/s/onJu5KwrUpDx4mzgHWALcw"
+    date = "2026-06-05"
+    tag = "备考"
+
+  [[params.wxHeadline]]
+    title = "蹲！MBA学费真的会降价？！2027级同学一定要关注"
+    url = "https://mp.weixin.qq.com/s/j-jS8LRmk82R2LdACvDqCg"
+    date = "2026-06-03"
+    tag = "MBA学费"
+
+  # 热门推荐
+  [[params.featured]]
+    title = "2026管理类联考全年备考规划：3阶段时间轴与核心任务"
+    url = "/guide/2026-06-01-guanlian-yearly-plan/"
+    tag = "备考"
+    desc = "基础期→强化期→冲刺期，各阶段重点任务与时间节点全梳理"
+
+  [[params.featured]]
+    title = "中外合作办学硕士 vs 国内联考：5个维度深度对比"
+    url = "/guide/2026-06-01-sino-foreign-vs-domestic/"
+    tag = "选校"
+    desc = "入学方式、证书含金量、学费、时间成本、适合人群全面对比"
+
+  [[params.featured]]
+    title = "南京大学2027级MBA南望菁选计划启动"
+    url = "/daily/2026-05-26-nju-mba-nanwang-plan/"
+    tag = "985招生"
+    desc = "全新提前批次选拔机制，优秀者可获预录取资格"
+
+  [[params.featured]]
+    title = "2027管理类联考备考完整指南"
+    url = "/guide/2027-guanlian-kaoshi-beikao/"
+    tag = "备考"
+    desc = "管综+英语二各科复习规划、时间线、用书推荐"
+
+# 导航菜单配置
+[[menu.main]]
+  identifier = "daily"
+  name = "每日动态"
+  url = "/daily/"
+  weight = 1
+
+[[menu.main]]
+  identifier = "policy"
+  name = "政策解读"
+  url = "/policy/"
+  weight = 2
+
+[[menu.main]]
+  identifier = "guide"
+  name = "备考攻略"
+  url = "/guide/"
+  weight = 3
+
+[[menu.main]]
+  identifier = "schools"
+  name = "院校库"
+  url = "/schools/"
+  weight = 4
+
+[[menu.main]]
+  identifier = "about"
+  name = "关于我们"
+  url = "/about/"
+  weight = 5
+
+[[menu.main]]
+  identifier = "search"
+  name = "搜索"
+  url = "/search/"
+  weight = 6
+
+# minify配置
+[minify]
+  disableHTML = true
+  disableCSS = false
+  disableJS = false
+  disableXML = false
+  minifyOutput = true
+
+# 图片配置
+[imaging]
+  resampleFilter = "Lanczos"
+  quality = 85
+  anchor = "smart"
+
+# 标记配置
+[markup]
+  [markup.tableOfContents]
+    endLevel = 3
+    ordered = false
+    startLevel = 2
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    lineNos = true
+    noClasses = false
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      hardWraps = false
+      unsafe = true
+      xhtml = false
+
+# 相关文章推荐配置
+[related]
+  includeNewer = true
+  threshold = 60
+  toLower = true
+
+  [[related.indices]]
+    name = "tags"
+    weight = 80
+
+  [[related.indices]]
+    name = "categories"
+    weight = 60
+
+  [[related.indices]]
+    name = "date"
+    weight = 10
+
+# 输出配置
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[outputFormats.JSON]
+  mediaType = "application/json"
+  baseName = "index"
+  isPlainText = true
+
+# 站长平台验证
+[params.analytics.baidu]
+  SiteVerificationTag = "codeva-WK6l9kw19j"
+
+[params.analytics.baidu2]
+  SiteVerificationTag = "codeva-QsowTp3L9E"
+
+[params.analytics.sogou]
+  SiteVerificationTag = "czELIM31CL"
+
+[params.analytics.so]
+  SiteVerificationTag = "82d117f5fc60431443a4a0456ff2560e"
+
+[params.analytics.so2]
+  SiteVerificationTag = "c3b80c5c4d828b74b867d686a78a3a76"
+
+  # 页脚关注链接
+  [params.follow]
+    wechatName = "果芽MBA"
+    xhsName = "果芽MBA"
+    xhsUrl = "https://www.xiaohongshu.com/user/profile/64d7c6cf0000000010032d66"
+    douyinName = "果芽MBA"
+    douyinUrl = "https://www.douyin.com/user/MS4wLjABAAAA7zJMi0sLJcE_IY1bZWBfYmP9zN8gVy_1FO8Y_hKv8Es"

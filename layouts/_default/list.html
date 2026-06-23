@@ -1,0 +1,216 @@
+{{- define "main" }}
+
+{{- if (and site.Params.profileMode.enabled .IsHome) }}
+{{- partial "index_profile.html" . }}
+{{- else }}
+
+{{- if not .IsHome | and .Title }}
+<header class="page-header">
+  {{- partial "breadcrumbs.html" . }}
+  <h1>
+    {{ .Title }}
+  </h1>
+  {{- if .Description }}
+  <div class="post-description">
+    {{ .Description | markdownify }}
+  </div>
+  {{- end }}
+</header>
+{{- end }}
+
+{{- if .Content }}
+<div class="post-content md-content">
+  {{- if not (.Param "disableAnchoredHeadings") }}
+  {{- partial "anchored_headings.html" .Content -}}
+  {{- else }}{{ .Content }}{{ end }}
+</div>
+{{- end }}
+
+{{- $pages := union .RegularPages.ByDate.Reverse .Sections }}
+
+{{- if .IsHome }}
+{{- $pages = where site.RegularPages.ByDate.Reverse "Type" "in" site.Params.mainSections }}
+{{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true"  }}
+{{- end }}
+
+{{- $paginator := .Paginate $pages }}
+
+{{- if and .IsHome site.Params.homeInfoParams (eq $paginator.PageNumber 1) }}
+{{- partial "home_info.html" . }}
+{{- end }}
+
+{{- if .IsHome }}
+<div class="home-hero">
+  <div class="home-hero-carousel">
+{{- template "ad/home-banner" . -}}
+  </div>
+  <div class="home-hero-sidebar">
+
+{{- /* 公众号头条 */ -}}
+{{- with site.Params.wxHeadline }}
+{{- if . }}
+<section class="wx-headline-section">
+  <div class="wx-headline-header">
+    <div class="wx-headline-header-left">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#07c160"><path d="M8.5 12.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/><path d="M14.5 12.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12c0 1.82.487 3.53 1.338 5L2 22l5-1.338A9.955 9.955 0 0 0 12 22Z"/></svg>
+      <h2 class="wx-headline-title">公众号头条</h2>
+    </div>
+    <span class="wx-headline-sub">果芽MBA精选</span>
+  </div>
+  <div class="wx-headline-list">
+    {{- range . }}
+    <a class="wx-headline-item" href="{{ .url }}" {{ if strings.HasPrefix .url "http" }}target="_blank" rel="noopener noreferrer"{{ end }}>
+      <span class="wx-headline-tag">{{ .tag }}</span>
+      <span class="wx-headline-item-title">{{ .title }}</span>
+    </a>
+    {{- end }}
+  </div>
+</section>
+{{- end }}
+{{- end }}
+
+  </div>
+</div>
+
+<div class="home-inner">
+
+{{- /* 热门推荐 */ -}}
+{{- with site.Params.featured }}
+{{- if . }}
+<section class="featured-section">
+  <div class="featured-header">
+    <h2 class="featured-title">🔥 热门推荐</h2>
+    <span class="featured-sub">精选必读内容</span>
+  </div>
+  <div class="featured-grid">
+    {{- range . }}
+    <a class="featured-card" href="{{ .url }}">
+      <span class="featured-tag">{{ .tag }}</span>
+      <h3 class="featured-card-title">{{ .title }}</h3>
+      <p class="featured-card-desc">{{ .desc }}</p>
+    </a>
+    {{- end }}
+  </div>
+</section>
+{{- end }}
+{{- end }}
+
+{{- /* 随机推荐广告位 */ -}}
+{{- template "ad/list-card" . -}}
+
+{{- /* 首页栏目导航区 */ -}}
+{{- $sections := slice (dict "section" "daily" "title" "每日动态" "icon" "📰" "url" "/daily/" "limit" 6) (dict "section" "schools" "title" "院校库" "icon" "🏫" "url" "/schools/" "limit" 6) (dict "section" "policy" "title" "政策解读" "icon" "📋" "url" "/policy/" "limit" 6) (dict "section" "guide" "title" "备考攻略" "icon" "📖" "url" "/guide/" "limit" 6) }}
+{{- range $sec := $sections }}
+{{- $pages_sec := where (where site.RegularPages.ByDate.Reverse "Section" $sec.section) "Params.hiddenInHomeList" "!=" "true" }}
+{{- $count := len $pages_sec }}
+{{- $limit := $sec.limit }}
+{{- if gt $count 0 }}
+<section class="home-section">
+  <div class="home-section-header">
+    <div class="home-section-header-left">
+      <span class="home-section-icon">{{ $sec.icon }}</span>
+      <h2 class="home-section-title">{{ $sec.title }}</h2>
+    </div>
+    <a class="home-section-more" href="{{ $sec.url | absURL }}">查看更多 →</a>
+  </div>
+  {{- if eq $sec.section "schools" }}
+  {{- /* 院校库用列表样式 */ -}}
+  <div class="home-post-list">
+    {{- range first $limit $pages_sec }}
+    {{- $major := .Params.major | default "" -}}
+    {{- $region := .Params.region | default "" -}}
+    <a class="home-post-item home-school-item" href="{{ .Permalink }}">
+      <span class="home-school-item-left">
+        {{- if $major }}<span class="home-school-item-major" data-major="{{ $major }}">{{ $major }}</span>{{ end }}
+        {{- if $region }}<span class="home-school-item-region">{{ $region }}</span>{{ end }}
+        <span class="home-post-item-title">{{ .Title }}</span>
+      </span>
+      <span class="home-post-item-date">{{ .Date.Format "01-02" }}</span>
+    </a>
+    {{- end }}
+  </div>
+  {{- else }}
+  {{- /* 其他栏目用列表样式 */ -}}
+  <div class="home-post-list">
+    {{- range first $limit $pages_sec }}
+    <a class="home-post-item" href="{{ .Permalink }}">
+      <span class="home-post-item-title">{{ .Title }}</span>
+      <span class="home-post-item-date">{{ .Date.Format "01-02" }}</span>
+    </a>
+    {{- end }}
+  </div>
+  {{- end }}
+</section>
+{{- end }}
+{{- end }}
+
+</div>{{- /* end home-inner */ -}}
+
+{{- end }}
+
+{{- /* 非首页：显示分页文章列表 */ -}}
+{{- if not .IsHome }}
+{{- $term := .Data.Term }}
+<div class="list-posts-grid">
+{{- range $index, $page := $paginator.Pages }}
+
+{{- $class := "post-entry" }}
+{{- $user_preferred := or site.Params.disableSpecial1stPost site.Params.homeInfoParams }}
+{{- if (and $.IsHome (eq $paginator.PageNumber 1) (eq $index 0) (not $user_preferred)) }}
+{{- $class = "first-entry" }}
+{{- else if $term }}
+{{- $class = "post-entry tag-entry" }}
+{{- end }}
+
+<article class="{{ $class }}">
+  {{- $isHidden := (.Param "cover.hiddenInList") | default (.Param "cover.hidden") | default false }}
+  {{- partial "cover.html" (dict "cxt" . "IsSingle" false "isHidden" $isHidden) }}
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">
+      {{- .Title }}
+    </h2>
+  </header>
+  {{- if (ne (.Param "hideSummary") true) }}
+  <div class="entry-content">
+    <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
+  </div>
+  {{- end }}
+  {{- if not (.Param "hideMeta") }}
+  <footer class="entry-footer">
+    {{- partial "post_meta.html" . -}}
+  </footer>
+  {{- end }}
+  <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
+</article>
+
+{{- end }}
+</div>{{- /* end list-posts-grid */ -}}
+
+{{- if gt $paginator.TotalPages 1 }}
+<footer class="page-footer">
+  <nav class="pagination">
+    {{- if $paginator.HasPrev }}
+    <a class="prev" href="{{ $paginator.Prev.URL | absURL }}">
+      «&nbsp;{{ i18n "prev_page" }}
+    </a>
+    {{- end }}
+    {{- if $paginator.HasNext }}
+    <a class="next" href="{{ $paginator.Next.URL | absURL }}">
+      {{- i18n "next_page" }}&nbsp;»
+    </a>
+    {{- end }}
+  </nav>
+</footer>
+{{- end }}
+{{- end }}
+
+{{- if not .IsHome }}
+{{- template "ad/banner-bottom" . -}}
+{{- end }}
+
+{{- /* 广告弹窗 */ -}}
+{{- template "ad/modal" . -}}
+
+{{- end }}
+
+{{- end }}

@@ -1,0 +1,534 @@
+{{- define "main" }}
+
+<header class="page-header">
+  {{- partial "breadcrumbs.html" . }}
+  <h1 id="schoolPageTitle">{{ .Title }}</h1>
+  <div class="school-filter-tags" id="schoolFilterTags" style="display:none;"></div>
+  {{- if .Description }}
+  <div class="post-description" id="schoolPageDesc">{{ .Description | markdownify }}</div>
+  {{- end }}
+</header>
+
+{{- if .Content }}
+<div class="post-content md-content">{{ .Content }}</div>
+{{- end }}
+
+<!-- 院校筛选模块 -->
+<div class="school-filter-bar" id="schoolFilterBar">
+  <div class="school-filter-group">
+    <label class="school-filter-label">项目类型</label>
+    <div class="school-filter-chips" id="filterProjectType">
+      <button class="filter-chip active" data-value="all">全部</button>
+      <button class="filter-chip" data-value="domestic">管理类联考</button>
+      <button class="filter-chip" data-value="sino">中外合作办学</button>
+    </div>
+  </div>
+  <div class="school-filter-group">
+    <label class="school-filter-label">专业方向</label>
+    <div class="school-filter-chips" id="filterMajor">
+      <button class="filter-chip active" data-value="all">全部</button>
+      <button class="filter-chip" data-value="MBA">MBA</button>
+      <button class="filter-chip" data-value="MEM">MEM</button>
+      <button class="filter-chip" data-value="MPA">MPA</button>
+      <button class="filter-chip" data-value="EMBA">EMBA</button>
+      <button class="filter-chip" data-value="金融">金融</button>
+      <button class="filter-chip" data-value="项目管理">项目管理</button>
+      <button class="filter-chip" data-value="数据科学">数据科学</button>
+      <button class="filter-chip" data-value="信息科学">信息科学</button>
+      <button class="filter-chip" data-value="企业管理">企业管理</button>
+      <button class="filter-chip" data-value="商业分析">商业分析</button>
+      <button class="filter-chip" data-value="教育">教育</button>
+      <button class="filter-chip" data-value="传媒">传媒</button>
+      <button class="filter-chip" data-value="专业硕士">专业硕士</button>
+    </div>
+  </div>
+  <div class="school-filter-group">
+    <label class="school-filter-label">学习方式</label>
+    <div class="school-filter-chips" id="filterStudyMode">
+      <button class="filter-chip active" data-value="all">不限</button>
+      <button class="filter-chip" data-value="全日制">全日制</button>
+      <button class="filter-chip" data-value="非全日制">非全日制</button>
+      <span class="sino-hover-tip" id="sinoHoverTip">合作办学硕士不区分全日制、非全日制</span>
+    </div>
+  </div>
+
+  <div class="school-filter-group">
+    <label class="school-filter-label">地区</label>
+    <select class="school-filter-select" id="filterRegion">
+      <option value="all">全部地区</option>
+      <optgroup label="华北">
+        <option value="北京">北京</option>
+        <option value="天津">天津</option>
+        <option value="河北">河北</option>
+        <option value="山西">山西</option>
+        <option value="内蒙古">内蒙古</option>
+      </optgroup>
+      <optgroup label="东北">
+        <option value="辽宁">辽宁</option>
+        <option value="吉林">吉林</option>
+        <option value="黑龙江">黑龙江</option>
+      </optgroup>
+      <optgroup label="华东">
+        <option value="上海">上海</option>
+        <option value="江苏">江苏</option>
+        <option value="浙江">浙江</option>
+        <option value="安徽">安徽</option>
+        <option value="福建">福建</option>
+        <option value="江西">江西</option>
+        <option value="山东">山东</option>
+      </optgroup>
+      <optgroup label="华中">
+        <option value="河南">河南</option>
+        <option value="湖北">湖北</option>
+        <option value="湖南">湖南</option>
+      </optgroup>
+      <optgroup label="华南">
+        <option value="广东">广东</option>
+        <option value="广西">广西</option>
+        <option value="海南">海南</option>
+        <option value="香港">香港</option>
+        <option value="澳门">澳门</option>
+        <option value="台湾">台湾</option>
+      </optgroup>
+      <optgroup label="西南">
+        <option value="重庆">重庆</option>
+        <option value="四川">四川</option>
+        <option value="贵州">贵州</option>
+        <option value="云南">云南</option>
+        <option value="西藏">西藏</option>
+      </optgroup>
+      <optgroup label="西北">
+        <option value="陕西">陕西</option>
+        <option value="甘肃">甘肃</option>
+        <option value="青海">青海</option>
+        <option value="宁夏">宁夏</option>
+        <option value="新疆">新疆</option>
+      </optgroup>
+    </select>
+  </div>
+  <div class="school-filter-group">
+    <label class="school-filter-label">学费预算</label>
+    <select class="school-filter-select" id="filterTuition">
+      <option value="all">不限</option>
+      <option value="0-10">10万以下</option>
+      <option value="10-20">10-20万</option>
+      <option value="20-30">20-30万</option>
+      <option value="30-50">30-50万</option>
+      <option value="50-999">50万以上</option>
+    </select>
+  </div>
+  <div class="school-filter-group">
+    <label class="school-filter-label">搜索</label>
+    <input type="text" class="school-filter-search" id="filterSearch" placeholder="输入院校名称搜索…" autocomplete="off">
+  </div>
+  <div class="school-filter-result" id="filterResult">共 <span id="filterCount">0</span> 所院校</div>
+</div>
+
+<!-- 院校卡片列表 -->
+<div class="school-list" id="schoolList">
+{{- $pages := where .RegularPages "Params.draft" "!=" true }}
+{{- range $pages }}
+  <a class="school-card" 
+     href="{{ .Permalink }}"
+     data-project-type="{{ .Params.project_type | default "domestic" }}"
+     data-major="{{ .Params.major }}"
+     data-region="{{ .Params.region }}"
+     data-study-mode="{{ .Params.study_mode }}"
+     data-tuition-min="{{ .Params.tuition_min }}"
+     data-tuition-max="{{ .Params.tuition_max }}"
+     data-title="{{ .Title }}">
+    <div class="school-card-main">
+      <div class="school-card-top">
+        <span class="school-card-major" data-major="{{ .Params.major }}">{{ .Params.major }}</span>
+        {{- if eq .Params.project_type "sino" }}
+        <span class="school-card-badge-sino">合作办学</span>
+        {{- end }}
+        <span class="school-card-study-mode">{{ .Params.study_mode }}</span>
+        <span class="school-card-region">{{ .Params.region }}</span>
+      </div>
+      <h3 class="school-card-title">{{ .Title }}</h3>
+      {{- if .Summary }}
+      <p class="school-card-summary">{{ .Summary | truncate 80 }}</p>
+      {{- else if and (eq .Params.tuition_min 0) (eq .Params.tuition_max 0) }}
+      <p class="school-card-summary school-card-pending">详情整理中，点击查看</p>
+      {{- else }}
+      <p class="school-card-summary">{{ .Params.major }} · {{ .Params.study_mode }} · {{ .Params.region }}</p>
+      {{- end }}
+    </div>
+    <div class="school-card-arrow">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </div>
+  </a>
+{{- end }}
+</div>
+
+<!-- 无结果提示 -->
+<div class="school-empty" id="schoolEmpty" style="display:none;">
+  <div class="school-empty-icon">🪨</div>
+  <p>石头还没搬到这儿，信息正在路上</p>
+  <button class="school-empty-reset" onclick="resetFilters()">重置筛选</button>
+</div>
+
+<style>
+/* 合作办学小标签 */
+.school-card-badge-sino {
+  display: inline-block;
+  font-size: 0.6rem;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: rgba(128, 90, 213, 0.12);
+  color: #805ad5;
+  font-weight: 500;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+</style>
+
+<script>
+(function() {
+  var cards = Array.from(document.querySelectorAll('.school-card'));
+  var filterProjectType = document.getElementById('filterProjectType');
+  var filterMajor = document.getElementById('filterMajor');
+  var filterStudyMode = document.getElementById('filterStudyMode');
+  var filterRegion = document.getElementById('filterRegion');
+  var filterTuition = document.getElementById('filterTuition');
+  var filterSearch = document.getElementById('filterSearch');
+  var filterCount = document.getElementById('filterCount');
+  var schoolList = document.getElementById('schoolList');
+  var schoolEmpty = document.getElementById('schoolEmpty');
+  var pageTitleEl = document.getElementById('schoolPageTitle');
+  var filterTagsEl = document.getElementById('schoolFilterTags');
+  var pageDescEl = document.getElementById('schoolPageDesc');
+  var baseTitle = '院校库';
+  var siteSuffix = document.title.replace(/^[^-]+-\s*/, '') || document.title;
+
+  var currentProjectType = 'all';
+  var currentMajor = 'all';
+
+  // === URL参数驱动 ===
+  function getURLParams() {
+    var params = {};
+    var search = window.location.search.substring(1);
+    if (!search) return params;
+    search.split('&').forEach(function(pair) {
+      var kv = pair.split('=');
+      if (kv.length === 2) {
+        params[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1]);
+      }
+    });
+    return params;
+  }
+
+  function updateURLParams() {
+    var params = {};
+    if (currentProjectType !== 'all') params.type = currentProjectType;
+    if (currentMajor !== 'all') params.major = currentMajor;
+    var studyMode = getActiveChip(filterStudyMode);
+    if (studyMode !== 'all') params.study_mode = studyMode;
+    if (filterRegion.value !== 'all') params.region = filterRegion.value;
+    if (filterTuition.value !== 'all') params.tuition = filterTuition.value;
+
+    var qs = Object.keys(params).map(function(k) {
+      return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
+    }).join('&');
+    var newURL = window.location.pathname + (qs ? '?' + qs : '');
+    history.replaceState(null, '', newURL);
+  }
+
+  function applyURLParams() {
+    var params = getURLParams();
+    if (params.type) {
+      var chip = filterProjectType.querySelector('.filter-chip[data-value="' + params.type + '"]');
+      if (chip) {
+        filterProjectType.querySelectorAll('.filter-chip').forEach(function(c) { c.classList.remove('active'); });
+        chip.classList.add('active');
+        currentProjectType = params.type;
+      }
+    }
+    if (params.major) {
+      var chip2 = filterMajor.querySelector('.filter-chip[data-value="' + params.major + '"]');
+      if (chip2) {
+        filterMajor.querySelectorAll('.filter-chip').forEach(function(c) { c.classList.remove('active'); });
+        chip2.classList.add('active');
+        currentMajor = params.major;
+      }
+    }
+    if (params.study_mode) {
+      var chip3 = filterStudyMode.querySelector('.filter-chip[data-value="' + params.study_mode + '"]');
+      if (chip3) {
+        filterStudyMode.querySelectorAll('.filter-chip').forEach(function(c) { c.classList.remove('active'); });
+        chip3.classList.add('active');
+      }
+    }
+    if (params.region) {
+      var opts = filterRegion.options;
+      for (var i = 0; i < opts.length; i++) {
+        if (opts[i].value === params.region) {
+          filterRegion.value = params.region;
+          break;
+        }
+      }
+    }
+    if (params.tuition) {
+      filterTuition.value = params.tuition;
+    }
+  }
+
+  // === 动态标题与标签 ===
+  function updatePageMeta() {
+    var parts = [];
+    var ptLabels = {'domestic': '管理类联考', 'sino': '中外合作办学'};
+    if (currentProjectType !== 'all') parts.push(ptLabels[currentProjectType] || currentProjectType);
+    if (currentMajor !== 'all') parts.push(currentMajor);
+    var studyMode = getActiveChip(filterStudyMode);
+    var region = filterRegion.value;
+    var tuition = filterTuition.value;
+
+    if (region !== 'all') parts.push(region);
+    if (studyMode !== 'all') parts.push(studyMode);
+
+    var tuitionLabels = {'0-10':'10万以下','10-20':'10-20万','20-30':'20-30万','30-50':'30-50万','50-999':'50万以上'};
+    if (tuition !== 'all') parts.push(tuitionLabels[tuition] || tuition);
+
+    if (parts.length > 0) {
+      var filterTitle = parts.join('') + '院校';
+      pageTitleEl.textContent = filterTitle;
+      document.title = filterTitle + ' - ' + siteSuffix;
+
+      filterTagsEl.style.display = 'flex';
+      filterTagsEl.innerHTML = '';
+      parts.forEach(function(p, idx) {
+        if (idx > 0) {
+          var sep = document.createElement('span');
+          sep.className = 'filter-tag-sep';
+          filterTagsEl.appendChild(sep);
+        }
+        var tag = document.createElement('span');
+        tag.className = 'filter-tag-item';
+        tag.textContent = p;
+        filterTagsEl.appendChild(tag);
+      });
+      var suffix = document.createElement('span');
+      suffix.className = 'filter-tag-suffix';
+      suffix.textContent = '院校';
+      filterTagsEl.appendChild(suffix);
+
+      var metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute('content', parts.join('') + '院校信息查询，涵盖学费、招生人数、复试线等关键数据 - 果芽MBA');
+      }
+    } else {
+      pageTitleEl.textContent = baseTitle;
+      document.title = baseTitle + ' - ' + siteSuffix;
+      filterTagsEl.style.display = 'none';
+    }
+  }
+
+  function getPinYinFirst(ch) {
+    var letters = 'ABCDEFGHJKLMNOPQRSTWXYZ';
+    var bounds = '阿八擦哒鹅发嘎哈击咔垃妈拿哦啪七日撒他挖希压匝';
+    if (ch.localeCompare(bounds[0], 'zh-CN') < 0) return 'A';
+    for (var i = 1; i < bounds.length; i++) {
+      if (ch.localeCompare(bounds[i], 'zh-CN') < 0) return letters[i-1];
+    }
+    return 'Z';
+  }
+
+  function getSortKey(title) {
+    var m = title.match(/^([\u4e00-\u9fff]+)/);
+    var name = m ? m[1] : title;
+    return getPinYinFirst(name.charAt(0));
+  }
+
+  cards.sort(function(a, b) {
+    var ka = getSortKey(a.getAttribute('data-title'));
+    var kb = getSortKey(b.getAttribute('data-title'));
+    var cmp = ka.localeCompare(kb);
+    if (cmp !== 0) return cmp;
+    return a.getAttribute('data-title').localeCompare(b.getAttribute('data-title'), 'zh-CN');
+  });
+  var container = document.getElementById('schoolList');
+  cards.forEach(function(card) { container.appendChild(card); });
+
+  function getActiveChip(container) {
+    var active = container.querySelector('.filter-chip.active');
+    return active ? active.getAttribute('data-value') : 'all';
+  }
+
+  // 根据项目类型联动专业方向按钮
+  function updateMajorChips() {
+    var chips = filterMajor.querySelectorAll('.filter-chip');
+    // 联考专业
+    var domesticMajors = ['all', 'MBA', 'MEM', 'MPA', 'EMBA'];
+    // 合作办学专业
+    var sinoMajors = ['all', 'MBA', 'EMBA', '金融', '项目管理', '数据科学', '信息科学', '企业管理', '商业分析', '教育', '传媒'];
+
+    chips.forEach(function(chip) {
+      var val = chip.getAttribute('data-value');
+      if (currentProjectType === 'domestic') {
+        chip.style.display = domesticMajors.indexOf(val) !== -1 ? '' : 'none';
+      } else if (currentProjectType === 'sino') {
+        chip.style.display = sinoMajors.indexOf(val) !== -1 ? '' : 'none';
+      } else {
+        chip.style.display = '';
+      }
+    });
+
+    // 如果当前选中的major被隐藏了，重置为"全部"
+    var activeChip = filterMajor.querySelector('.filter-chip.active');
+    if (activeChip && activeChip.style.display === 'none') {
+      filterMajor.querySelectorAll('.filter-chip').forEach(function(c) { c.classList.remove('active'); });
+      filterMajor.querySelector('.filter-chip[data-value="all"]').classList.add('active');
+      currentMajor = 'all';
+    }
+  }
+
+  function updateStudyModeState() {
+    var isSino = (currentProjectType === 'sino');
+    var chips = filterStudyMode.querySelectorAll('.filter-chip');
+    chips.forEach(function(chip) {
+      if (isSino) {
+        if (chip.getAttribute('data-value') === 'all') {
+          chip.classList.add('active');
+        } else {
+          chip.classList.remove('active');
+          chip.classList.add('disabled');
+        }
+      } else {
+        chip.classList.remove('disabled');
+      }
+    });
+  }
+
+  function applyFilters() {
+    var projectType = currentProjectType;
+    var major = currentMajor;
+    var studyMode = getActiveChip(filterStudyMode);
+    var region = filterRegion.value;
+    var tuition = filterTuition.value;
+    var search = filterSearch.value.trim().toLowerCase();
+    var visibleCount = 0;
+
+    cards.forEach(function(card) {
+      var cpt = card.getAttribute('data-project-type');
+      var cm = card.getAttribute('data-major');
+      var cr = card.getAttribute('data-region');
+      var csm = card.getAttribute('data-study-mode');
+      var ctMin = parseFloat(card.getAttribute('data-tuition-min')) || 0;
+      var ctMax = parseFloat(card.getAttribute('data-tuition-max')) || 0;
+      var ctitle = card.getAttribute('data-title').toLowerCase();
+
+      var matchProjectType = (projectType === 'all') || (cpt === projectType);
+      var matchMajor = (major === 'all') || (cm === major);
+      var matchStudyMode = (studyMode === 'all') || (csm === studyMode) || (csm === '不限');
+      var matchRegion = (region === 'all') || (cr === region);
+      var matchTuition = true;
+      if (tuition !== 'all') {
+        var parts = tuition.split('-');
+        var tMin = parseFloat(parts[0]);
+        var tMax = parseFloat(parts[1]);
+        matchTuition = (ctMin <= tMax && ctMax >= tMin);
+      }
+      var matchSearch = !search || ctitle.indexOf(search) !== -1;
+
+      if (matchProjectType && matchMajor && matchStudyMode && matchRegion && matchTuition && matchSearch) {
+        card.style.display = '';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    filterCount.textContent = visibleCount;
+    schoolList.style.display = visibleCount > 0 ? '' : 'none';
+    schoolEmpty.style.display = visibleCount > 0 ? 'none' : '';
+    updatePageMeta();
+    updateURLParams();
+  }
+
+  filterProjectType.addEventListener('click', function(e) {
+    var chip = e.target.closest('.filter-chip');
+    if (!chip) return;
+    filterProjectType.querySelectorAll('.filter-chip').forEach(function(c) { c.classList.remove('active'); });
+    chip.classList.add('active');
+    currentProjectType = chip.getAttribute('data-value');
+    updateMajorChips();
+    updateStudyModeState();
+    applyFilters();
+  });
+
+  filterMajor.addEventListener('click', function(e) {
+    var chip = e.target.closest('.filter-chip');
+    if (!chip) return;
+    filterMajor.querySelectorAll('.filter-chip').forEach(function(c) { c.classList.remove('active'); });
+    chip.classList.add('active');
+    currentMajor = chip.getAttribute('data-value');
+    applyFilters();
+  });
+
+  filterStudyMode.addEventListener('click', function(e) {
+    var chip = e.target.closest('.filter-chip');
+    if (!chip) return;
+    if (currentProjectType === 'sino' && chip.getAttribute('data-value') !== 'all') {
+      return;
+    }
+    filterStudyMode.querySelectorAll('.filter-chip').forEach(function(c) { c.classList.remove('active'); });
+    chip.classList.add('active');
+    applyFilters();
+  });
+
+  filterStudyMode.addEventListener('mouseover', function(e) {
+    var chip = e.target.closest('.filter-chip');
+    if (chip && currentProjectType === 'sino' && chip.getAttribute('data-value') !== 'all') {
+      var tip = document.getElementById('sinoHoverTip');
+      tip.style.opacity = '1';
+      tip.style.transform = 'translateY(0)';
+    }
+  });
+  filterStudyMode.addEventListener('mouseout', function(e) {
+    var chip = e.target.closest('.filter-chip');
+    if (chip && currentProjectType === 'sino' && chip.getAttribute('data-value') !== 'all') {
+      var tip = document.getElementById('sinoHoverTip');
+      tip.style.opacity = '0';
+      tip.style.transform = 'translateY(-4px)';
+    }
+  });
+
+  filterRegion.addEventListener('change', applyFilters);
+  filterTuition.addEventListener('change', applyFilters);
+  filterSearch.addEventListener('input', applyFilters);
+
+  // 初始化
+  updateStudyModeState();
+  applyURLParams();
+  updateMajorChips();
+  updateStudyModeState();
+  applyFilters();
+})();
+
+function resetFilters() {
+  var fpt = document.getElementById('filterProjectType');
+  fpt.querySelectorAll('.filter-chip').forEach(function(c) { c.classList.remove('active'); });
+  fpt.querySelector('.filter-chip[data-value="all"]').classList.add('active');
+  var fm = document.getElementById('filterMajor');
+  fm.querySelectorAll('.filter-chip').forEach(function(c) { c.classList.remove('active'); });
+  fm.querySelector('.filter-chip[data-value="all"]').classList.add('active');
+  document.getElementById('filterStudyMode').querySelectorAll('.filter-chip').forEach(function(c) { c.classList.remove('active','disabled'); });
+  document.querySelector('#filterStudyMode .filter-chip[data-value="all"]').classList.add('active');
+  document.getElementById('filterRegion').value = 'all';
+  document.getElementById('filterTuition').value = 'all';
+  document.getElementById('filterSearch').value = '';
+  document.querySelectorAll('.school-card').forEach(function(c) { c.style.display = ''; });
+  document.getElementById('schoolList').style.display = '';
+  document.getElementById('schoolEmpty').style.display = 'none';
+  var count = document.querySelectorAll('.school-card').length;
+  document.getElementById('filterCount').textContent = count;
+  document.getElementById('schoolPageTitle').textContent = '院校库';
+  document.getElementById('schoolFilterTags').style.display = 'none';
+  history.replaceState(null, '', window.location.pathname);
+  // 重新联动专业按钮
+  if (typeof updateMajorChips === 'function') updateMajorChips();
+}
+</script>
+
+{{- end }}

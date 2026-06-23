@@ -1,0 +1,12 @@
+<nav class="breadcrumbs breadcrumbs-warm" role="navigation" aria-label="Breadcrumb">
+    <a href="/" class="breadcrumb-link breadcrumb-home">首页</a>
+    {{- $ancestors := .Ancestors.Reverse -}}
+    {{- range $i, $bc := $ancestors }}
+        {{- if gt $i 0 }}
+    <span class="breadcrumb-sep">›</span>
+    <a href="{{ $bc.RelPermalink }}" class="breadcrumb-link">{{ $bc.Title }}</a>
+        {{- end }}
+    {{- end }}
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">{{ .Title }}</span>
+</nav>

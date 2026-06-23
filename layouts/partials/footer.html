@@ -1,0 +1,299 @@
+{{- if not (.Param "hideFooter") }}
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-links">
+            <span>© {{ now.Year }} <a href="{{ "" | absLangURL }}">果芽MBA</a></span>
+            <span class="footer-sep">·</span>
+            <span>选果芽，就过呀！</span>
+            <span class="footer-sep">·</span>
+            <span><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">京ICP备2026031809号</a></span>
+        </div>
+        <div class="footer-follow">
+            <div class="footer-follow-item" onclick="showWechatQr()" style="cursor:pointer">
+                <img src="/img/social/wechat.jpeg" alt="微信" width="16" height="16" style="border-radius:2px;">
+                <span>公众号：{{ site.Params.follow.wechatName }}</span>
+            </div>
+            <a class="footer-follow-item" href="{{ site.Params.follow.xhsUrl }}" target="_blank" rel="noopener noreferrer">
+                <img src="/img/social/xiaohongshu.png" alt="小红书" width="16" height="16" style="border-radius:2px;">
+                <span>小红书：{{ site.Params.follow.xhsName }}</span>
+            </a>
+            <a class="footer-follow-item" href="{{ site.Params.follow.douyinUrl }}" target="_blank" rel="noopener noreferrer">
+                <img src="/img/social/douyin.png" alt="抖音" width="16" height="16" style="border-radius:2px;">
+                <span>抖音：{{ site.Params.follow.douyinName }}</span>
+            </a>
+        </div>
+    </div>
+</footer>
+{{- end }}
+
+{{- if not site.Params.disableScrollToTop }}
+<a href="#top" id="top-link" class="top-link hidden" aria-label="回到顶部" title="回到顶部" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+{{- end }}
+
+<!-- 页脚公众号二维码弹层 -->
+<div class="footer-qr-overlay" id="footerQrOverlay" onclick="closeFooterQr(event)">
+  <div class="footer-qr-popup" onclick="event.stopPropagation()">
+    <button class="footer-qr-close" onclick="closeFooterQr()" aria-label="关闭">✕</button>
+    <img src="/img/wechat-qr.jpg" alt="公众号二维码" />
+    <span>微信扫码关注「果芽MBA」</span>
+  </div>
+</div>
+
+<!-- 弹窗脚本 -->
+<script>
+function openAdModal() {
+  var overlay = document.getElementById('adModalOverlay');
+  if (overlay) { overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+}
+function closeAdModal(e) {
+  if (e && e.target !== e.currentTarget) return;
+  var overlay = document.getElementById('adModalOverlay');
+  if (overlay) { overlay.classList.remove('active'); document.body.style.overflow = ''; }
+}
+function copyWechatId() {
+  var el = document.getElementById('adWechatId'); var id = el ? el.textContent : 'guoyamba666';
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(id).then(function() {
+      var btn = document.querySelector('.ad-modal-copy-btn');
+      if (btn) { btn.textContent = '已复制'; setTimeout(function() { btn.textContent = '复制'; }, 1500); }
+    });
+  } else {
+    var ta = document.createElement('textarea'); ta.value = id; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+    var btn = document.querySelector('.ad-modal-copy-btn');
+    if (btn) { btn.textContent = '已复制'; setTimeout(function() { btn.textContent = '复制'; }, 1500); }
+  }
+}
+function showWechatQr() {
+  var qrOverlay = document.getElementById('footerQrOverlay');
+  if (qrOverlay) { qrOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+}
+function closeFooterQr(e) {
+  if (e && e.target !== e.currentTarget) return;
+  var qrOverlay = document.getElementById('footerQrOverlay');
+  if (qrOverlay) { qrOverlay.classList.remove('active'); document.body.style.overflow = ''; }
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') { closeAdModal(); closeFooterQr(); }
+});
+</script>
+
+<!-- 石头头像初始化 -->
+<script>
+(function() {
+  function getAvatarIndex() {
+    var today = new Date();
+    var seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+    return seed % 7;
+  }
+  var avatar = document.getElementById('stoneAvatarNav');
+  if (avatar) avatar.src = '/img/stone-avatars/stone_' + getAvatarIndex() + '.png';
+
+  // 移动端点击交互：点击缩放反馈，再点恢复
+  var toggle = document.getElementById('theme-toggle');
+  if (toggle) {
+    var isActive = false;
+    var clickTimer = null;
+    toggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (isActive) {
+        toggle.classList.remove('clicked');
+        isActive = false;
+        clearTimeout(clickTimer);
+      } else {
+        toggle.classList.add('clicked');
+        isActive = true;
+        clickTimer = setTimeout(function() {
+          toggle.classList.remove('clicked');
+          isActive = false;
+        }, 3000);
+      }
+    });
+  }
+})();
+</script>
+
+<!-- 轮播脚本 -->
+<script>
+(function() {
+  var carousel = document.getElementById('homeCarousel');
+  if (!carousel) return;
+  var slides = carousel.querySelectorAll('.carousel-slide');
+  var dots = carousel.querySelectorAll('.carousel-dot');
+  var prevBtn = carousel.querySelector('.carousel-prev');
+  var nextBtn = carousel.querySelector('.carousel-next');
+  var current = 0;
+  var timer = null;
+  function goTo(index) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (index + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+  }
+  function next() { goTo(current + 1); }
+  function prev() { goTo(current - 1); }
+  function startAuto() { stopAuto(); timer = setInterval(next, 4000); }
+  function stopAuto() { if (timer) { clearInterval(timer); timer = null; } }
+  prevBtn.addEventListener('click', function(e) { e.preventDefault(); e.stopPropagation(); prev(); startAuto(); });
+  nextBtn.addEventListener('click', function(e) { e.preventDefault(); e.stopPropagation(); next(); startAuto(); });
+  for (var i = 0; i < dots.length; i++) {
+    (function(idx) {
+      dots[idx].addEventListener('click', function(e) { e.preventDefault(); e.stopPropagation(); goTo(idx); startAuto(); });
+    })(i);
+  }
+  carousel.addEventListener('mouseenter', stopAuto);
+  carousel.addEventListener('mouseleave', startAuto);
+  /* 触摸滑动支持 */
+  var touchStartX = 0, touchStartY = 0, touchEndX = 0, isSwiping = false;
+  carousel.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].clientX;
+    touchStartY = e.changedTouches[0].clientY;
+    isSwiping = false;
+    stopAuto();
+  }, { passive: true });
+  carousel.addEventListener('touchmove', function(e) {
+    touchEndX = e.changedTouches[0].clientX;
+    var dx = Math.abs(touchEndX - touchStartX);
+    var dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
+    if (dx > 10 && dx > dy) isSwiping = true;
+  }, { passive: true });
+  carousel.addEventListener('touchend', function(e) {
+    if (!isSwiping) { startAuto(); return; }
+    var diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) next(); else prev();
+    }
+    startAuto();
+  }, { passive: true });
+  startAuto();
+})();
+</script>
+
+<!-- 每日金句 -->
+<script src="/js/daily-quote.js"></script>
+<!-- 正文图片灯箱效果 -->
+<style>
+.post-content img{cursor:zoom-in}
+.img-lightbox{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.88);display:flex;align-items:center;justify-content:center;cursor:zoom-out;opacity:0;transition:opacity 0.25s}
+.img-lightbox.show{opacity:1}
+.img-lightbox img{max-width:92vw;max-height:90vh;border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,0.5);transform:scale(0.92);transition:transform 0.25s}
+.img-lightbox.show img{transform:scale(1)}
+.img-lightbox-hint{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.6);font-size:0.85rem;pointer-events:none}
+</style>
+<script>
+(function(){
+  document.addEventListener("click", function(e){
+    if(e.target.tagName==="IMG" && e.target.closest(".post-content")){
+      var lb = document.createElement("div");
+      lb.className = "img-lightbox";
+      var img = document.createElement("img");
+      img.src = e.target.src;
+      img.alt = e.target.alt || "";
+      lb.appendChild(img);
+      var hint = document.createElement("div");
+      hint.className = "img-lightbox-hint";
+      hint.textContent = "点击任意位置关闭";
+      lb.appendChild(hint);
+      document.body.appendChild(lb);
+      requestAnimationFrame(function(){ lb.classList.add("show"); });
+      lb.addEventListener("click", function(){
+        lb.classList.remove("show");
+        setTimeout(function(){ lb.remove(); }, 250);
+      });
+    }
+  });
+})();
+</script>
+
+<!-- 回到顶部 -->
+<script>
+(function() {
+  var toplink = document.getElementById('top-link');
+  if (toplink) {
+    window.addEventListener('scroll', function() {
+      if (document.body.scrollTop > window.innerHeight || document.documentElement.scrollTop > window.innerHeight) {
+        toplink.classList.remove('hidden');
+      } else { toplink.classList.add('hidden'); }
+    });
+  }
+})();
+</script>
+
+<!-- 来源说明后追加"查看原文"链接 -->
+<script>
+(function(){
+  var sourceUrl = document.querySelector('meta[name="source-url"]');
+  if(!sourceUrl) return;
+  var url = sourceUrl.getAttribute('content');
+  if(!url) return;
+  var blocks = document.querySelectorAll('.post-content blockquote');
+  if(blocks.length === 0) return;
+  var lastBlock = blocks[blocks.length - 1];
+  // 找到blockquote内最后一个p标签，把链接追加到p内部末尾
+  var lastP = lastBlock.querySelector('p:last-of-type') || lastBlock;
+  var a = document.createElement('a');
+  a.href = url;
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+  a.style.cssText = 'display:inline;margin-left:0.5em;color:var(--warm-accent);font-weight:600;font-size:0.9em;text-decoration:none;';
+  a.textContent = '查看原文 ›';
+  lastP.appendChild(a);
+})();
+</script>
+
+<!-- 微信号3小时轮换（关于我们页面除外）-->
+<script>
+(function(){
+  if(window.location.pathname.indexOf('/about/') === 0) return;
+  var ids = ['guoyamba666', 'kaoyan9167'];
+  var slot = Math.floor(Date.now() / (3 * 60 * 60 * 1000)) % ids.length;
+  var current = ids[slot];
+  var adEl = document.getElementById('adWechatId');
+  if(adEl) adEl.textContent = current;
+  var leadEl = document.getElementById('leadWechatId');
+  if(leadEl) leadEl.textContent = current;
+})();
+</script>
+
+<!-- 百度自动推送 -->
+<script>
+(function(){
+  var bp = document.createElement('script');
+  var curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https') {
+    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  } else {
+    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+<!-- 图片懒加载 -->
+<script>
+if ('IntersectionObserver' in window) {
+  var imgObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var img = entry.target;
+        if (img.dataset.src) {
+          img.src = img.dataset.src;
+          img.removeAttribute('data-src');
+        }
+        imgObserver.unobserve(img);
+      }
+    });
+  }, { rootMargin: '200px' });
+  document.querySelectorAll('.post-content img[data-src]').forEach(function(img) {
+    imgObserver.observe(img);
+  });
+}
+</script>

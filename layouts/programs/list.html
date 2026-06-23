@@ -1,0 +1,35 @@
+{{- define "main" }}
+
+{{- $programs := dict 
+  "mba" (dict "title" "MBA 工商管理硕士" "desc" "培养综合管理能力，覆盖全日制/非全日制，适合希望提升管理层的在职人员" "cat" "MBA")
+  "mem" (dict "title" "MEM 工程管理硕士" "desc" "聚焦工程管理实践，适合工科背景、项目管理方向的在职人员" "cat" "MEM")
+  "mpa" (dict "title" "MPA 公共管理硕士" "desc" "面向公共部门和非营利组织管理，适合公务员、事业单位人员报考" "cat" "MPA")
+  "emba" (dict "title" "EMBA 高级管理人员工商管理硕士" "desc" "面向企业高管，培养战略视野和领导力，适合8年以上工作经验的管理者" "cat" "EMBA")
+  "sino-foreign" (dict "title" "中外合作办学硕士" "desc" "免联考、不出国获海外学位，自主招生，适合追求国际化学历的在职人员" "cat" "中外合作办学")
+  "pro-masters" (dict "title" "专业硕士" "desc" "自主招生项目，聚焦数字经济、金融专硕、大数据、MTT技术转移" "cat" "专业硕士")
+-}}
+
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+  {{- if .Description }}
+  <div class="post-description">{{ .Description }}</div>
+  {{- end }}
+</header>
+
+<div class="programs-grid">
+  {{- range $key, $val := $programs }}
+    {{- $catName := $val.cat }}
+    {{- $catPage := site.GetPage (printf "/categories/%s" $catName) }}
+    {{- $count := 0 }}
+    {{- if $catPage }}
+      {{- $count = len $catPage.Pages }}
+    {{- end }}
+  <a href="{{ printf "/categories/%s/" (urlize $catName) }}" class="program-card">
+    <div class="program-card-title">{{ $val.title }}</div>
+    <div class="program-card-desc">{{ $val.desc }}</div>
+    <div class="program-card-count">{{ $count }} 篇文章 →</div>
+  </a>
+  {{- end }}
+</div>
+
+{{- end }}

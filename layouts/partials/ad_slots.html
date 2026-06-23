@@ -1,0 +1,299 @@
+{{- /* 广告位组件 - 简洁高级感设计 */ -}}
+
+{{- /* 首页图片轮播广告 */ -}}
+{{- define "ad/home-banner" -}}
+{{- with site.Params.ads.homeBanner -}}
+{{- if .enabled -}}
+{{- $slideLinks := site.Params.carouselLinks -}}
+<div class="carousel" id="homeCarousel">
+  <div class="carousel-inner">
+    {{- range $i, $slide := site.Params.carouselSlides }}
+    <div class="carousel-slide{{ if eq $i 0 }} active{{ end }}">
+      <a href="{{ $slide.url }}" target="_blank" rel="noopener noreferrer">
+        <img src="{{ $slide.image }}" alt="{{ $slide.alt }}" loading="lazy">
+        {{- if $slide.textOverlay }}
+        {{- if or $slide.leftTitle $slide.leftSubtitle }}
+        <div class="carousel-text-overlay carousel-text-left no-gradient">
+          {{- if $slide.leftTitle }}<div class="carousel-overlay-title">{{ $slide.leftTitle }}</div>{{ end }}
+          {{- if $slide.leftSubtitle }}<div class="carousel-overlay-subtitle">{{ $slide.leftSubtitle }}</div>{{ end }}
+        </div>
+        {{- end }}
+        {{- if or $slide.rightTitle $slide.rightSubtitle }}
+        <div class="carousel-text-overlay carousel-text-right no-gradient">
+          {{- if $slide.rightTitle }}<div class="carousel-overlay-title">{{ $slide.rightTitle }}</div>{{ end }}
+          {{- if $slide.rightSubtitle }}<div class="carousel-overlay-subtitle">{{ $slide.rightSubtitle }}</div>{{ end }}
+        </div>
+        {{- else if or $slide.rightHighlight $slide.rightSub $slide.rightCta }}
+        <div class="carousel-text-overlay carousel-blue-panel">
+          {{- if $slide.rightHighlight }}<div class="carousel-overlay-highlight">{{ $slide.rightHighlight }}</div>{{ end }}
+          {{- if $slide.rightSub }}<div class="carousel-overlay-sub2">{{ $slide.rightSub }}</div>{{ end }}
+          {{- if $slide.rightCta }}<div class="carousel-overlay-cta gold">{{ $slide.rightCta }}</div>{{ end }}
+        </div>
+        {{- else if or $slide.title $slide.highlight $slide.subtitle $slide.cta }}
+        <div class="carousel-text-overlay carousel-text-{{ $slide.textAlign | default "right" }}{{ if not $slide.cta }} no-gradient{{ end }}">
+          {{- if $slide.title }}<div class="carousel-overlay-title">{{ $slide.title }}</div>{{ end }}
+          {{- if $slide.highlight }}<div class="carousel-overlay-highlight">{{ $slide.highlight }}</div>{{ end }}
+          {{- if $slide.subtitle }}<div class="carousel-overlay-subtitle">{{ $slide.subtitle }}</div>{{ end }}
+          {{- if $slide.sub2 }}<div class="carousel-overlay-sub2">{{ $slide.sub2 }}</div>{{ end }}
+          {{- if $slide.cta }}<div class="carousel-overlay-cta gold">{{ $slide.cta }}</div>{{ end }}
+        </div>
+        {{- end }}
+        {{- end }}
+        <span class="ai-credit">AI制作</span>
+      </a>
+    </div>
+    {{- end }}
+  </div>
+  <div class="carousel-controls">
+    <div class="carousel-dots">
+      {{- range $i, $slide := site.Params.carouselSlides }}
+      <span class="carousel-dot{{ if eq $i 0 }} active{{ end }}" data-index="{{ $i }}"></span>
+      {{- end }}
+    </div>
+    <button class="carousel-arrow carousel-prev" aria-label="上一张">&#8249;</button>
+    <button class="carousel-arrow carousel-next" aria-label="下一张">&#8250;</button>
+  </div>
+</div>
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{- /* 文章顶部横幅广告 - 点击弹窗 */ -}}
+{{- define "ad/banner-top" -}}
+{{- with site.Params.ads.bannerTop -}}
+{{- if .enabled -}}
+<div class="ad-slot ad-banner-top" onclick="openAdModal()" role="button" tabindex="0">
+  <span class="ad-text">{{ .text }}</span>
+</div>
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{- /* 文章底部横幅广告 - 点击弹窗 */ -}}
+{{- define "ad/banner-bottom" -}}
+{{- with site.Params.ads.bannerBottom -}}
+{{- if .enabled -}}
+<div class="ad-slot ad-banner-bottom" onclick="openAdModal()" role="button" tabindex="0">
+  <span class="ad-text">{{ .text }}</span>
+</div>
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{- /* 侧栏卡片广告 - 点击弹窗 */ -}}
+{{- define "ad/sidebar-card" -}}
+{{- with site.Params.ads.sidebarCard -}}
+{{- if .enabled -}}
+<div class="ad-slot ad-sidebar-card" onclick="openAdModal()" role="button" tabindex="0">
+  <div class="ad-card-inner">
+    <div class="ad-card-logo">
+      {{- if .logo -}}
+      <img src="{{ .logo }}" alt="{{ .name }}" loading="lazy" />
+      {{- end -}}
+    </div>
+    <h4 class="ad-card-title">{{ .name }}</h4>
+    <p class="ad-card-desc">{{ .desc }}</p>
+    <span class="ad-card-btn">了解详情 →</span>
+  </div>
+</div>
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{- /* 列表页插卡广告 - 客户端每日随机推荐 */ -}}
+{{- define "ad/list-card" -}}
+{{- with site.Params.ads.listCard -}}
+{{- if .enabled -}}
+{{- $schools := index site.Data "schools-idx" -}}
+<div class="ad-slot ad-list-card" onclick="openAdModal()" role="button" tabindex="0" id="adListCard">
+  <div class="ad-card-inner">
+    <div class="ad-card-badge">AI推荐</div>
+    <div class="ad-card-body">
+      <h4 class="ad-card-title" id="adListCardTitle">中外合作办学硕士精选</h4>
+      <p class="ad-card-desc" id="adListCardDesc">免统考入学 · 留服认证 · MBA/金融/管理</p>
+    </div>
+    <span class="ad-card-btn">了解详情 →</span>
+  </div>
+</div>
+{{- if $schools -}}
+<script>
+(function(){
+  var schools = {{ $schools | jsonify | safeJS }};
+  var CACHE_VER = 'v6'; /* v6: 用新字段(duration/study_mode/tuition/features/intl_auth)生成副标题，修复EMBA顺序 */
+  var today = new Date().toISOString().slice(0,10);
+
+  function pickAndRender(){
+    /* 只推荐985/211/合作办学 */
+    var qualified = schools.filter(function(s){ return s.is985 || s.is211 || s.isSino; });
+    if (qualified.length === 0) qualified = schools;
+
+    /* IP地区匹配：优先推荐同地区院校 */
+    var userRegion = '';
+    try { userRegion = localStorage.getItem('_user_region') || ''; } catch(e){}
+    userRegion = userRegion.replace(/市$/,'');
+    var regional = qualified.filter(function(s){ return s.region === userRegion; });
+    var pool = regional.length >= 3 ? regional : qualified;
+
+    var idx = Math.floor(Math.random() * pool.length);
+    var s = pool[idx];
+    /* 主标题：项目名称或简称 */
+    var t = (s.title||'').replace(/20\d\d级?/g,'').replace(/（[^）]+）/g,'').replace(/\([^)]+\)/g,'');
+    if (t.length > 18) t = t.slice(0,18) + '…';
+
+    /* 副标题：按项目类型差异化生成 */
+    var parts = [];
+    var summary = s.summary || '';
+
+    if (s.isSino) {
+      /* 合作办学：QS排名 + 免统考 + 授课方式 + 留服认证 + 国际认证 */
+      var qsMatch = summary.match(/QS[^0-9]*(\d+)/i);
+      if (qsMatch) parts.push('QS前' + qsMatch[1]);
+      if (/免统考|自主招生|不需.*联考/.test(summary)) parts.push('免统考');
+      else if (/本科.*即可|专科.*即可/.test(summary)) parts.push('免联考');
+      if (/周末|周六|周日/.test(summary)) parts.push('周末授课');
+      else if (/集中/.test(summary)) parts.push('集中授课');
+      if (/中文授课|中文为主/.test(summary)) parts.push('中文授课');
+      if (/留服认证|留学服务中心/.test(summary)) parts.push('留服认证');
+      if (s.intl_auth >= 3) parts.push('三大国际认证');
+      else if (s.intl_auth > 0) parts.push('国际认证');
+      /* 学费兜底 */
+      if (parts.length < 2 && s.tuition_min) {
+        parts.push(s.tuition_min + (s.tuition_max && s.tuition_max !== s.tuition_min ? '~' + s.tuition_max : '') + '万');
+      }
+      if (parts.length === 0) parts.push('合作办学', '留服认证');
+    } else {
+      /* 管理类联考：院校属性 + 学制 + 授课方式 + 课程特色 + 国际认证 + 学费 */
+      if (s.is985) parts.push('985');
+      else if (s.is211) parts.push('211');
+      /* 学制 - 优先用duration字段 */
+      if (s.duration) parts.push('学制' + s.duration + '年');
+      else {
+        var ym = summary.match(/学制[：:]?\s*(\d)[\-\~]?(\d)?\s*年/);
+        if (ym) parts.push('学制' + ym[1] + (ym[2]?'~'+ym[2]:'') + '年');
+      }
+      /* 授课方式 - 优先用study_mode字段 */
+      var sm = s.study_mode || '';
+      if (/周末/.test(sm) || /周末/.test(summary)) parts.push('周末班');
+      else if (/集中/.test(sm) || /集中授课|每月集中/.test(summary)) parts.push('集中班');
+      else if (/全日制/.test(sm)) parts.push('全日制');
+      /* 课程特色 - 优先用features字段 */
+      var featAdded = false;
+      var featureMap = {
+        '案例教学':'案例教学','实战':'实战导向','国际视野':'国际视野','国际化视野':'国际视野',
+        '数字化':'数智化','AI':'数智化','金融':'金融方向','产教融合':'产教融合'
+      };
+      if (s.features && s.features.length > 0) {
+        for (var fi = 0; fi < s.features.length && !featAdded; fi++) {
+          for (var fk in featureMap) {
+            if (s.features[fi].indexOf(fk) !== -1) { parts.push(featureMap[fk]); featAdded = true; break; }
+          }
+        }
+      }
+      if (!featAdded) {
+        if (/案例教学/.test(summary)) parts.push('案例教学');
+        else if (/实战|实境|企业参访/.test(summary)) parts.push('实战导向');
+        else if (/国际视野|海外|交换/.test(summary)) parts.push('国际视野');
+        else if (/数字化|AI|人工智能/.test(summary)) parts.push('数智化');
+        else if (/金融/.test(summary)) parts.push('金融方向');
+      }
+      /* 国际认证 - 用intl_auth字段 */
+      if (s.intl_auth >= 3) parts.push('三大国际认证');
+      else if (s.intl_auth > 0) parts.push('国际认证');
+      /* 学费 - 优先用tuition_min字段 */
+      if (s.tuition_min) {
+        parts.push(s.tuition_min + (s.tuition_max && s.tuition_max !== s.tuition_min ? '~' + s.tuition_max : '') + '万');
+      } else {
+        var tm = summary.match(/(\d+\.?\d*)\s*万/);
+        if (tm && parts.length < 3) parts.push('学费' + tm[0]);
+      }
+    }
+
+    /* 专业类型 - EMBA必须在MBA之前检测 */
+    var m = (s.major||'') + (s.title||'');
+    if (!s.isSino) {
+      if (/EMBA/.test(m)) parts.push('EMBA');
+      else if (/MBA/.test(m) || /工商管理/.test(m)) parts.push('MBA');
+      else if (/MEM/.test(m)) parts.push('MEM');
+      else if (/MPA/.test(m)) parts.push('MPA');
+    }
+
+    var desc = parts.slice(0,5).join(' · ');
+    var cached = { d: today, v: CACHE_VER, t: t || '名校硕士精选', desc: desc || '985 · 211 · 合作办学 · 名校推荐' };
+    try { localStorage.setItem('_ad_lc', JSON.stringify(cached)); } catch(e){}
+    var el1 = document.getElementById('adListCardTitle');
+    var el2 = document.getElementById('adListCardDesc');
+    if (el1) el1.textContent = cached.t;
+    if (el2) el2.textContent = cached.desc;
+  }
+
+  /* 判断缓存是否有效 */
+  var cached = null;
+  try { cached = JSON.parse(localStorage.getItem('_ad_lc')); } catch(e){}
+  var needRefresh = !cached || cached.d !== today || cached.v !== CACHE_VER;
+
+  if (needRefresh) {
+    /* 如果IP地区还没拿到，先检测再推荐 */
+    if (!localStorage.getItem('_user_region')) {
+      fetch('https://ip.useragentinfo.com/json')
+        .then(function(r){ return r.json(); })
+        .then(function(d){
+          var province = (d.province || d.region || '').replace(/市$/,'');
+          try { localStorage.setItem('_user_region', province); } catch(e){}
+          pickAndRender();
+        })
+        .catch(function(){
+          /* 备用IP接口 */
+          fetch('https://myip.ipip.net')
+            .then(function(r){ return r.text(); })
+            .then(function(txt){
+              var pm = txt.match(/来自于[：:]\s*中国\s*(\S+)/);
+              var province = pm ? pm[1].replace(/市$/,'') : '';
+              try { localStorage.setItem('_user_region', province); } catch(e){}
+              pickAndRender();
+            })
+            .catch(function(){
+              try { localStorage.setItem('_user_region', ''); } catch(e){}
+              pickAndRender();
+            });
+        });
+    } else {
+      pickAndRender();
+    }
+  } else {
+    var el1 = document.getElementById('adListCardTitle');
+    var el2 = document.getElementById('adListCardDesc');
+    if (el1) el1.textContent = cached.t;
+    if (el2) el2.textContent = cached.desc;
+  }
+})();
+</script>
+{{- end -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{- /* 广告弹窗 - 点击广告位触发，引导搜索微信号 */ -}}
+{{- define "ad/modal" -}}
+<div class="ad-modal-overlay" id="adModalOverlay" onclick="closeAdModal(event)">
+  <div class="ad-modal" onclick="event.stopPropagation()">
+    <button class="ad-modal-close" onclick="closeAdModal()" aria-label="关闭">✕</button>
+    <div class="ad-modal-content">
+      <div class="ad-modal-icon">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#c8673a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+      </div>
+      <h3 class="ad-modal-title">添加微信，获取专属方案</h3>
+      <div class="ad-modal-wechat-box">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#07c160"><path d="M8.5 12.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/><path d="M14.5 12.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12c0 1.82.487 3.53 1.338 5L2 22l5-1.338A9.955 9.955 0 0 0 12 22Z"/></svg>
+        <div class="ad-modal-wechat-info">
+          <span class="ad-modal-wechat-label">搜索微信号</span>
+          <span class="ad-modal-wechat-id" id="adWechatId">guoyamba666</span>
+        </div>
+        <button class="ad-modal-copy-btn" onclick="copyWechatId()">复制</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+{{- end -}}
