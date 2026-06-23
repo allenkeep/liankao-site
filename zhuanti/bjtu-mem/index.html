@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>招生专题</title>
+<style>
+:root{--primary:#1a3a5c;--primary-light:#2a5a8c;--primary-dark:#0f2440;--accent:#c8102e;--accent-hover:#a00d24;--text:#333;--text-light:#666;--text-white:#fff;--bg:#fff;--bg-light:#f7f8fa;--bg-dark:var(--primary);--border:#e0e0e0;--radius:8px;--shadow:0 2px 12px rgba(0,0,0,.08);--shadow-lg:0 8px 32px rgba(0,0,0,.12);--max-width:1400px;--section-pad:80px;--transition:.3s ease}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;color:var(--text);background:var(--bg);line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none;transition:color var(--transition)}
+a:hover{color:var(--accent)}
+img{max-width:100%;height:auto;display:block}
+ul{list-style:none}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 40px}
+.section{padding:var(--section-pad) 0}
+.section-dark{background:var(--bg-dark);color:var(--text-white)}
+.section-light{background:var(--bg-light)}
+.section-header{text-align:center;margin-bottom:60px}
+.section-header h2{font-size:36px;font-weight:700;margin-bottom:8px;letter-spacing:2px}
+.section-header .en{font-size:14px;text-transform:uppercase;letter-spacing:3px;opacity:.5;font-weight:300}
+.section-header .line{width:60px;height:3px;background:var(--accent);margin:16px auto 0;border-radius:2px}
+.section-dark .section-header .line{background:rgba(255,255,255,.5)}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 36px;border-radius:var(--radius);font-size:16px;font-weight:600;cursor:pointer;transition:all var(--transition);border:none;gap:8px}
+.btn-primary{background:var(--accent);color:var(--text-white)}
+.btn-primary:hover{background:var(--accent-hover);color:var(--text-white);transform:translateY(-2px);box-shadow:0 6px 20px rgba(200,16,46,.35)}
+.btn-outline{background:transparent;color:var(--text-white);border:2px solid rgba(255,255,255,.6)}
+.btn-outline:hover{background:var(--text-white);color:var(--primary);border-color:var(--text-white)}
+.btn-dark{background:var(--primary);color:var(--text-white)}
+.btn-dark:hover{background:var(--primary-light);color:var(--text-white)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:transparent;transition:all var(--transition)}
+.nav.scrolled{background:rgba(15,36,64,.96);backdrop-filter:blur(12px);box-shadow:0 2px 20px rgba(0,0,0,.15)}
+.nav-inner{max-width:var(--max-width);margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:70px}
+.nav-logo{display:flex;align-items:center;gap:12px;color:var(--text-white);font-size:20px;font-weight:700;letter-spacing:1px}
+.nav-logo img{height:36px}
+.nav-links{display:flex;gap:32px}
+.nav-links a{color:rgba(255,255,255,.8);font-size:15px;font-weight:500;position:relative;padding:4px 0}
+.nav-links a:hover,.nav-links a.active{color:var(--text-white)}
+.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:2px;background:var(--accent);transition:width var(--transition)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-mobile-btn{display:none;background:none;border:none;color:var(--text-white);font-size:24px;cursor:pointer}
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 50%,var(--primary-light) 100%)}
+.hero-carousel{position:absolute;inset:0;z-index:0}
+.hero-carousel .slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease}
+.hero-carousel .slide.active{opacity:1}
+.hero-carousel .slide img{width:100%;height:100%;object-fit:cover}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(15,36,64,.88) 0%,rgba(26,58,92,.7) 100%);z-index:1}
+.hero-particles{position:absolute;inset:0;z-index:1;overflow:hidden}
+.hero-particles .particle{position:absolute;width:4px;height:4px;background:rgba(255,255,255,.3);border-radius:50%;animation:float linear infinite}
+@keyframes float{0%{transform:translateY(100vh) rotate(0deg);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-100px) rotate(720deg);opacity:0}}
+.hero-content{position:relative;z-index:2;text-align:center;color:var(--text-white);max-width:860px;padding:0 40px}
+.hero-badge{display:inline-block;background:var(--accent);color:var(--text-white);padding:8px 24px;border-radius:24px;font-size:14px;font-weight:600;margin-bottom:28px;letter-spacing:1px}
+.hero h1{font-size:58px;font-weight:800;line-height:1.2;margin-bottom:24px;letter-spacing:2px;white-space:pre-line}
+.hero .subtitle{font-size:20px;font-weight:300;opacity:.9;margin-bottom:44px;line-height:1.8}
+.hero-ctas{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.hero-scroll{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:2;color:rgba(255,255,255,.6);font-size:13px;text-align:center;animation:bounce 2s infinite}
+.hero-scroll .arrow{display:block;margin:8px auto 0;width:20px;height:20px;border-right:2px solid rgba(255,255,255,.4);border-bottom:2px solid rgba(255,255,255,.4);transform:rotate(45deg)}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+.overview-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:start}
+.overview-text h3{font-size:22px;color:var(--primary);margin-bottom:24px;font-weight:700}
+.overview-text p{font-size:16px;color:var(--text-light);line-height:2;margin-bottom:16px}
+.overview-image{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-lg);position:sticky;top:100px}
+.overview-image img{width:100%;height:420px;object-fit:cover}
+.overview-highlights{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.highlight-card{background:var(--bg-light);border-radius:var(--radius);padding:28px 20px;text-align:center;transition:all var(--transition);border:1px solid transparent}
+.highlight-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--accent)}
+.highlight-card .num{font-size:36px;font-weight:800;color:var(--accent);line-height:1}
+.highlight-card .label{font-size:14px;color:var(--text-light);margin-top:10px}
+.directions-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.direction-card{background:var(--bg);border-radius:var(--radius);padding:36px;box-shadow:var(--shadow);transition:all var(--transition);border-left:4px solid var(--accent)}
+.direction-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.direction-card .icon{font-size:36px;margin-bottom:16px}
+.direction-card h4{font-size:20px;font-weight:700;color:var(--primary);margin-bottom:4px}
+.direction-card h4 span{display:block;font-size:12px;color:var(--text-light);font-weight:400;text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+.direction-card p{font-size:15px;color:var(--text-light);line-height:1.8;margin-top:12px}
+.admission-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px}
+.admission-tabs{display:flex;gap:0;margin-bottom:32px;border-bottom:2px solid rgba(255,255,255,.15)}
+.admission-tab{padding:12px 28px;font-size:15px;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;color:rgba(255,255,255,.5);transition:all var(--transition)}
+.admission-tab.active{color:var(--text-white);border-bottom-color:var(--accent)}
+.admission-tab:hover{color:var(--text-white)}
+.admission-panel{display:none}
+.admission-panel.active{display:block}
+.admission-item{display:flex;align-items:flex-start;gap:16px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.admission-item:last-child{border-bottom:none}
+.admission-date{font-size:13px;color:rgba(255,255,255,.5);white-space:nowrap;min-width:80px}
+.admission-item a{font-size:15px;color:rgba(255,255,255,.85)}
+.admission-item a:hover{color:var(--text-white)}
+.admission-info-cards{display:flex;flex-direction:column;gap:20px}
+.info-card{background:rgba(255,255,255,.06);border-radius:var(--radius);padding:24px;border:1px solid rgba(255,255,255,.08)}
+.info-card h4{font-size:16px;font-weight:700;margin-bottom:12px;color:var(--text-white);display:flex;align-items:center;gap:8px}
+.info-card li{font-size:14px;color:rgba(255,255,255,.7);line-height:2;padding-left:16px;position:relative}
+.info-card li::before{content:'•';position:absolute;left:0;color:var(--accent)}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.stat-card{background:var(--bg);border-radius:var(--radius);padding:32px;box-shadow:var(--shadow);transition:all var(--transition);text-align:center}
+.stat-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.stat-card .icon{font-size:40px;margin-bottom:16px}
+.stat-card h4{font-size:18px;font-weight:700;color:var(--primary);margin-bottom:8px}
+.stat-card p{font-size:14px;color:var(--text-light);line-height:1.6}
+.training-philosophy{display:flex;gap:32px;margin-bottom:60px;flex-wrap:wrap;justify-content:center}
+.philosophy-item{flex:1;min-width:180px;max-width:220px;text-align:center;padding:24px;background:var(--bg-light);border-radius:var(--radius)}
+.philosophy-item .letter{font-size:52px;font-weight:800;color:var(--accent);line-height:1}
+.philosophy-item .word{font-size:18px;font-weight:700;color:var(--primary);margin:8px 0 4px}
+.philosophy-item .desc{font-size:13px;color:var(--text-light)}
+.training-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
+.training-card{background:var(--bg);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);transition:all var(--transition);position:relative;overflow:hidden}
+.training-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.training-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--accent)}
+.training-card .icon{font-size:32px;margin-bottom:12px}
+.training-card h4{font-size:18px;font-weight:700;color:var(--primary);margin-bottom:4px}
+.training-card h4 span{display:block;font-size:12px;color:var(--text-light);font-weight:400;text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+.training-card p{font-size:14px;color:var(--text-light);line-height:1.8;margin-top:8px}
+.alumni-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px}
+.alumni-card{background:var(--bg);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform var(--transition)}
+.alumni-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.alumni-card .photo{width:100%;height:300px;object-fit:cover}
+.alumni-card .info{padding:20px}
+.alumni-card .name{font-size:20px;font-weight:700;color:var(--primary)}
+.alumni-card .role{font-size:14px;color:var(--text-light);margin-top:4px}
+.alumni-card .quote{font-size:14px;color:var(--text);margin-top:12px;line-height:1.6;font-style:italic}
+.contact-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:60px;align-items:start}
+.contact-departments{display:flex;flex-direction:column;gap:20px}
+.contact-dept{padding:24px;background:rgba(255,255,255,.06);border-radius:var(--radius);border:1px solid rgba(255,255,255,.08)}
+.contact-dept h4{font-size:16px;font-weight:700;margin-bottom:12px;color:var(--text-white)}
+.contact-dept p{font-size:14px;line-height:2;color:rgba(255,255,255,.7)}
+.contact-qr{text-align:center;padding:32px;background:rgba(255,255,255,.06);border-radius:var(--radius)}
+.contact-qr img{width:200px;height:200px;border-radius:var(--radius);margin:0 auto 16px}
+.contact-qr .name{font-size:15px;font-weight:600}
+.footer{background:var(--primary-dark);color:rgba(255,255,255,.4);padding:32px 40px;text-align:center;font-size:13px}
+.footer a{color:rgba(255,255,255,.6)}
+@media(max-width:1024px){
+:root{--section-pad:64px}
+.container{padding:0 24px}
+.hero h1{font-size:42px}
+.overview-grid,.admission-grid,.contact-grid{grid-template-columns:1fr;gap:40px}
+.directions-grid{grid-template-columns:1fr}
+.stats-grid{grid-template-columns:repeat(2,1fr)}
+.nav-links{display:none}
+.nav-mobile-btn{display:block}
+.nav-links.open{display:flex;flex-direction:column;position:absolute;top:70px;left:0;right:0;background:rgba(15,36,64,.98);padding:20px 40px;gap:16px}
+}
+@media(max-width:768px){
+:root{--section-pad:48px}
+.container{padding:0 16px}
+.hero h1{font-size:32px;white-space:normal}
+.hero .subtitle{font-size:16px}
+.section-header h2{font-size:28px}
+.stats-grid{grid-template-columns:1fr}
+.overview-highlights{grid-template-columns:repeat(2,1fr)}
+.training-grid{grid-template-columns:1fr}
+.alumni-grid{grid-template-columns:1fr}
+.admission-tabs{flex-wrap:wrap;gap:4px}
+.admission-tab{padding:10px 16px;font-size:14px}
+.hero-ctas{flex-direction:column;align-items:center}
+.hero-ctas .btn{width:100%;max-width:280px}
+.training-philosophy{gap:16px}
+.philosophy-item{min-width:140px}
+}
+.fade-in{opacity:0;transform:translateY(24px);transition:all .6s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+<nav class="nav" id="nav"><div class="nav-inner"><a href="#" class="nav-logo" id="navLogo"></a><div class="nav-links" id="navLinks"></div><button class="nav-mobile-btn" id="navMobileBtn" aria-label="菜单">☰</button></div></nav>
+<section class="hero" id="hero"><div class="hero-carousel" id="heroCarousel"></div><div class="hero-overlay"></div><div class="hero-particles" id="heroParticles"></div><div class="hero-content"><div class="hero-badge" id="heroBadge"></div><h1 id="heroTitle"></h1><p class="subtitle" id="heroSubtitle"></p><div class="hero-ctas" id="heroCtas"></div></div><div class="hero-scroll" id="heroScroll">向下滚动<span class="arrow"></span></div></section>
+<section class="section section-light" id="overview" style="display:none"><div class="container"><div class="section-header"><h2 id="overviewTitle"></h2><div class="en" id="overviewEn"></div><div class="line"></div></div><div class="overview-grid"><div class="overview-text"><div id="overviewDesc"></div><div id="overviewLink" style="margin-top:24px"></div></div><div class="overview-image" id="overviewImage" style="display:none"></div></div><div class="overview-highlights" id="overviewHighlights"></div></div></section>
+<section class="section" id="directions" style="display:none"><div class="container"><div class="section-header"><h2 id="directionsTitle"></h2><div class="en" id="directionsEn"></div><div class="line"></div></div><div class="directions-grid" id="directionsGrid"></div></div></section>
+<section class="section section-dark" id="admission" style="display:none"><div class="container"><div class="section-header"><h2 id="admissionTitle"></h2><div class="en" id="admissionEn"></div><div class="line"></div></div><div class="admission-grid"><div><div class="admission-tabs" id="admissionTabs"></div><div id="admissionPanels"></div></div><div class="admission-info-cards" id="admissionInfoCards"></div></div></div></section>
+<section class="section section-light" id="stats" style="display:none"><div class="container"><div class="section-header"><h2 id="statsTitle"></h2><div class="en" id="statsEn"></div><div class="line"></div></div><div class="stats-grid" id="statsGrid"></div></div></section>
+<section class="section" id="training" style="display:none"><div class="container"><div class="section-header"><h2 id="trainingTitle"></h2><div class="en" id="trainingEn"></div><div class="line"></div></div><div class="training-philosophy" id="trainingPhilosophy"></div><div class="training-grid" id="trainingGrid"></div></div></section>
+<section class="section section-light" id="alumni" style="display:none"><div class="container"><div class="section-header"><h2 id="alumniTitle"></h2><div class="en" id="alumniEn"></div><div class="line"></div></div><div class="alumni-grid" id="alumniGrid"></div></div></section>
+<section class="section section-dark" id="contact" style="display:none"><div class="container"><div class="section-header"><h2 id="contactTitle"></h2><div class="en" id="contactEn"></div><div class="line"></div></div><div class="contact-grid"><div class="contact-departments" id="contactDepts"></div><div class="contact-qr" id="contactQr" style="display:none"></div></div></div></section>
+<footer class="footer" id="footer"></footer>
+<script>
+const PAGE_DATA={
+  "meta": {
+    "school": "北京交通大学",
+    "program": "工程管理硕士（MEM）",
+    "logo": "",
+    "siteUrl": "https://yzb.bjtu.edu.cn",
+    "description": "北京交通大学MEM项目依托交通特色，设置土木/信息/安全/物流四大工程管理方向，211双一流，学费12.6万"
+  },
+  "theme": {
+    "primary": "#1a3a5c",
+    "primaryLight": "#2a5a8c",
+    "primaryDark": "#0f2440",
+    "accent": "#c8102e",
+    "accentHover": "#a00d24"
+  },
+  "hero": {
+    "badge": "211 · 双一流 · A类学科支撑",
+    "title": "北京交通大学\n工程管理硕士（MEM）",
+    "subtitle": "依托百年交大交通特色，工管交叉融合，培养懂技术、善管理的复合型工程管理人才",
+    "images": [],
+    "ctas": [
+      {
+        "text": "在线咨询",
+        "url": "#contact",
+        "style": "btn-primary"
+      },
+      {
+        "text": "招生简章下载",
+        "url": "#admission",
+        "style": "btn-outline"
+      }
+    ]
+  },
+  "overview": {
+    "title": "项目概况",
+    "titleEn": "Program Overview",
+    "description": "北京交通大学工程管理硕士（MEM）项目由经济管理学院承办，依托学校在交通、通信等领域的传统优势，设置土木工程管理、信息工程管理、安全工程管理、物流工程管理四大研究方向。项目以工管交叉融合为特色，结合案例教学与校外专家授课，培养具有全球视野和创新精神的高层次工程管理人才。\n管理科学与工程、工商管理、应用经济学获评A类学科，为MEM项目提供坚实学科支撑。",
+    "image": "",
+    "link": {
+      "text": "访问官网",
+      "url": "https://yzb.bjtu.edu.cn"
+    },
+    "highlights": [
+      {
+        "value": "211",
+        "label": "双一流建设高校"
+      },
+      {
+        "value": "A类",
+        "label": "学科支撑"
+      },
+      {
+        "value": "4大",
+        "label": "研究方向"
+      },
+      {
+        "value": "12.6万",
+        "label": "全程学费"
+      },
+      {
+        "value": "2年",
+        "label": "弹性学制"
+      },
+      {
+        "value": "110+",
+        "label": "年招生人数"
+      }
+    ]
+  },
+  "directions": {
+    "title": "研究方向",
+    "titleEn": "Research Directions",
+    "items": [
+      {
+        "icon": "🏗️",
+        "name": "土木工程管理",
+        "nameEn": "Civil Engineering Management",
+        "desc": "聚焦土木工程项目策划决策、投融资、施工安装、竣工交付等全过程管理，培养基础设施建设领域高端管理人才。"
+      },
+      {
+        "icon": "💻",
+        "name": "信息工程管理",
+        "nameEn": "Information Engineering Management",
+        "desc": "信息系统工程的规划、建模、平台建设、系统集成等全过程管理，紧跟数字化转型趋势。"
+      },
+      {
+        "icon": "🛡️",
+        "name": "安全工程管理",
+        "nameEn": "Safety Engineering Management",
+        "desc": "安全系统工程、安全设计与生产、安全测量与评价，服务国家安全生产战略需求。"
+      },
+      {
+        "icon": "🚄",
+        "name": "物流工程管理",
+        "nameEn": "Logistics Engineering Management",
+        "desc": "物流系统规划、物流与供应链管理优化、物流信息系统，依托交大交通物流传统优势。"
+      }
+    ]
+  },
+  "admission": {
+    "title": "招生信息",
+    "titleEn": "Admission",
+    "applyUrl": "",
+    "hotline": "",
+    "notices": [
+      {
+        "date": "2025-10",
+        "title": "2026年全国硕士研究生招生考试网上报名",
+        "url": "https://yz.chsi.com.cn"
+      },
+      {
+        "date": "2025-12",
+        "title": "2026年全国硕士研究生招生考试初试",
+        "url": ""
+      },
+      {
+        "date": "2026-03",
+        "title": "北京交通大学MEM复试通知",
+        "url": "https://yzb.bjtu.edu.cn"
+      },
+      {
+        "date": "2026-04",
+        "title": "2026年MEM拟录取名单公示",
+        "url": "https://yzb.bjtu.edu.cn/tzgg/"
+      }
+    ],
+    "activities": [],
+    "brochures": [
+      {
+        "date": "2025-09",
+        "title": "北京交通大学2026年工程管理硕士（MEM）招生简章",
+        "url": "https://yzb.bjtu.edu.cn"
+      }
+    ],
+    "requirements": {
+      "title": "报考条件",
+      "items": [
+        "大学本科毕业后有3年以上工作经验",
+        "高职高专毕业或本科结业后有5年以上工作经验",
+        "获硕士、博士学位后有2年以上工作经验",
+        "仅招收在职定向就业人员"
+      ]
+    },
+    "exam": {
+      "title": "考试科目",
+      "items": [
+        "初试：199管理类综合能力（200分）",
+        "初试：204英语二（100分）",
+        "复试：综合素质面试 + 英语口语 + 政治笔试"
+      ]
+    },
+    "certificate": {
+      "title": "证书授予",
+      "items": [
+        "北京交通大学硕士研究生毕业证书",
+        "工程管理硕士学位证书"
+      ]
+    }
+  },
+  "training": {
+    "title": "培养特色",
+    "titleEn": "Program Features",
+    "philosophy": [
+      {
+        "letter": "T",
+        "word": "交通特色",
+        "desc": "依托铁路电信传统优势"
+      },
+      {
+        "letter": "I",
+        "word": "工管交叉",
+        "desc": "工程技术+管理科学融合"
+      },
+      {
+        "letter": "A",
+        "word": "A类学科",
+        "desc": "管科/工商/应用经济支撑"
+      },
+      {
+        "letter": "P",
+        "word": "实践导向",
+        "desc": "案例教学+校外专家授课"
+      }
+    ],
+    "programs": [
+      {
+        "icon": "🎓",
+        "name": "案例教学",
+        "nameEn": "Case Study",
+        "desc": "课堂教学、专题讲座、企业家论坛相结合，将理论知识与工程实践紧密融合。"
+      },
+      {
+        "icon": "🏫",
+        "name": "校外专家授课",
+        "nameEn": "Industry Experts",
+        "desc": "聘请具有实践经验的校外高级技术职称专家授课，带来行业前沿视角。"
+      },
+      {
+        "icon": "📊",
+        "name": "双导师制",
+        "nameEn": "Dual Mentor",
+        "desc": "校内学术导师+行业实践导师，理论与实践双轮驱动。"
+      },
+      {
+        "icon": "🌐",
+        "name": "灵活学习",
+        "nameEn": "Flexible Learning",
+        "desc": "集中班或周末班，兼顾在职人员工作与学习，最长学习年限5年。"
+      }
+    ]
+  },
+  "stats": {
+    "title": "项目优势",
+    "titleEn": "Why Choose Us",
+    "items": [
+      {
+        "icon": "🏛️",
+        "title": "百年名校",
+        "desc": "北京交通大学始建于1896年，教育部直属全国重点大学"
+      },
+      {
+        "icon": "🏆",
+        "title": "学科实力",
+        "desc": "管理科学与工程、工商管理、应用经济学三大A类学科支撑"
+      },
+      {
+        "icon": "🚉",
+        "title": "行业优势",
+        "desc": "铁路、交通、通信等领域行业资源丰富，校友网络强大"
+      },
+      {
+        "icon": "💰",
+        "title": "性价比高",
+        "desc": "学费12.6万（6.3万/年），北京211院校中具有竞争力"
+      },
+      {
+        "icon": "📍",
+        "title": "区位优势",
+        "desc": "位于北京海淀区，交通便利，产学研资源丰富"
+      },
+      {
+        "icon": "📐",
+        "title": "方向多元",
+        "desc": "四大研究方向覆盖基建、信息化、安全、物流热门领域"
+      }
+    ]
+  },
+  "alumni": [],
+  "contact": {
+    "title": "联系我们",
+    "titleEn": "Contact Us",
+    "departments": [
+      {
+        "name": "招生咨询",
+        "address": "北京市海淀区上园村3号 北京交通大学经济管理学院",
+        "phone": "",
+        "email": ""
+      },
+      {
+        "name": "研究生招生办公室",
+        "address": "北京市海淀区上园村3号 北京交通大学",
+        "phone": "010-51688369",
+        "email": "",
+        "url": "https://yzb.bjtu.edu.cn"
+      }
+    ],
+    "wechatName": "",
+    "wechatQr": ""
+  }
+};
+function applyTheme(d){if(!d.theme)return;const r=document.documentElement.style;if(d.theme.primary)r.setProperty('--primary',d.theme.primary);if(d.theme.primaryLight)r.setProperty('--primary-light',d.theme.primaryLight);if(d.theme.primaryDark)r.setProperty('--primary-dark',d.theme.primaryDark);if(d.theme.accent)r.setProperty('--accent',d.theme.accent);if(d.theme.accentHover)r.setProperty('--accent-hover',d.theme.accentHover)}
+function renderNav(d){const logo=document.getElementById('navLogo');logo.innerHTML=d.meta.logo?`<img src="${d.meta.logo}" alt=""> ${d.meta.program||d.meta.school}`:(d.meta.program||d.meta.school);const secs=[['overview','项目概况'],['directions','研究方向'],['admission','招生信息'],['stats','项目优势'],['training','培养特色'],['alumni','校友风采'],['contact','联系我们']];const links=document.getElementById('navLinks');links.innerHTML=secs.filter(([s])=>d[s]).map(([s,l])=>`<a href="#${s}">${l}</a>`).join('');document.getElementById('navMobileBtn').addEventListener('click',()=>links.classList.toggle('open'));window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60))}
+function renderHero(d){const h=d.hero||{};document.getElementById('heroBadge').textContent=h.badge||'';document.getElementById('heroTitle').textContent=h.title||'';document.getElementById('heroSubtitle').textContent=h.subtitle||'';const ctas=document.getElementById('heroCtas');if(h.ctas)ctas.innerHTML=h.ctas.map(c=>`<a class="btn ${c.style||'btn-primary'}" href="${c.url}">${c.text}</a>`).join('');const carousel=document.getElementById('heroCarousel');if(h.images&&h.images.length>0){carousel.innerHTML=h.images.map((img,i)=>`<div class="slide ${i===0?'active':''}"><img src="${img}" alt=""></div>`).join('');let cur=0;const slides=carousel.querySelectorAll('.slide');setInterval(()=>{slides[cur].classList.remove('active');cur=(cur+1)%slides.length;slides[cur].classList.add('active')},5000);document.getElementById('heroScroll').style.display='none'}const particles=document.getElementById('heroParticles');for(let i=0;i<30;i++){const p=document.createElement('div');p.className='particle';p.style.left=Math.random()*100+'%';p.style.animationDuration=(8+Math.random()*12)+'s';p.style.animationDelay=Math.random()*8+'s';p.style.width=p.style.height=(2+Math.random()*4)+'px';particles.appendChild(p)}}
+function renderOverview(d){if(!d.overview)return;document.getElementById('overview').style.display='';const o=d.overview;document.getElementById('overviewTitle').textContent=o.title||'项目概况';document.getElementById('overviewEn').textContent=o.titleEn||'Program Overview';if(o.description)document.getElementById('overviewDesc').innerHTML=o.description.split('\n').map(p=>`<p>${p}</p>`).join('');if(o.link)document.getElementById('overviewLink').innerHTML=`<a class="btn btn-dark" href="${o.link.url}" target="_blank">${o.link.text||'了解更多'}</a>`;if(o.image){const el=document.getElementById('overviewImage');el.innerHTML=`<img src="${o.image}" alt="">`;el.style.display=''}if(o.highlights)document.getElementById('overviewHighlights').innerHTML=o.highlights.map(h=>`<div class="highlight-card fade-in"><div class="num">${h.value}</div><div class="label">${h.label}</div></div>`).join('')}
+function renderDirections(d){if(!d.directions||!d.directions.items)return;document.getElementById('directions').style.display='';document.getElementById('directionsTitle').textContent=d.directions.title||'研究方向';document.getElementById('directionsEn').textContent=d.directions.titleEn||'Research Directions';document.getElementById('directionsGrid').innerHTML=d.directions.items.map(i=>`<div class="direction-card fade-in"><div class="icon">${i.icon||'📘'}</div><h4>${i.name}${i.nameEn?`<span>${i.nameEn}</span>`:''}</h4><p>${i.desc||''}</p></div>`).join('')}
+function renderAdmission(d){if(!d.admission)return;document.getElementById('admission').style.display='';const a=d.admission;document.getElementById('admissionTitle').textContent=a.title||'招生信息';document.getElementById('admissionEn').textContent=a.titleEn||'Admission';const tabData=[];if(a.notices&&a.notices.length)tabData.push({key:'notices',label:'招生通知',items:a.notices});if(a.activities&&a.activities.length)tabData.push({key:'activities',label:'招生活动',items:a.activities});if(a.brochures&&a.brochures.length)tabData.push({key:'brochures',label:'简章下载',items:a.brochures});const tabs=document.getElementById('admissionTabs'),panels=document.getElementById('admissionPanels');if(tabData.length>0){tabs.innerHTML=tabData.map((t,i)=>`<div class="admission-tab ${i===0?'active':''}" data-tab="${t.key}">${t.label}</div>`).join('');panels.innerHTML=tabData.map((t,i)=>`<div class="admission-panel ${i===0?'active':''}" data-panel="${t.key}">${t.items.map(item=>`<div class="admission-item"><span class="admission-date">${item.date||''}</span><a href="${item.url||'#'}" target="_blank">${item.title}</a></div>`).join('')}</div>`).join('');tabs.querySelectorAll('.admission-tab').forEach(tab=>{tab.addEventListener('click',()=>{tabs.querySelectorAll('.admission-tab').forEach(t=>t.classList.remove('active'));panels.querySelectorAll('.admission-panel').forEach(p=>p.classList.remove('active'));tab.classList.add('active');panels.querySelector(`[data-panel="${tab.dataset.tab}"]`).classList.add('active')})})}else{tabs.style.display='none'}const cards=document.getElementById('admissionInfoCards');let html='';if(a.requirements)html+=`<div class="info-card"><h4>📋 ${a.requirements.title}</h4><ul>${a.requirements.items.map(i=>`<li>${i}</li>`).join('')}</ul></div>`;if(a.exam)html+=`<div class="info-card"><h4>📝 ${a.exam.title}</h4><ul>${a.exam.items.map(i=>`<li>${i}</li>`).join('')}</ul></div>`;if(a.certificate)html+=`<div class="info-card"><h4>🎓 ${a.certificate.title}</h4><ul>${a.certificate.items.map(i=>`<li>${i}</li>`).join('')}</ul></div>`;if(a.applyUrl)html+=`<a class="btn btn-primary" href="${a.applyUrl}" target="_blank" style="margin-top:8px;width:100%">📝 在线申请</a>`;if(a.hotline)html+=`<a class="btn btn-outline" href="tel:${a.hotline.replace(/\s/g,'')}" style="margin-top:8px;width:100%">📞 ${a.hotline}</a>`;cards.innerHTML=html}
+function renderStats(d){if(!d.stats||!d.stats.items)return;document.getElementById('stats').style.display='';document.getElementById('statsTitle').textContent=d.stats.title||'项目优势';document.getElementById('statsEn').textContent=d.stats.titleEn||'Why Choose Us';document.getElementById('statsGrid').innerHTML=d.stats.items.map(s=>`<div class="stat-card fade-in"><div class="icon">${s.icon||'⭐'}</div><h4>${s.title}</h4><p>${s.desc}</p></div>`).join('')}
+function renderTraining(d){if(!d.training)return;document.getElementById('training').style.display='';document.getElementById('trainingTitle').textContent=d.training.title||'培养特色';document.getElementById('trainingEn').textContent=d.training.titleEn||'Program Features';if(d.training.philosophy)document.getElementById('trainingPhilosophy').innerHTML=d.training.philosophy.map(p=>`<div class="philosophy-item"><div class="letter">${p.letter}</div><div class="word">${p.word}</div><div class="desc">${p.desc}</div></div>`).join('');if(d.training.programs)document.getElementById('trainingGrid').innerHTML=d.training.programs.map(p=>`<div class="training-card fade-in"><div class="icon">${p.icon||'🎓'}</div><h4>${p.name}${p.nameEn?`<span>${p.nameEn}</span>`:''}</h4><p>${p.desc||''}</p></div>`).join('')}
+function renderAlumni(d){if(!d.alumni||!d.alumni.length)return;document.getElementById('alumni').style.display='';document.getElementById('alumniTitle').textContent=d.alumniTitle||'校友风采';document.getElementById('alumniEn').textContent=d.alumniTitleEn||'Alumni Stories';document.getElementById('alumniGrid').innerHTML=d.alumni.map(a=>`<div class="alumni-card fade-in">${a.photo?`<img class="photo" src="${a.photo}" alt="${a.name}">`:''}<div class="info"><div class="name">${a.name}</div><div class="role">${a.role||''}</div>${a.quote?`<div class="quote">"${a.quote}"</div>`:''}</div></div>`).join('')}
+function renderContact(d){if(!d.contact)return;document.getElementById('contact').style.display='';document.getElementById('contactTitle').textContent=d.contact.title||'联系我们';document.getElementById('contactEn').textContent=d.contact.titleEn||'Contact Us';document.getElementById('contactDepts').innerHTML=(d.contact.departments||[]).map(dept=>`<div class="contact-dept"><h4>${dept.name}</h4><p>${dept.address?`📍 ${dept.address}<br>`:''}${dept.phone?`📞 ${dept.phone}<br>`:''}${dept.email?`✉️ ${dept.email}`:''}${dept.url?`<br>🌐 <a href="${dept.url}" target="_blank" style="color:rgba(255,255,255,.8)">${dept.url}</a>`:''}</p></div>`).join('');if(d.contact.wechatQr||d.contact.wechatName){const qr=document.getElementById('contactQr');qr.style.display='';qr.innerHTML=`${d.contact.wechatQr?`<img src="${d.contact.wechatQr}" alt="微信二维码">`:''}<div class="name">微信公众号：${d.contact.wechatName||''}</div>`}}
+function renderFooter(d){document.getElementById('footer').innerHTML=`© ${new Date().getFullYear()} ${d.meta.school||''} ${d.meta.program||''} ${d.meta.siteUrl?`| <a href="${d.meta.siteUrl}" target="_blank">${d.meta.siteUrl}</a>`:''}`}
+function initScrollAnimations(){const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1});document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el))}
+function init(){const d=PAGE_DATA;applyTheme(d);renderNav(d);renderHero(d);renderOverview(d);renderDirections(d);renderAdmission(d);renderStats(d);renderTraining(d);renderAlumni(d);renderContact(d);renderFooter(d);setTimeout(initScrollAnimations,200)}
+document.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>
