@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "https://liankao.org.cn/$1",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": "www.liankao.org.cn"
+        }
+      ]
+    }
+  ]
+}
