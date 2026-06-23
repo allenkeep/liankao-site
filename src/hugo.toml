@@ -135,6 +135,18 @@ timeout = "120s"
     date = "2026-06-03"
     tag = "MBA学费"
 
+  [[params.wxHeadline]]
+    title = "管理类联考3大变数：限报、内卷、有坑"
+    url = "https://mp.weixin.qq.com/s/-W0oEN924xZnuKxyHEsJNw"
+    date = "2026-06-01"
+    tag = "政策"
+
+  [[params.wxHeadline]]
+    title = "这10个MBA已不具备保底价值！"
+    url = "https://mp.weixin.qq.com/s/dEPvEg7tAnFheTb0WvRqXw"
+    date = "2026-05-28"
+    tag = "选校"
+
   # 热门推荐
   [[params.featured]]
     title = "2026管理类联考全年备考规划：3阶段时间轴与核心任务"
