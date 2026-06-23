@@ -29,10 +29,12 @@ jobs:
 
       - name: Build
         run: hugo --minify --baseURL "https://liankao.org.cn/"
+      - name: Add CNAME
+        run: echo "liankao.org.cn" > public/CNAME
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./src/public
-          force_orphan: true
+          force_orphan: false
