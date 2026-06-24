@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2027年暨南大学MBA招生专题</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="https://zhuanti.liankao.org.cn/jnu-mba/assets/hero-bg-optimized.jpg">
+<style>
+:root{
+  --ink:#1a1a2e;--ink-mid:#2d2d44;
+  --lake:#2e86c1;--lake-dark:#1a5276;--lake-deep:#0e3a5c;--lake-light:#85c1e9;--lake-mist:#d4e6f1;
+  --gold:#c9a96e;--gold-light:#e8d5a8;--gold-pale:#f5eed9;
+  --paper:#faf8f5;--paper-warm:#f0ece4;--paper-cream:#e8e0d0;
+  --text:#2c2c2c;--text-mid:#4a4a4a;--text-light:#7a7a7a;--text-faint:#aaa;
+  --white:#fff;--border:rgba(201,169,110,.18);
+  --serif:'Noto Serif SC','Songti SC','STSong','SimSun',serif;
+  --sans:'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;
+  --shadow-sm:0 2px 12px rgba(26,26,46,.06);
+  --shadow:0 4px 24px rgba(26,26,46,.08);
+  --shadow-lg:0 8px 40px rgba(26,26,46,.12);
+  --red:#8b2500;--red-light:#c0392b;--red-pale:#fdf2f0;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--sans);color:var(--text);background:var(--paper);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,248,245,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);transition:box-shadow .3s}
+.nav.scrolled{box-shadow:0 2px 20px rgba(26,26,46,.06)}
+.nav-inner{max-width:1440px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:60px}
+.nav-brand{display:flex;align-items:center;gap:12px}
+.nav-brand img{height:40px}
+.nav-brand .name{font-family:var(--serif);font-size:15px;font-weight:600;letter-spacing:3px;color:var(--lake-dark)}
+.nav-links{display:flex;gap:4px;list-style:none;flex-wrap:wrap}
+.nav-links a{padding:6px 12px;color:var(--text-mid);font-size:13px;font-weight:400;border-radius:4px;transition:all .25s;white-space:nowrap}
+.nav-links a:hover,.nav-links a.active{color:var(--lake-dark);background:var(--lake-mist)}
+.nav-btn{display:none;background:none;border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-size:18px;color:var(--ink);cursor:pointer}
+
+/* HERO */
+.hero{position:relative;min-height:85vh;display:flex;align-items:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 35%;filter:brightness(.55) saturate(.85)}
+.hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(135deg,rgba(14,58,92,.75) 0%,rgba(26,82,118,.5) 40%,rgba(46,134,193,.35) 100%);pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:680px;padding:140px 48px 100px;margin-left:8%}
+.hero-motto{font-family:var(--serif);font-size:18px;letter-spacing:8px;color:var(--gold-light);margin-bottom:32px;opacity:0;animation:fadeInUp .8s .3s forwards}
+.hero-motto::before,.hero-motto::after{content:'·';margin:0 10px;opacity:.5}
+.hero h1{margin-bottom:24px;opacity:0;animation:fadeInUp .8s .5s forwards}
+.hero h1 .zh{display:block;font-family:var(--serif);font-size:84px;font-weight:900;letter-spacing:12px;color:var(--white);text-shadow:0 2px 40px rgba(0,0,0,.4);line-height:1.2}
+.hero h1 .en{display:none}
+.hero-desc{font-size:20px;color:rgba(255,255,255,.8);line-height:2;margin-bottom:40px;opacity:0;animation:fadeInUp .8s .7s forwards;max-width:600px}
+.hero-desc em{color:var(--gold-light);font-style:normal;font-weight:500}
+.hero-tags{display:flex;gap:16px;flex-wrap:wrap;opacity:0;animation:fadeInUp .8s .9s forwards}
+.hero-tag{padding:10px 24px;border:1px solid rgba(255,255,255,.25);border-radius:6px;color:rgba(255,255,255,.85);font-size:14px;letter-spacing:3px;backdrop-filter:blur(6px);transition:all .3s}
+.hero-tag:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.5)}
+.hero-scroll{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:2;color:rgba(255,255,255,.35);font-size:13px;letter-spacing:3px;writing-mode:vertical-rl}
+.hero-scroll::after{content:'';display:block;width:1px;height:40px;background:linear-gradient(to bottom,rgba(255,255,255,.3),transparent);margin-top:10px;margin-left:4px}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* COMMON */
+.sec{padding:72px 24px;position:relative}
+.sec-inner{max-width:1100px;margin:0 auto}
+.sec-head{text-align:center;margin-bottom:48px}
+.sec-head .kicker{display:inline-block;font-family:var(--serif);font-size:11px;letter-spacing:6px;color:var(--gold);margin-bottom:14px;text-transform:uppercase}
+.sec-head h2{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--ink);letter-spacing:4px;margin-bottom:8px}
+.sec-head .sub{font-size:14px;color:var(--text-light);letter-spacing:2px}
+.sec-line{width:48px;height:1px;background:var(--gold);margin:20px auto 0}
+
+/* DATA STRIP */
+.data-strip{background:var(--lake-dark);padding:36px 24px}
+.data-strip-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(6,1fr);gap:16px;text-align:center}
+.data-strip .item{padding:12px 8px}
+.data-strip .val{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--gold-light);margin-bottom:4px}
+.data-strip .lbl{font-size:11px;color:rgba(255,255,255,.6);letter-spacing:1px}
+
+/* TIMELINE - HORIZONTAL */
+.timeline{position:relative;padding:40px 0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.timeline::before{content:'';position:absolute;left:40px;right:40px;top:52px;height:2px;background:linear-gradient(90deg,var(--gold),var(--lake),var(--red-light));border-radius:2px}
+.tl-item{position:relative;padding:48px 16px 20px;background:var(--white);border-radius:10px;border:1px solid var(--border);transition:all .3s;text-align:center}
+.tl-item:hover{box-shadow:var(--shadow);transform:translateY(-4px)}
+.tl-item::before{content:'';position:absolute;left:50%;top:-12px;width:16px;height:16px;border-radius:50%;background:var(--lake-dark);border:3px solid var(--white);box-shadow:0 0 0 2px var(--lake-mist);transform:translateX(-50%);z-index:2}
+.tl-item:nth-child(3n+2)::before{background:var(--gold);box-shadow:0 0 0 2px var(--gold-pale)}
+.tl-item:nth-child(3n+3)::before{background:var(--red-light);box-shadow:0 0 0 2px var(--red-pale)}
+.tl-item .year{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--lake-dark);margin-bottom:8px}
+.tl-item .event{font-size:13px;color:var(--text-mid);line-height:1.7}
+
+/* CAMPUS GRID */
+.campus-grid{padding:60px 24px;background:var(--white)}
+.campus-grid-inner{max-width:1100px;margin:0 auto}
+.campus-grid-layout{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:200px 200px 200px;gap:12px}
+.campus-card{position:relative;border-radius:10px;overflow:hidden;cursor:pointer;box-shadow:var(--shadow-sm)}
+.campus-card img{width:100%;height:100%;object-fit:cover;transition:transform .6s,filter .4s;filter:brightness(.92) saturate(.9)}
+.campus-card:hover img{transform:scale(1.05);filter:brightness(1) saturate(1)}
+.campus-card .cap{position:absolute;bottom:0;left:0;right:0;padding:10px 14px;background:linear-gradient(transparent,rgba(0,0,0,.7));color:var(--white);font-family:var(--serif);font-size:12px;letter-spacing:2px}
+.campus-card .cap .sub{font-size:10px;opacity:.75;margin-top:2px;letter-spacing:1px;font-family:var(--sans)}
+.campus-card.span2c{grid-column:span 2}
+.campus-card.span2r{grid-row:span 2}
+
+/* MISSION VISION VALUE */
+.mvv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.mvv-item{text-align:center;padding:32px 24px;background:var(--paper);border-radius:12px;transition:all .3s}
+.mvv-item:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.mvv-icon{width:64px;height:64px;margin:0 auto 16px;border-radius:50%;background:linear-gradient(135deg,var(--lake-mist),var(--gold-pale));display:flex;align-items:center;justify-content:center}
+.mvv-icon svg{width:32px;height:32px;stroke:var(--lake-dark)}
+.mvv-item h3{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--ink);letter-spacing:2px;margin-bottom:10px}
+.mvv-item p{font-size:13px;color:var(--text-mid);line-height:1.8}
+
+/* FEATURES - 四维贯通 */
+.feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.feat-card{padding:36px 24px;background:var(--white);border-radius:14px;text-align:center;border:1px solid transparent;transition:all .3s;position:relative}
+.feat-card:hover{border-color:var(--lake-mist);box-shadow:var(--shadow)}
+.feat-card .ic{width:64px;height:64px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;border-radius:16px;position:relative;overflow:hidden}
+.feat-card .ic svg{width:34px;height:34px;position:relative;z-index:1}
+.feat-card .ic::before{content:'';position:absolute;inset:0;border-radius:16px;opacity:.1}
+.ic-c1::before{background:var(--lake)}.ic-c1 svg{stroke:var(--lake-dark)}
+.ic-c2::before{background:var(--gold)}.ic-c2 svg{stroke:var(--gold)}
+.ic-c3::before{background:var(--red-light)}.ic-c3 svg{stroke:var(--red-light)}
+.ic-c4::before{background:var(--ink)}.ic-c4 svg{stroke:var(--ink)}
+.feat-card h4{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--ink);letter-spacing:2px;margin-bottom:6px}
+.feat-card .en{font-size:12px;color:var(--lake);font-style:italic;letter-spacing:1px}
+.feat-card .desc{font-size:14px;color:var(--text-light);line-height:1.8;margin-top:10px}
+
+/* 3 CORE FEATURES */
+.core-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+.core-card{padding:32px 28px;background:var(--white);border-radius:12px;border-left:4px solid var(--red-light);box-shadow:var(--shadow-sm);transition:all .3s}
+.core-card:hover{box-shadow:var(--shadow)}
+.core-card h4{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--red);letter-spacing:2px;margin-bottom:10px}
+.core-card p{font-size:15px;color:var(--text-mid);line-height:1.9}
+
+/* DIRECTION CARDS */
+.dir-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.dir-card{padding:28px;border-radius:12px;border:1px solid var(--border);position:relative;overflow:hidden;transition:all .3s;background:var(--paper)}
+.dir-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--lake-dark),var(--gold));opacity:0;transition:opacity .3s}
+.dir-card:hover{box-shadow:var(--shadow);transform:translateY(-4px);border-color:var(--lake-mist)}
+.dir-card:hover::after{opacity:1}
+.dir-card .badge{display:inline-block;font-size:10px;letter-spacing:2px;padding:3px 10px;border-radius:3px;margin-bottom:10px}
+.dir-card .badge.ft{background:var(--lake-mist);color:var(--lake-dark)}
+.dir-card .badge.pt{background:var(--gold-pale);color:#8a6d3b}
+.dir-card .badge.sg{background:var(--red-pale);color:var(--red)}
+.dir-card h3{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--ink);letter-spacing:2px;margin-bottom:2px}
+.dir-card .en-name{font-size:11px;color:var(--lake);font-style:italic;letter-spacing:1px;margin-bottom:10px}
+.dir-card .desc{font-size:13px;color:var(--text-mid);line-height:1.9}
+.dir-card .loc{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--lake-dark);margin-top:14px;padding:6px 14px;background:var(--lake-mist);border-radius:20px;font-weight:500;position:relative}
+.dir-card .loc::before{content:'';width:10px;height:10px;border-radius:50% 50% 50% 0;background:var(--lake-dark);transform:rotate(-45deg);flex-shrink:0}
+.dir-card .loc::after{content:'';width:3px;height:3px;border-radius:50%;background:var(--lake-mist);position:absolute;left:17px;top:50%;transform:translateY(-50%)}
+
+/* 培养方向-招生人数 */
+.dir-enroll{text-align:center;margin-bottom:28px}
+.dir-enroll .enroll-num{margin-bottom:6px}
+.dir-enroll .num{font-family:var(--serif);font-size:64px;font-weight:900;color:var(--red-light);line-height:1;letter-spacing:-2px}
+.dir-enroll .unit{font-size:20px;color:var(--text-mid);margin-left:4px;font-weight:500}
+.dir-enroll .enroll-label{font-size:13px;color:var(--text-light);letter-spacing:2px}
+
+/* 培养方向-标签栏 */
+.dir-tags-wrap{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:12px}
+.dir-tag{padding:8px 18px;border-radius:50px;font-size:13px;font-weight:500;letter-spacing:.5px;transition:all .2s;cursor:default}
+.dir-tag.ft{background:var(--lake-mist);color:var(--lake-dark)}
+.dir-tag.pt{background:var(--gold-pale);color:var(--gold)}
+.dir-tag.sg{background:#fdf0ed;color:var(--red-light)}
+.dir-tag:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.08)}
+
+/* 培养方向-课程列表 */
+.dir-courses{margin:14px 0;padding-top:14px;border-top:1px dashed var(--border)}
+.dir-courses .course-title{font-size:12px;color:var(--text-light);margin-bottom:8px;letter-spacing:1px}
+.dir-courses .course-list{display:flex;flex-wrap:wrap;gap:6px}
+.dir-courses .course-list span{padding:4px 10px;background:var(--white);border:1px solid var(--border);border-radius:4px;font-size:12px;color:var(--text-mid)}
+
+/* CURRICULUM */
+.curr-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.curr-col{background:var(--white);border-radius:10px;padding:24px;box-shadow:var(--shadow-sm)}
+.curr-col h3{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--lake-dark);letter-spacing:2px;margin-bottom:4px}
+.curr-col .count{font-size:12px;color:var(--gold);margin-bottom:14px}
+.curr-col .tag-list{display:flex;flex-wrap:wrap;gap:8px}
+.curr-col .tag{padding:5px 14px;background:var(--paper);border-radius:6px;font-size:12px;color:var(--text-mid);border:1px solid var(--border);transition:all .2s}
+.curr-col .tag:hover{border-color:var(--lake-light);background:var(--lake-mist);color:var(--lake-dark)}
+
+/* INTERNATIONAL */
+.intl-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.intl-main{position:relative;border-radius:14px;overflow:hidden;min-height:360px;background:linear-gradient(135deg,#1a5276 0%,#2e86c1 40%,#5dade2 100%)}
+.intl-main::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 40%,rgba(255,255,255,.15) 0%,transparent 50%),radial-gradient(circle at 70% 70%,rgba(201,169,110,.2) 0%,transparent 40%);z-index:0}
+.intl-main::after{content:'🌐';position:absolute;font-size:180px;opacity:.08;right:-20px;top:50%;transform:translateY(-50%);z-index:0}
+.intl-main img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:.25;mix-blend-mode:overlay;z-index:0}
+.intl-main .overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:32px;z-index:2;background:linear-gradient(transparent 40%,rgba(14,58,92,.9))}
+.intl-main .overlay h3{font-family:var(--serif);font-size:24px;color:var(--white);letter-spacing:3px;margin-bottom:8px}
+.intl-main .overlay p{font-size:14px;color:rgba(255,255,255,.85);line-height:1.8}
+.intl-exchange{background:var(--white);border-radius:14px;padding:28px;box-shadow:var(--shadow-sm)}
+.intl-exchange h3{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--lake-dark);letter-spacing:2px;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.intl-exchange h3 .intl-mark{display:inline-flex;width:36px;height:36px;border-radius:50%;background:var(--lake-mist);align-items:center;justify-content:center}
+.intl-exchange h3 .intl-mark svg{width:18px;height:18px;stroke:var(--lake-dark)}
+.intl-exchange .info{font-size:14px;color:var(--text-light);margin-bottom:16px;line-height:1.8}
+.school-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.school-item{padding:10px 12px;background:var(--paper);border-radius:6px;font-size:12px;color:var(--text-mid);line-height:1.4;border:1px solid var(--border);transition:all .2s}
+.school-item:hover{background:var(--lake-mist);border-color:var(--lake-light);color:var(--lake-dark)}
+.school-item .en{font-size:10px;color:var(--text-faint);font-style:italic;margin-top:2px}
+
+/* PRACTICE - VISUAL */
+.prac-section{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;margin-bottom:48px}
+.prac-section.reverse .prac-content{order:2}
+.prac-section.reverse .prac-visual{order:1}
+.prac-label{display:inline-block;padding:6px 16px;background:var(--gold-pale);color:var(--gold);border-radius:20px;font-size:12px;letter-spacing:2px;margin-bottom:12px}
+.prac-content h3{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--ink);letter-spacing:1px;margin-bottom:12px}
+.prac-content p{font-size:14px;color:var(--text-mid);line-height:2.2;margin-bottom:16px}
+.prac-list{list-style:none;padding:0}
+.prac-list li{position:relative;padding-left:20px;font-size:13px;color:var(--text-mid);line-height:2.2}
+.prac-list li::before{content:'';position:absolute;left:0;top:12px;width:8px;height:8px;border-radius:50%;background:var(--lake-dark)}
+.prac-list li:nth-child(2)::before{background:var(--gold)}
+.prac-list li:nth-child(3)::before{background:#d4a373}
+.prac-list li:nth-child(4)::before{background:var(--red-light)}
+.prac-list li:nth-child(5)::before{background:var(--text-light)}
+
+/* 环形图 */
+.prac-visual{display:flex;justify-content:center}
+.donut-chart{position:relative;width:220px;height:220px}
+.donut-chart svg{width:100%;height:100%}
+.donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.donut-num{font-family:var(--serif);font-size:36px;font-weight:900;color:var(--lake-dark)}
+.donut-label{font-size:12px;color:var(--text-light);letter-spacing:2px;margin-top:4px}
+
+/* PBL统计数据 */
+.prac-stats{display:flex;gap:24px;margin-top:16px}
+.stat-item{text-align:center;flex:1}
+.stat-num{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--gold);margin-bottom:4px}
+.stat-label{font-size:12px;color:var(--text-light);letter-spacing:1px}
+
+/* PBL行业卡片 */
+.pbl-industries{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;max-width:540px}
+.pbl-ind-card{padding:18px 12px;background:var(--white);border-radius:10px;text-align:center;box-shadow:0 2px 16px rgba(26,26,46,.08);transition:all .3s;border:1px solid rgba(201,169,110,.25)}
+.pbl-ind-card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--gold-light)}
+.pbl-ind-icon{font-size:24px;margin-bottom:6px}
+.pbl-ind-name{font-size:12px;font-weight:600;color:var(--ink);letter-spacing:1px}
+.pbl-ind-desc{font-size:10px;color:var(--text-light);margin-top:3px;letter-spacing:1px}
+
+/* 实践导师画像 */
+.mentor-profile{margin-top:8px;margin-bottom:40px}
+.mp-intro{text-align:center;max-width:640px;margin:0 auto 32px}
+.mp-intro h3{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--ink);letter-spacing:2px;margin:12px 0}
+.mp-intro p{font-size:14px;color:var(--text-mid);line-height:1.9}
+.mp-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.mp-card{background:var(--white);border-radius:12px;padding:28px 24px;box-shadow:var(--shadow-sm);transition:all .3s}
+.mp-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.mp-card-wide{grid-column:1/-1}
+.mp-card-title{font-family:var(--serif);font-size:15px;font-weight:600;color:var(--ink);letter-spacing:2px;text-align:center;display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:24px}
+.mp-title-line{flex:0 0 32px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+/* 学历占比 donut */
+.mp-donut-wrap{position:relative;width:160px;height:160px;margin:0 auto 16px}
+.mp-donut-svg{width:100%;height:100%}
+.mp-donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.mp-donut-num{font-family:var(--serif);font-size:26px;font-weight:900;color:var(--lake-dark)}
+.mp-donut-lbl{font-size:11px;color:var(--text-light);letter-spacing:1px}
+.mp-legend{display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
+.mp-legend-item{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-mid)}
+.mp-legend-item i{display:inline-block;width:12px;height:12px;border-radius:3px}
+/* 职级分布 bars */
+.mp-bars{display:flex;flex-direction:column;gap:18px}
+.mp-bar-item{display:flex;align-items:center;gap:12px}
+.mp-bar-label{width:120px;font-size:12px;color:var(--text-mid);text-align:right;flex-shrink:0;line-height:1.4}
+.mp-bar-track{flex:1;height:24px;background:var(--border);border-radius:6px;overflow:hidden;position:relative}
+.mp-bar-fill{height:100%;border-radius:6px;transition:width 1s ease}
+.mp-bar-lake{background:linear-gradient(90deg,var(--lake-dark),var(--lake))}
+.mp-bar-gold{background:linear-gradient(90deg,var(--gold),var(--gold-light))}
+.mp-bar-red{background:linear-gradient(90deg,var(--red-light),#e6b0aa)}
+.mp-bar-pct{width:40px;font-family:var(--serif);font-size:15px;font-weight:700;color:var(--ink);text-align:right;flex-shrink:0}
+/* 行业分布 small donuts */
+.mp-ind-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:20px 24px}
+.mp-ind-item{display:flex;flex-direction:column;align-items:center;width:90px}
+.mp-ind-svg{width:72px;height:72px}
+.mp-ind-pct{font-family:var(--serif);font-size:16px;font-weight:800;color:var(--ink);margin-top:4px}
+.mp-ind-name{font-size:11px;color:var(--text-mid);letter-spacing:1px;margin-top:2px}
+.mp-c1{stroke:var(--lake-dark)}.mp-c2{stroke:var(--gold)}.mp-c3{stroke:var(--text-light)}
+.mp-c4{stroke:var(--red-light)}.mp-c5{stroke:#7d3c98}.mp-c6{stroke:#117a65}.mp-c7{stroke:#784212}
+@media(max-width:768px){
+  .mp-grid{grid-template-columns:1fr}
+  .mp-bar-label{width:80px;font-size:11px}
+  .mp-ind-item{width:75px}
+  .mp-ind-grid{gap:14px 16px}
+}
+
+/* 双导师制 */
+.prac-mentor{display:grid;grid-template-columns:1fr auto 1fr;gap:24px;align-items:center;margin-top:20px}
+.mentor-card{padding:28px 24px;background:var(--white);border-radius:12px;text-align:center;box-shadow:var(--shadow-sm);transition:all .3s}
+.mentor-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.mentor-icon{font-size:40px;margin-bottom:12px}
+.mentor-card h4{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--ink);letter-spacing:1px;margin-bottom:8px}
+.mentor-card p{font-size:13px;color:var(--text-mid);line-height:1.8;margin-bottom:12px}
+.mentor-percent{font-family:var(--serif);font-size:28px;font-weight:900;color:var(--lake-dark)}
+.mentor-card:last-child .mentor-percent{color:var(--gold)}
+.mentor-vs{font-family:var(--serif);font-size:18px;font-weight:900;color:var(--text-light);letter-spacing:2px}
+
+/* CLUBS */
+.club-wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:8px}
+.club-tag{padding:14px 16px;background:var(--white);color:var(--text-mid);border-radius:8px;font-size:13px;letter-spacing:1px;transition:all .3s;border:1px solid var(--border);text-align:center;position:relative;overflow:hidden}
+.club-tag::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--red-light);opacity:.6;transition:opacity .3s}
+.club-tag:hover{background:var(--red-pale);color:var(--red);border-color:var(--red-light);transform:translateY(-2px);box-shadow:0 4px 12px rgba(192,57,43,.15)}
+.club-tag:hover::before{opacity:1}
+
+.club-category{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--ink);letter-spacing:2px;margin:20px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.club-category:first-child{margin-top:0}
+
+.club-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:32px}
+.club-gallery-item{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:4/3;cursor:pointer;transition:all .3s}
+.club-gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.club-gallery-item:hover img{transform:scale(1.05)}
+.club-gallery-item .cap{position:absolute;left:0;right:0;bottom:0;padding:10px 12px;background:linear-gradient(transparent,rgba(0,0,0,.7));color:var(--white);font-size:12px;letter-spacing:1px}
+.club-gallery-item .cap .sub{font-size:10px;opacity:.7;margin-top:2px}
+
+/* LOCATION */
+.loc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:960px;margin:0 auto 40px}
+.loc-card{background:var(--paper);border-radius:10px;padding:20px 18px;text-align:center;transition:all .3s;border:1px solid rgba(201,169,110,.25);box-shadow:0 2px 12px rgba(26,26,46,.05)}
+.loc-card:hover{border-color:var(--gold-light);box-shadow:var(--shadow-sm)}
+.loc-card h4{font-family:var(--serif);font-size:15px;font-weight:600;color:var(--lake-dark);letter-spacing:2px;margin-bottom:8px}
+.loc-card .addr{font-size:12px;color:var(--text-mid);line-height:2.2}
+
+/* INTERNATIONAL HERO */
+.intl-hero{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:center}
+.intl-hero-img{border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+.intl-hero-img img{width:100%;height:360px;object-fit:cover;display:block}
+.intl-badge{display:inline-block;padding:6px 16px;background:var(--gold-pale);color:var(--gold);border-radius:20px;font-size:13px;letter-spacing:1px;margin-bottom:16px}
+.intl-hero-content h3{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--ink);letter-spacing:2px;margin-bottom:16px}
+.intl-desc{font-size:15px;color:var(--text-mid);line-height:1.9;margin-bottom:20px}
+.intl-points{display:flex;flex-direction:column;gap:12px}
+.intl-point{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text-mid)}
+.intl-point .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0}
+
+/* EXCHANGE INTRO */
+.exchange-intro{text-align:center;max-width:700px;margin:0 auto 36px}
+.exchange-intro p{font-size:15px;color:var(--text-mid);line-height:1.9}
+
+/* SCHOOL GRID */
+.school-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.school-item{padding:20px 16px;background:var(--white);border-radius:10px;text-align:center;border:1px solid var(--border);transition:all .3s;cursor:pointer;position:relative;overflow:hidden}
+.school-item::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--lake-dark);transition:height .3s}
+.school-item.region-fr::before{background:linear-gradient(90deg,#2e86c1,#5dade2)}
+.school-item.region-uk::before{background:linear-gradient(90deg,#c9a96e,#e8d5a8)}
+.school-item.region-eu::before{background:linear-gradient(90deg,#a569bd,#d2b4de)}
+.school-item.region-asia::before{background:linear-gradient(90deg,#c0392b,#e6b0aa)}
+.school-item.region-oc::before{background:linear-gradient(90deg,#27ae60,#82e0aa)}
+.school-item.region-na::before{background:linear-gradient(90deg,#e67e22,#f5cba7)}
+.school-item:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--gold)}
+.school-item:hover::before{height:4px}
+.school-item{font-size:14px;font-weight:500;color:var(--ink)}
+.school-item .en{font-size:12px;color:var(--text-light);margin-top:4px;font-weight:400;letter-spacing:.5px}
+.school-item .region-tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;color:var(--text-light);background:var(--paper);margin-top:8px;letter-spacing:1px}
+
+/* ADMISSION ENROLL */
+.adm-enroll{text-align:center;margin-bottom:40px}
+.adm-enroll .enroll-num{margin-bottom:8px}
+.adm-enroll .num{font-family:var(--serif);font-size:72px;font-weight:900;color:var(--red-light);line-height:1;letter-spacing:-2px}
+.adm-enroll .unit{font-size:24px;color:var(--text-mid);margin-left:4px;font-weight:500}
+.adm-enroll .enroll-label{font-size:14px;color:var(--text-light);letter-spacing:3px}
+
+/* ADMISSION DIRECTION TAGS */
+.adm-directions{margin-bottom:36px}
+.dir-tags{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.dir-tag{padding:10px 22px;border-radius:50px;font-size:14px;font-weight:500;letter-spacing:1px}
+.dir-tag.ft{background:var(--lake-mist);color:var(--lake-dark)}
+.dir-tag.pt{background:var(--gold-pale);color:var(--gold)}
+.dir-tag.sg{background:var(--red-pale);color:var(--red-light)}
+
+/* SCHOLARSHIP */
+.scholar-wrap{max-width:860px;margin:0 auto 48px}
+.flow-section{max-width:900px;margin:0 auto}
+
+.scholar-section{margin-bottom:44px}
+.scholar-section-title{text-align:center;margin-bottom:28px}
+.scholar-section-title h3{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--ink);letter-spacing:2px;display:inline-flex;align-items:center;gap:10px;margin:0}
+.scholar-section-title .crown{font-size:22px}
+.scholar-sub{font-size:12px;color:var(--text-light);margin-top:8px;letter-spacing:1px}
+
+.scholar-categories{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.scholar-cat{background:var(--white);border-radius:10px;padding:22px 20px;transition:all .3s;border:1px solid var(--border)}
+.scholar-cat:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--gold-light)}
+.cat-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.cat-icon{font-size:20px}
+.cat-name{font-family:var(--serif);font-size:15px;font-weight:600;color:var(--lake-dark);letter-spacing:2px}
+.scholar-items{display:flex;flex-direction:column;gap:10px}
+.scholar-item{display:flex;justify-content:space-between;align-items:baseline}
+.si-name{font-size:13px;color:var(--text-mid)}
+.si-amount{font-family:var(--serif);font-size:15px;font-weight:700;color:var(--gold)}
+
+.lang-scholar-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.lang-item{background:var(--white);border-radius:10px;padding:20px 16px;text-align:center;transition:all .3s;border:1px solid var(--border)}
+.lang-item:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--gold-light)}
+.lang-name{font-size:13px;font-weight:600;color:var(--ink);letter-spacing:1px;margin-bottom:8px}
+.lang-quota{font-size:11px;color:var(--text-light);margin-bottom:6px}
+.lang-amount{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--lake-dark)}
+.scholar-note{text-align:center;font-size:11px;color:var(--text-faint);margin-top:20px;letter-spacing:1px}
+
+/* ADMISSION */
+.adm-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.adm-card{padding:24px;background:var(--white);border-radius:10px;border-left:3px solid var(--lake);box-shadow:var(--shadow-sm);transition:all .3s}
+.adm-card:hover{box-shadow:var(--shadow)}
+.adm-card h3{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--lake-dark);letter-spacing:2px;margin-bottom:14px}
+.adm-card ul{list-style:none}
+.adm-card li{font-size:13px;color:var(--text-mid);line-height:2;padding-left:16px;position:relative}
+.adm-card li::before{content:'';position:absolute;left:0;top:50%;width:5px;height:5px;border-radius:50%;background:var(--gold);transform:translateY(-50%)}
+.adm-card .note{font-size:12px;color:var(--text-faint);margin-top:8px;padding-top:8px;border-top:1px dashed var(--border)}
+
+/* SCHOLARSHIP TABLE */
+.scholar-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+.scholar-table th{background:var(--lake-dark);color:var(--white);padding:10px 14px;text-align:left;font-weight:500;font-size:12px;letter-spacing:1px}
+.scholar-table td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text-mid)}
+.scholar-table tr:hover td{background:var(--lake-mist)}
+
+/* FLOW STEPS */
+.flow-steps{display:flex;gap:0;align-items:center;justify-content:center;margin-top:8px}
+.flow-step{text-align:center;padding:16px 28px;background:var(--white);border-radius:10px;box-shadow:var(--shadow-sm);position:relative;flex:1;max-width:240px}
+.flow-step .num{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--lake);margin-bottom:4px}
+.flow-step .title{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.flow-step .date{font-size:11px;color:var(--text-faint)}
+.flow-arrow{font-size:20px;color:var(--gold);padding:0 8px}
+
+/* ADVANTAGES */
+.adv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.adv-card{padding:24px 20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;text-align:center;transition:all .3s}
+.adv-card:hover{background:rgba(255,255,255,.12);transform:translateY(-4px)}
+.adv-card .ic{width:44px;height:44px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;border-radius:50%;position:relative;overflow:hidden}
+.adv-card .ic svg{width:22px;height:22px;position:relative;z-index:1;stroke:rgba(255,255,255,.85)}
+.adv-card .ic::before{content:'';position:absolute;inset:0;border-radius:50%;background:rgba(255,255,255,.12)}
+.adv-card h4{font-family:var(--serif);font-size:15px;font-weight:600;letter-spacing:2px;margin-bottom:6px;color:var(--white)}
+.adv-card p{font-size:12px;color:rgba(255,255,255,.55);line-height:1.7}
+
+/* CONTACT */
+.ct-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.ct-card{padding:24px;background:var(--white);border-radius:10px;box-shadow:var(--shadow-sm)}
+.ct-card h3{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--lake-dark);letter-spacing:2px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.ct-card .info{font-size:13px;color:var(--text-mid);line-height:2.2}
+.ct-card .info a{color:var(--lake);transition:color .2s}
+.ct-card .info a:hover{color:var(--lake-dark)}
+.qq-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.qq-tag{padding:5px 14px;background:var(--lake-mist);border-radius:5px;font-size:12px;color:var(--lake-dark)}
+.qq-tag b{color:var(--lake);margin-left:4px}
+.ct-cta{text-align:center;margin-top:24px}
+.ct-cta a{display:inline-flex;align-items:center;gap:8px;padding:12px 32px;background:linear-gradient(135deg,var(--lake-dark),var(--lake));color:var(--white);border-radius:8px;font-size:14px;font-weight:500;letter-spacing:1px;transition:all .3s}
+.ct-cta a:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(46,134,193,.35)}
+
+/* FOOTER */
+.footer{background:#fff;color:rgba(0,0,0,.5);text-align:center;padding:48px 24px 32px;font-size:13px}
+.footer-certs{display:flex;gap:32px;justify-content:center;align-items:center;margin-bottom:28px;flex-wrap:wrap}
+.footer-certs img{height:48px;opacity:.8;transition:opacity .3s}
+.footer-certs img:hover{opacity:1}
+.footer-divider{width:60px;height:1px;background:rgba(0,0,0,.1);margin:0 auto 20px}
+.footer-copy{font-size:13px;color:rgba(0,0,0,.35)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-content{margin-left:5%;padding:120px 24px 80px}
+  .hero h1 .zh{font-size:56px;letter-spacing:6px}
+  .hero-motto{font-size:14px}
+  .data-strip-inner{grid-template-columns:repeat(3,1fr)}
+  .dir-grid,.adm-grid,.ct-grid,.curr-grid,.intl-grid{grid-template-columns:1fr}
+  .dir-grid .dir-card{grid-column:span 1 !important}
+  .adv-grid,.prac-grid{grid-template-columns:repeat(2,1fr)}
+  .feat-grid{grid-template-columns:repeat(2,1fr)}
+  .loc-grid{grid-template-columns:1fr}
+  .campus-grid-layout{display:flex;overflow-x:auto;gap:12px;padding-bottom:8px;scroll-snap-type:x mandatory;scrollbar-width:thin}
+  .campus-grid-layout::-webkit-scrollbar{height:4px}
+  .campus-grid-layout::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:2px}
+  .campus-card{flex:0 0 75%;scroll-snap-align:start;height:180px}
+  .campus-card.span2c{grid-column:span 1;flex:0 0 75%}
+  .campus-card.span2r{grid-row:span 1;flex:0 0 75%}
+  .school-grid{grid-template-columns:1fr}
+  .flow-steps{flex-direction:column}.flow-arrow{transform:rotate(90deg)}
+  .mvv-grid{grid-template-columns:1fr;gap:16px}
+  .prac-section{grid-template-columns:1fr;gap:24px;margin-bottom:32px}
+  .prac-section.reverse .prac-content{order:0}
+  .prac-section.reverse .prac-visual{order:0}
+  .pbl-industries{grid-template-columns:repeat(3,1fr);gap:16px}
+  .prac-mentor{grid-template-columns:1fr;gap:16px}
+  .mentor-vs{transform:rotate(90deg);text-align:center}
+  .intl-hero{grid-template-columns:1fr;gap:20px}
+  .intl-hero-img img{height:240px}
+  .intl-hero-content h3{font-size:22px}
+  .scholar-categories{grid-template-columns:1fr;gap:12px}
+  .lang-scholar-grid{grid-template-columns:repeat(2,1fr)}
+  .club-gallery{grid-template-columns:repeat(2,1fr)}
+  .nav-brand img{height:32px}
+}
+@media(max-width:640px){
+  .nav-links{display:none;position:absolute;top:60px;left:0;right:0;background:rgba(250,248,245,.98);flex-direction:column;padding:12px 20px;gap:4px;border-bottom:1px solid var(--border)}
+  .nav-links.open{display:flex}
+  .nav-btn{display:block}
+  .hero h1 .zh{font-size:40px;letter-spacing:4px}
+  .hero-desc{font-size:16px}
+  .hero-tag{padding:8px 16px;font-size:12px}
+  .hero-scroll{font-size:11px}
+  .sec{padding:48px 16px}
+  .sec-head h2{font-size:22px;letter-spacing:2px}
+  .sec-head .kicker{font-size:10px;letter-spacing:4px}
+  .data-strip-inner{grid-template-columns:repeat(2,1fr)}
+  .data-strip .val{font-size:22px}
+  .data-strip .lbl{font-size:10px}
+  .core-grid{grid-template-columns:1fr}
+  .campus-card{flex-basis:85%;height:160px}
+  .campus-card.span2c,.campus-card.span2r{flex-basis:85%}
+  .timeline{grid-template-columns:1fr;gap:16px;padding:20px 0}
+  .timeline::before{display:none}
+  .tl-item::before{left:50%!important;top:-10px!important;transform:translateX(-50%)!important}
+  .tl-item{padding:36px 16px 16px}
+  .club-wrap{grid-template-columns:repeat(2,1fr)}
+  .feat-grid{grid-template-columns:1fr}
+  .adv-grid,.prac-grid{grid-template-columns:1fr}
+  .pbl-industries{grid-template-columns:repeat(2,1fr);gap:12px}
+  .prac-stats{gap:12px}
+  .stat-num{font-size:20px}
+  .stat-label{font-size:10px}
+  .scholar-section-title h3{font-size:16px}
+  .lang-scholar-grid{grid-template-columns:1fr 1fr}
+  .club-gallery{grid-template-columns:1fr 1fr}
+  .intl-hero-img img{height:200px}
+  .intl-hero-content h3{font-size:20px}
+  .intl-desc{font-size:14px}
+  .footer-certs{gap:20px}
+  .footer-certs img{height:36px}
+  .footer-copy{font-size:11px}
+}
+
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity .5s,transform .5s}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* Replacement decorative elements */
+.sec-mark{display:inline-block;width:4px;height:18px;border-radius:2px;margin-right:8px;vertical-align:middle;position:relative;top:-1px}
+.mark-lake{background:var(--lake-dark)}.mark-gold{background:var(--gold)}.mark-red{background:var(--red-light)}
+.core-card h4::before{content:'◆';margin-right:6px;font-size:10px;color:var(--red-light);vertical-align:middle}
+.intl-mark{display:inline-flex;width:28px;height:28px;border-radius:50%;background:var(--lake-mist);align-items:center;justify-content:center;margin-right:8px;vertical-align:middle}
+.intl-mark svg{width:16px;height:16px;stroke:var(--lake-dark)}
+.ct-cta a::after{content:'→';margin-left:6px;font-size:16px;transition:transform .3s}
+.ct-cta a:hover::after{transform:translateX(4px)}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="https://mba.jnu.edu.cn/" target="_blank" class="nav-brand">
+      <img loading="lazy" src="https://zhuanti.liankao.org.cn/jnu-mba/assets/nav-logo-final.png" alt="暨南大学MBA">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#history">发展历程</a></li>
+      <li><a href="#mvv">使命愿景</a></li>
+      <li><a href="#advantages">项目优势</a></li>
+      <li><a href="#features">项目特色</a></li>
+      <li><a href="#directions">培养方向</a></li>
+      <li><a href="#curriculum">课程体系</a></li>
+      <li><a href="#international">海外项目</a></li>
+      <li><a href="#exchange">海外交换</a></li>
+      <li><a href="#practice">实践培养</a></li>
+      <li><a href="#clubs">学生俱乐部</a></li>
+      <li><a href="#campus">校园掠影</a></li>
+      <li><a href="#admission">招生信息</a></li>
+      <li><a href="#contact">联系我们</a></li>
+    </ul>
+    <button class="nav-btn" id="navBtn">☰</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"><img src="https://zhuanti.liankao.org.cn/jnu-mba/assets/hero-bg-optimized.jpg" fetchpriority="high" alt="暨南大学" fetchpriority="high"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-motto">忠信笃敬 · 知行合一</div>
+    <h1>
+      <span class="zh">暨南大学 MBA</span>
+      <span class="en">MASTER OF BUSINESS ADMINISTRATION</span>
+    </h1>
+    <p class="hero-desc">
+      百年华侨最高学府，<em>1918</em>年始创商科教育<br>
+      <em>AACSB · AMBA · BGA</em> 三大国际认证<br>
+      立足粤港澳大湾区，培育华商管理精英
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag">广深 · 新加坡 三地办学</span>
+    </div>
+  </div>
+  <div class="hero-scroll">探索更多</div>
+</section>
+
+<!-- DATA STRIP -->
+<section class="data-strip">
+  <div class="data-strip-inner">
+    <div class="item"><div class="val">1906</div><div class="lbl">建校年份</div></div>
+    <div class="item"><div class="val">211/双一流</div><div class="lbl">国家重点大学</div></div>
+    <div class="item"><div class="val">3大</div><div class="lbl">国际权威认证</div></div>
+    <div class="item"><div class="val">20+28</div><div class="lbl">必修+选修课程</div></div>
+    <div class="item"><div class="val">12所</div><div class="lbl">海外交换院校</div></div>
+    <div class="item"><div class="val">210人</div><div class="lbl">招生规模</div></div>
+  </div>
+</section>
+
+<!-- HISTORY -->
+<section class="sec" id="history" style="background:var(--paper)">
+  <div class="sec-inner">
+    <div class="sec-head fade-in">
+      <div class="kicker">DEVELOPMENT</div>
+      <h2>发展历程</h2>
+      <div class="sub">百年商科 · 薪火相传</div>
+      <div class="sec-line"></div>
+    </div>
+    <div class="timeline">
+      <div class="tl-item fade-in"><div class="year">1906</div><div class="event">暨南学堂创立于南京，中国历史最悠久的华侨高等学府</div></div>
+      <div class="tl-item fade-in"><div class="year">1918</div><div class="event">黄炎培先生倡议成立商业科——"始有暨南，便有商科"</div></div>
+      <div class="tl-item fade-in"><div class="year">1987</div><div class="event">获教育部授权开办企业管理专业硕士班，MBA教育探索起步</div></div>
+      <div class="tl-item fade-in"><div class="year">1993</div><div class="event">获教育部授予MBA办学资格，开办华南地区最早的MBA项目之一</div></div>
+      <div class="tl-item fade-in"><div class="year">1998</div><div class="event">管理学院正式挂牌成立，整合工商管理、管理科学与工程等优势学科</div></div>
+      <div class="tl-item fade-in"><div class="year">2018</div><div class="event">通过AMBA国际认证，MBA项目获国际认可</div></div>
+      <div class="tl-item fade-in"><div class="year">2021</div><div class="event">通过AMBA第三次再认证，同时获BGA金牌初认证</div></div>
+      <div class="tl-item fade-in"><div class="year">2022</div><div class="event">通过AACSB国际认证，跻身全球仅5%获此认证的商学院；同年开办中文MBA新加坡班</div></div>
+      <div class="tl-item fade-in"><div class="year">2023</div><div class="event">正式成为联合国PRME签署成员，践行责任管理教育</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION VISION VALUE -->
+<section class="sec" id="mvv" style="background:var(--white)">
+  <div class="sec-inner">
+    <div class="sec-head fade-in">
+      <div class="kicker">MISSION · VISION · VALUE</div>
+      <h2>使命 · 愿景 · 价值观</h2>
+      <div class="sub">百年商科底蕴 · 培育新时代华商精英</div>
+      <div class="sec-line"></div>
+    </div>
+    <div class="mvv-grid fade-in">
+      <div class="mvv-item">
+        <div class="mvv-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M24 4L28 16H40L30 24L34 36L24 28L14 36L18 24L8 16H20L24 4Z"/>
+          </svg>
+        </div>
+        <h3>MISSION 使命</h3>
+        <p>融合、提炼中华管理智慧，为世界培养熟谙中华文化的管理精英</p>
+      </div>
+      <div class="mvv-item">
+        <div class="mvv-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="24" cy="24" r="8"/>
+            <path d="M24 4V10M24 38V44M4 24H10M38 24H44M10 10L14 14M34 34L38 38M10 38L14 34M34 14L38 10"/>
+          </svg>
+        </div>
+        <h3>VISION 愿景</h3>
+        <p>成为根植于粤港澳大湾区，深具国际影响力的卓越商学院</p>
+      </div>
+      <div class="mvv-item">
+        <div class="mvv-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M24 40L8 28C4 24 4 18 8 14C12 10 18 10 24 14C30 10 36 10 40 14C44 18 44 24 40 28L24 40Z"/>
+          </svg>
+        </div>
+        <h3>VALUE 核心价值观</h3>
+        <p>忠信笃敬，知行合一，自强不息，和而不同</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="sec" id="advantages" style="background:linear-gradient(135deg,var(--lake-deep),var(--lake-dark))">
+  <div class="sec-inner">
+    <div class="sec-head fade-in">
+      <div class="kicker">ADVANTAGES</div>
+      <h2 style="color:var(--white)">项目优势</h2>
+      <div class="sub" style="color:rgba(255,255,255,.5)">选择暨南MBA的六大理由</div>
+      <div class="sec-line"></div>
+    </div>
+    <div class="adv-grid fade-in">
+      <div class="adv-card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V8l7-5 7 5v13"/><path d="M9 21v-5h6v5"/></svg></div><h4>百年商科传承</h4><p>始有暨南，便有商科，1918年创立商科教育，百年华侨最高学府薪火相传</p></div>
+      <div class="adv-card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.2 7L12 17l-6.2 4 2.2-7-6-4.6h7.6z"/></svg></div><h4>国际权威认证</h4><p>AACSB、AMBA、BGA三大国际认证，全球仅5%商学院获AACSB认证</p></div>
+      <div class="adv-card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/><line x1="9" y1="7" x2="16" y2="7"/><line x1="9" y1="11" x2="14" y2="11"/></svg></div><h4>华商管理智慧</h4><p>以独特中华文化视角讲授华商成功经验，融合传统与现代管理智慧</p></div>
+      <div class="adv-card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9 9 9"/></svg></div><h4>方向前沿多元</h4><p>创新管理、企业出海、人工智能与大数据、科技金融与创新，精准对接产业升级需求</p></div>
+      <div class="adv-card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div><h4>三地协同办学</h4><p>广州、深圳、新加坡同步开班，覆盖粤港澳大湾区核心城市</p></div>
+      <div class="adv-card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="3.5"/><path d="M3 21v-1c0-3 3-5 6-5"/><circle cx="17" cy="9" r="3"/><path d="M17 13c3 0 5 1.5 5 4v1"/></svg></div><h4>双导师制培养</h4><p>校内外双导师制，实践导师计划，PBL项目式学习，企业深度合作</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="sec" id="features" style="background:var(--paper)">
+  <div class="sec-inner">
+    <div class="sec-head fade-in">
+      <div class="kicker">FEATURES</div>
+      <h2>项目特色</h2>
+      <div class="sub">华商管理 + 数智赋能 + 行业实践</div>
+      <div class="sec-line"></div>
+    </div>
+    <!-- 四维贯通 -->
+    <div class="feat-grid fade-in">
+      <div class="feat-card"><div class="ic ic-c1"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3"/><circle cx="5" cy="16" r="2.5"/><circle cx="19" cy="16" r="2.5"/><line x1="12" y1="11" x2="7" y2="14"/><line x1="12" y1="11" x2="17" y2="14"/></svg></div><h4>思维贯通</h4><div class="en">Thinking Integration</div><div class="desc">跨学科思维训练，打破专业壁垒，培养系统性思考能力</div></div>
+      <div class="feat-card"><div class="ic ic-c2"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L14.5 8.5L20 9.5L16 13.5L17 19L12 16.5L7 19L8 13.5L4 9.5L9.5 8.5Z"/></svg></div><h4>实践贯通</h4><div class="en">Practice Integration</div><div class="desc">PBL项目式学习+实践导师计划，知行合一深度践行</div></div>
+      <div class="feat-card"><div class="ic ic-c3"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><line x1="3" y1="12" x2="21" y2="12"/></svg></div><h4>国际贯通</h4><div class="en">Global Integration</div><div class="desc">12所海外交换院校，新加坡班国际授课，跨文化管理能力</div></div>
+      <div class="feat-card"><div class="ic ic-c4"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 18 9 12 13 14 20 6"/><polyline points="16 6 20 6 20 10"/></svg></div><h4>发展贯通</h4><div class="en">Development Integration</div><div class="desc">20+学生俱乐部+校友网络，全周期职业发展支持</div></div>
+    </div>
+    <!-- 三大核心特色 -->
+    <div class="core-grid fade-in">
+      <div class="core-card"><h4>华商管理智慧</h4><p>融合中华商业文化和现代管理智慧，以独特中华文化视角讲授华商成功经验，传承百年商科底蕴</p></div>
+      <div class="core-card"><h4>数智赋能培养</h4><p>设置人工智能与大数据、科技金融、企业出海等前沿方向，精准对接产业升级与国际化发展需求</p></div>
+      <div class="core-card"><h4>多校区协同办学</h4><p>广州、深圳、新加坡三地同步开班，覆盖粤港澳大湾区核心城市与海外市场</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- DIRECTIONS -->
+<section class="sec" id="directions" style="background:var(--white)">
+  <div class="sec-inner">
+    <div class="sec-head fade-in">
+      <div class="kicker">DIRECTIONS</div>
+      <h2>培养方向</h2>
+      <div class="sub">2027级 MBA · 计划招生210人</div>
+      <div class="sec-line"></div>
+    </div>
+    <!-- 招生人数 -->
+    <div class="dir-enroll fade-in">
+      <div class="enroll-num"><span class="num">210</span><span class="unit">人</span></div>
+      <div class="enroll-label">计划招生人数</div>
+    </div>
+    <!-- 方向标签 -->
+    <div class="dir-tags-wrap fade-in">
+      <span class="dir-tag ft">全日制 SiMBA</span>
+      <span class="dir-tag pt">创新管理方向</span>
+      <span class="dir-tag pt">企业出海方向</span>
+      <span class="dir-tag pt">人工智能与大数据方向</span>
+      <span class="dir-tag pt">科技金融与创新方向</span>
+      <span class="dir-tag sg">新加坡班</span>
+    </div>
+    <!-- 方向详情卡片 -->
+    <div class="dir-grid" style="margin-top:40px">
+      <div class="dir-card fade-in" style="grid-column:span 2">
+        <span class="badge ft">全日制 · 01</span>
+        <h3>全日制 SiMBA</h3>
+        <div class="en-name">Full-time SiMBA</div>
+        <div class="desc">两年全日制英文授课项目，面向全球招生，强调国际化视野与跨文化管理能力，打造具有国际竞争力的商业管理精英。课程采用全英文教学，配备国际化师资队伍。</div>
+        <div class="dir-courses">
+          <div class="course-title">项目特色</div>
+          <div class="course-list">
+            <span>全英文授课</span><span>全球招生</span><span>国际交换</span><span>双导师制</span><span>学费7万/全程</span>
+          </div>
+        </div>
+        <div class="loc">广州</div>
+      </div>
+      <div class="dir-card fade-in">
+        <span class="badge pt">非全日制 · 02</span>
+        <h3>创新管理</h3>
+        <div class="en-name">Innovation Management</div>
+        <div class="desc">融合中华商业文化和现代管理智慧，培养具有创新思维和国际视野的复合型管理人才，面向广深两地招生，为粤港澳大湾区企业输送创新型管理精英。</div>
+        <div class="dir-courses">
+          <div class="course-title">核心课程</div>
+          <div class="course-list">
+            <span>创新管理</span><span>商业模式创新</span><span>创业管理</span><span>华商管理案例</span><span>领导力</span>
+          </div>
+        </div>
+        <div class="loc">广州 / 深圳</div>
+      </div>
+      <div class="dir-card fade-in">
+        <span class="badge pt">非全日制 · 03</span>
+        <h3>企业出海</h3>
+        <div class="en-name">Enterprise Globalization</div>
+        <div class="desc">聚焦中国企业国际化战略与跨境运营能力，涵盖海外市场进入模式、跨文化管理、国际商务谈判、全球供应链布局等核心模块，助力企业管理者驾驭全球化挑战。</div>
+        <div class="dir-courses">
+          <div class="course-title">核心课程</div>
+          <div class="course-list">
+            <span>国际化战略</span><span>跨境并购与重组</span><span>国际商务谈判</span><span>全球供应链管理</span><span>跨文化管理</span>
+          </div>
+        </div>
+        <div class="loc">广州 / 深圳</div>
+      </div>
+      <div class="dir-card fade-in">
+        <span class="badge pt">非全日制 · 04</span>
+        <h3>人工智能与大数据</h3>
+        <div class="en-name">AI & Big Data</div>
+        <div class="desc">回应数字化转型行业趋势，培养既懂商业逻辑又懂技术落地的复合型人才，课程涵盖机器学习、商业大数据分析、智能商务等前沿领域，助力企业数字化升级。</div>
+        <div class="dir-courses">
+          <div class="course-title">核心课程</div>
+          <div class="course-list">
+            <span>机器学习与商业应用</span><span>大数据分析与决策</span><span>人工智能导论</span><span>智能商务</span><span>数字化转型</span>
+          </div>
+        </div>
+        <div class="loc">广州 / 深圳</div>
+      </div>
+      <div class="dir-card fade-in">
+        <span class="badge pt">非全日制 · 05</span>
+        <h3>科技金融与创新</h3>
+        <div class="en-name">Tech Finance & Innovation</div>
+        <div class="desc">对接金融科技与产业创新需求，涵盖科技金融、数字金融、创新投资等方向，培养具备金融科技视野的创新管理人才，赋能科技企业与金融机构的融合发展。</div>
+        <div class="dir-courses">
+          <div class="course-title">核心课程</div>
+          <div class="course-list">
+            <span>科技金融</span><span>数字金融</span><span>金融科技前沿</span><span>创新投资</span><span>创业融资</span>
+          </div>
+        </div>
+        <div class="loc">广州 / 深圳</div>
+      </div>
+      <div class="dir-card fade-in" style="grid-column:span 2;border-left:3px solid var(--red-light)">
+        <span class="badge sg">中文MBA新加坡班</span>
+        <h3>新加坡班</h3>
+        <div class="en-name">Chinese MBA in Singapore</div>
+        <div class="desc">2022年创办，暨南大学管理学院在新加坡开设的中文MBA项目，面向东南亚华人及在新加坡工作的中国籍人士，中文授课，获暨南大学MBA学位。与广州、深圳班享有同等学历学位证书。</div>
+        <div class="dir-courses">
+          <div class="course-title">项目特色</div>
+          <div class="course-list">
+            <span>中文授课</span><span>东南亚华商网络</span><span>新加坡本地师资</span><span>南洋理工交流</span>
+          </div>
+        </div>
+        <div class="loc">新加坡</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CURRICULUM -->
+<section class="sec" id="curriculum" style="background:var(--paper)">
+  <div class="sec-inner">
+    <div class="sec-head fade-in">
+      <div class="kicker">CURRICULUM</div>
+      <h2>课程体系</h2>
+      <div class="sub">20门必修 + 28门选修 · 理论与实践并重</div>
+      <div class="sec-line"></div>
+    </div>
+    <div class="curr-grid fade-in">
+      <div class="curr-col">
+        <h3><span class="sec-mark mark-lake"></span>核心必修课程</h3>
+        <div class="count">共 20 门 · 夯实管理根基</div>
+        <div class="tag-list">
+          <span class="tag">管理经济学</span><span class="tag">会计学</span><span class="tag">财务管理</span><span class="tag">营销管理</span><span class="tag">组织行为学</span><span class="tag">战略管理</span><span class="tag">运营管理</span><span class="tag">商务英语</span><span class="tag">数据模型与决策</span><span class="tag">人力资源管理</span><span class="tag">商法</span><span class="tag">公司治理</span><span class="tag">管理沟通</span><span class="tag">商业伦理</span><span class="tag">领导力</span><span class="tag">创业管理</span><span class="tag">信息系统管理</span><span class="tag">国际商务</span><span class="tag">项目管理</span><span class="tag">商业研究方法</span>
+        </div>
+      </div>
+      <div class="curr-col">
+        <h3><span class="sec-mark mark-gold"></span>方向选修课程</h3>
+        <div class="count">共 28 门 · 精准对接方向</div>
+        <div class="tag-list">
+          <span class="tag">机器学习与商业应用</span><span class="tag">大数据分析与决策</span><span class="tag">人工智能导论</span><span class="tag">智能商务</span><span class="tag">科技金融</span><span class="tag">数字金融</span><span class="tag">金融科技前沿</span><span class="tag">创新投资</span><span class="tag">华商管理案例</span><span class="tag">跨文化管理</span><span class="tag">品牌管理</span><span class="tag">供应链管理</span><span class="tag">商业模式创新</span><span class="tag">数字化转型</span><span class="tag">投资学</span><span class="tag">企业并购</span><span class="tag">私募股权</span><span class="tag">财富管理</span><span class="tag">新加坡商业环境</span><span class="tag">东南亚市场分析</span><span class="tag">国际税法</span><span class="tag">行为金融学</span><span class="tag">管理咨询</span><span class="tag">专题研讨</span><span class="tag">国际化战略</span><span class="tag">跨境并购与重组</span><span class="tag">国际商务谈判</span><span class="tag">全球供应链管理</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERNATIONAL - 海外项目 -->
+<section class="sec" id="international" style="background:var(--white)">
+  <div class="sec-inner">
+    <div class="sec-head fade-in">
+      <div class="kicker">INTERNATIONAL</div>
+      <h2>海外项目</h2>
+      <div class="sub">中文MBA新加坡班 · 东南亚华商精英培育平台</div>
+      <div class="sec-line"></div>
+    </div>
+    <div class="intl-hero fade-in">
+      <div class="intl-hero-img">
+        <img loading="lazy" src="https://zhuanti.liankao.org.cn/jnu-mba/assets/overseas-singapore.jpg" alt="新加坡MBA开学典礼">
+      </div>
+      <div class="intl-hero-content">
+        <div class="intl-badge">2022年创办</div>
+        <h3>中文MBA新加坡班</h3>
+        <p class="intl-desc">暨南大学管理学院在新加坡开设的中文MBA项目，面向东南亚华人及在新加坡工作的中国籍人士，中文授课，获暨南大学MBA学位。与广州、深圳班享有同等学历学位证书。</p>
+        <div class="intl-points">
+          <div class="intl-point"><span class="dot"></span>中文授课，突破语言障碍</div>
+          <div class="intl-point"><span class="dot"></span>东南亚顶尖商学院资源</div>
+          <div class="intl-point"><span class="dot"></span>华商网络，人脉贯通南洋</div>
+          <div class="intl-point"><span class="dot"></span>同等学历，学位国际认可</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXCHANGE - 海外交换 -->
+<section class="sec" id="exchange" style="background:var(--paper)">
+  <div class="sec-inner">
+    <div class="sec-head fade-in">
+      <div class="kicker">EXCHANGE</div>
+      <h2>海外交换</h2>
+      <div class="sub">12所全球知名院校 · 3-6个月免费学习</div>
+      <div class="sec-line"></div>
+    </div>
+    <div class="exchange-intro fade-in">
+      <p>学生可申请赴海外合作院校进行3-6个月的交换学习，部分院校提供奖学金。通过海外交换，拓展国际视野，提升跨文化管理能力，构建全球人脉网络。</p>
+    </div>
+    <div class="school-grid fade-in">
+      <div class="school-item region-fr">法国EDC巴黎商学院<div class="en">EDC Paris</div><div class="region-tag">法国</div></div>
+      <div class="school-item region-fr">法国里昂商学院<div class="en">EM Lyon</div><div class="region-tag">法国</div></div>
+      <div class="school-item region-fr">法国蒙彼利埃商学院<div class="en">Montpellier BS</div><div class="region-tag">法国</div></div>
+      <div class="school-item region-fr">法国诺曼底管理学院<div class="en">Normandie BS</div><div class="region-tag">法国</div></div>
+      <div class="school-item region-fr">法国图卢兹商学院<div class="en">Toulouse BS</div><div class="region-tag">法国</div></div>
+      <div class="school-item region-eu">波兰波兹南经济大学<div class="en">Poznań UE</div><div class="region-tag">波兰</div></div>
+      <div class="school-item region-eu">意大利萨兰托大学<div class="en">Univ. of Salento</div><div class="region-tag">意大利</div></div>
+      <div class="school-item region-eu">希腊阿尔巴商学院<div class="en">Alba BS</div><div class="region-tag">希腊</div></div>
+      <div class="school-item region-asia">日本名古屋商科大学<div class="en">NUCB</div><div class="region-tag">日本</div></div>
+      <div class="school-item region-asia">韩国仁荷大学<div class="en">Inha Univ.</div><div class="region-tag">韩国</div></div>
+      <div class="school-item region-asia">泰国国立法政大学商学院<div class="en">Thammasat BS</div><div class="region-tag">泰国</div></div>
+      <div class="school-item region-na">智利大学<div class="en">Univ. of Chile</div><div class="region-tag">智利</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRACTICE - 实践培养 -->
+<section class="sec" id="practice" style="background:var(--paper)">
+  <div class="sec-inner">
+    <div class="sec-head fade-in">
+      <div class="kicker">PRACTICE</div>
+      <h2>实践培养</h2>
+      <div class="sub">双导师制 · PBL项目 · 实战导向</div>
+      <div class="sec-line"></div>
+    </div>
+    <!-- 实践导师画像 -->
+    <div class="mentor-profile fade-in">
+      <div class="mp-intro">
+        <div class="prac-label">实践导师计划</div>
+        <h3>企业导师一对一指导</h3>
+        <p>为每位MBA学生配备资深企业实践导师，提供行业洞察、职业规划和实战指导。导师均来自知名企业高管岗位，具备丰富的行业经验和人脉资源。</p>
+      </div>
+      <div class="mp-grid">
+        <!-- 最终学历占比 -->
+        <div class="mp-card">
+          <div class="mp-card-title"><span class="mp-title-line"></span>最终学历占比<span class="mp-title-line"></span></div>
+          <div class="mp-donut-wrap">
+            <svg viewBox="0 0 160 160" class="mp-donut-svg">
+              <circle cx="80" cy="80" r="55" fill="none" stroke="var(--border)" stroke-width="20"/>
+              <circle cx="80" cy="80" r="55" fill="none" stroke="var(--lake-dark)" stroke-width="20" 
+                      stroke-dasharray="262.6 82.9" stroke-dashoffset="0" transform="rotate(-90 80 80)"/>
+              <circle cx="80" cy="80" r="55" fill="none" stroke="var(--gold)" stroke-width="20" 
+                      stroke-dasharray="82.9 262.6" stroke-dashoffset="-262.6" transform="rotate(-90 80 80)"/>
+            </svg>
+            <div class="mp-donut-center">
+              <div class="mp-donut-num">200+</div>
+              <div class="mp-donut-lbl">企业导师</div>
+            </div>
+          </div>
+          <div class="mp-legend">
+            <span class="mp-legend-item"><i style="background:var(--lake-dark)"></i>硕士 76%</span>
+            <span class="mp-legend-item"><i style="background:var(--gold)"></i>博士 24%</span>
+          </div>
+        </div>
+        <!-- 职级分布 -->
+        <div class="mp-card">
+          <div class="mp-card-title"><span class="mp-title-line"></span>职级分布<span class="mp-title-line"></span></div>
+          <div class="mp-bars">
+            <div class="mp-bar-item">
+              <div class="mp-bar-label">董事长/总经理/创始人</div>
+              <div class="mp-bar-track"><div class="mp-bar-fill mp-bar-lake" style="width:100%"></div></div>
+              <div class="mp-bar-pct">50%</div>
+            </div>
+            <div class="mp-bar-item">
+              <div class="mp-bar-label">总监/主任/部门经理</div>
+              <div class="mp-bar-track"><div class="mp-bar-fill mp-bar-gold" style="width:52%"></div></div>
+              <div class="mp-bar-pct">26%</div>
+            </div>
+            <div class="mp-bar-item">
+              <div class="mp-bar-label">高级专业人员/专家</div>
+              <div class="mp-bar-track"><div class="mp-bar-fill mp-bar-red" style="width:48%"></div></div>
+              <div class="mp-bar-pct">24%</div>
+            </div>
+          </div>
+        </div>
+        <!-- 所在行业分布 -->
+        <div class="mp-card mp-card-wide">
+          <div class="mp-card-title"><span class="mp-title-line"></span>所在行业分布<span class="mp-title-line"></span></div>
+          <div class="mp-ind-grid">
+            <div class="mp-ind-item">
+              <svg viewBox="0 0 80 80" class="mp-ind-svg">
+                <circle cx="40" cy="40" r="28" fill="none" stroke="var(--border)" stroke-width="10"/>
+                <circle cx="40" cy="40" r="28" fill="none" class="mp-c1" stroke-width="10" 
+                        stroke-dasharray="73.9 102.0" stroke-dashoffset="0" transform="rotate(-90 40 40)"/>
+              </svg>
+              <div class="mp-ind-pct">42%</div>
+              <div class="mp-ind-name">国企</div>
+            </div>
+            <div class="mp-ind-item">
+              <svg viewBox="0 0 80 80" class="mp-ind-svg">
+                <circle cx="40" cy="40" r="28" fill="none" stroke="var(--border)" stroke-width="10"/>
+                <circle cx="40" cy="40" r="28" fill="none" class="mp-c2" stroke-width="10" 
+                        stroke-dasharray="35.2 140.7" stroke-dashoffset="0" transform="rotate(-90 40 40)"/>
+              </svg>
+              <div class="mp-ind-pct">20%</div>
+              <div class="mp-ind-name">中小型企业</div>
+            </div>
+            <div class="mp-ind-item">
+              <svg viewBox="0 0 80 80" class="mp-ind-svg">
+                <circle cx="40" cy="40" r="28" fill="none" stroke="var(--border)" stroke-width="10"/>
+                <circle cx="40" cy="40" r="28" fill="none" class="mp-c3" stroke-width="10" 
+                        stroke-dasharray="29.9 146.0" stroke-dashoffset="0" transform="rotate(-90 40 40)"/>
+              </svg>
+              <div class="mp-ind-pct">17%</div>
+              <div class="mp-ind-name">其它</div>
+            </div>
+            <div class="mp-ind-item">
+              <svg viewBox="0 0 80 80" class="mp-ind-svg">
+                <circle cx="40" cy="40" r="28" fill="none" stroke="var(--border)" stroke-width="10"/>
+                <circle cx="40" cy="40" r="28" fill="none" class="mp-c4" stroke-width="10" 
+                        stroke-dasharray="19.4 156.5" stroke-dashoffset="0" transform="rotate(-90 40 40)"/>
+              </svg>
+              <div class="mp-ind-pct">11%</div>
+              <div class="mp-ind-name">大型企业</div>
+            </div>
+            <div class="mp-ind-item">
+              <svg viewBox="0 0 80 80" class="mp-ind-svg">
+                <circle cx="40" cy="40" r="28" fill="none" stroke="var(--border)" stroke-width="10"/>
+                <circle cx="40" cy="40" r="28" fill="none" class="mp-c5" stroke-width="10" 
+                        stroke-dasharray="12.3 163.6" stroke-dashoffset="0" transform="rotate(-90 40 40)"/>
+              </svg>
+              <div class="mp-ind-pct">7%</div>
+              <div class="mp-ind-name">世界五百强</div>
+            </div>
+            <div class="mp-ind-item">
+              <svg viewBox="0 0 80 80" class="mp-ind-svg">
+                <circle cx="40" cy="40" r="28" fill="none" stroke="var(--border)" stroke-width="10"/>
+                <circle cx="40" cy="40" r="28" fill="none" class="mp-c6" stroke-width="10" 
+                        stroke-dasharray="3.5 172.4" stroke-dashoffset="0" transform="rotate(-90 40 40)"/>
+              </svg>
+              <div class="mp-ind-pct">2%</div>
+              <div class="mp-ind-name">政府机关</div>
+            </div>
+            <div class="mp-ind-item">
+              <svg viewBox="0 0 80 80" class="mp-ind-svg">
+                <circle cx="40" cy="40" r="28" fill="none" stroke="var(--border)" stroke-width="10"/>
+                <circle cx="40" cy="40" r="28" fill="none" class="mp-c7" stroke-width="10" 
+                        stroke-dasharray="1.8 174.1" stroke-dashoffset="0" transform="rotate(-90 40 40)"/>
+              </svg>
+              <div class="mp-ind-pct">1%</div>
+              <div class="mp-ind-name">国内百强</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- PBL项目式学习 -->
+    <div class="prac-section reverse fade-in">
+      <div class="prac-visual">
+        <div class="pbl-industries">
+          <div class="pbl-ind-card"><div class="pbl-ind-icon">💰</div><div class="pbl-ind-name">金融科技</div><div class="pbl-ind-desc">FinTech</div></div>
+          <div class="pbl-ind-card"><div class="pbl-ind-icon">⚙️</div><div class="pbl-ind-name">智能制造</div><div class="pbl-ind-desc">Smart Mfg</div></div>
+          <div class="pbl-ind-card"><div class="pbl-ind-icon">🛍️</div><div class="pbl-ind-name">新零售</div><div class="pbl-ind-desc">New Retail</div></div>
+          <div class="pbl-ind-card"><div class="pbl-ind-icon">🧬</div><div class="pbl-ind-name">生物医药</div><div class="pbl-ind-desc">Biomed</div></div>
+          <div class="pbl-ind-card"><div class="pbl-ind-icon">⚡</div><div class="pbl-ind-name">新能源</div><div class="pbl-ind-desc">New Energy</div></div>
+          <div class="pbl-ind-card"><div class="pbl-ind-icon">🌍</div><div class="pbl-ind-name">跨境电商</div><div class="pbl-ind-desc">Cross-Border</div></div>
+          <div class="pbl-ind-card"><div class="pbl-ind-icon">📊</div><div class="pbl-ind-name">大数据</div><div class="pbl-ind-desc">Big Data</div></div>
+          <div class="pbl-ind-card"><div class="pbl-ind-icon">🏥</div><div class="pbl-ind-name">医疗健康</div><div class="pbl-ind-desc">Healthcare</div></div>
+        </div>
+      </div>
+      <div class="prac-content">
+        <div class="prac-label">PBL 项目式学习</div>
+        <h3>真实企业项目实战</h3>
+        <p>以企业真实项目为载体，学生组成团队在导师指导下完成从调研分析到方案落地的全过程。项目覆盖多个行业领域，深度对接产业需求。</p>
+        <div class="prac-stats">
+          <div class="stat-item">
+            <div class="stat-num">5+</div>
+            <div class="stat-label">合作行业</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">3-6月</div>
+            <div class="stat-label">项目周期</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">企业参与</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 双导师制 -->
+    <div class="prac-mentor fade-in">
+      <div class="mentor-card">
+        <div class="mentor-icon">📚</div>
+        <h4>校内学术导师</h4>
+        <p>暨南大学资深教授、博士生导师，具备深厚的学术功底和研究能力，指导学生完成学术论文和理论研究</p>
+        <div class="mentor-percent">75%</div>
+      </div>
+      <div class="mentor-vs">VS</div>
+      <div class="mentor-card">
+        <div class="mentor-icon">💼</div>
+        <h4>企业实践导师</h4>
+        <p>知名企业高管、行业领军人物，具备丰富的实战经验和行业资源，提供职业发展和项目实战指导</p>
+        <div class="mentor-percent">25%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLUBS - 学生俱乐部 -->
+<section class="sec" id="clubs" style="background:var(--white)">
+  <div class="sec-inner">
+    <div class="sec-head fade-in">
+      <div class="kicker">CLUBS</div>
+      <h2>学生俱乐部</h2>
+      <div class="sub">13个学生自发组织 · 丰富校园生活</div>
+      <div class="sec-line"></div>
+    </div>
+    <div class="fade-in">
+      <div class="club-category">兴趣爱好俱乐部</div>
+      <div class="club-wrap">
+        <span class="club-tag">羽毛球俱乐部</span><span class="club-tag">风沙户外俱乐部</span><span class="club-tag">篮球俱乐部</span><span class="club-tag">足球俱乐部</span><span class="club-tag">寻知读书会</span><span class="club-tag">创新思维俱乐部</span><span class="club-tag">网球俱乐部</span><span class="club-tag">身心塑形俱乐部</span><span class="club-tag">女性成长俱乐部</span>
+      </div>
+      <div class="club-category">行业俱乐部</div>
+      <div class="club-wrap">
+        <span class="club-tag">金融及地产俱乐部</span><span class="club-tag">元宇宙俱乐部</span><span class="club-tag">智能制造俱乐部</span><span class="club-tag">创业者俱乐部</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATIONS -->
+
+<!-- ADVANTAGES -->
+
+<!-- ADMISSION - 招生信息 -->
+<section class="sec" id="admission" style="background:var(--paper)">
+  <div class="sec-inner">
+    <div class="sec-head fade-in">
+      <div class="kicker">ADMISSION</div>
+      <h2>招生信息</h2>
+      <div class="sub">2027级 MBA 招生</div>
+      <div class="sec-line"></div>
+    </div>
+    <div class="adm-grid">
+      <div class="adm-card fade-in">
+        <h3><span class="sec-mark mark-lake"></span>报考条件</h3>
+        <ul>
+          <li>大学本科毕业后有3年以上工作经验</li>
+          <li>高职高专毕业后有5年以上工作经验</li>
+          <li>硕士/博士学位后有2年以上工作经验</li>
+        </ul>
+        <div class="note">*工作年限计算至入学当年8月31日；同等学力需加试两门</div>
+      </div>
+      <div class="adm-card fade-in">
+        <h3><span class="sec-mark mark-gold"></span>考试科目</h3>
+        <ul>
+          <li>初试：199管理类综合能力</li>
+          <li>初试：204英语（二）</li>
+          <li>复试：思想政治理论</li>
+          <li>复试：综合能力面试（含英语听说及专业素质考核）</li>
+        </ul>
+      </div>
+      <div class="adm-card fade-in">
+        <h3><span class="sec-mark mark-red"></span>学制学费</h3>
+        <ul>
+          <li>非全日制学制2年，学费22万元</li>
+          <li>全日制SiMBA学制2年，学费7万元</li>
+          <li>新加坡班学费详见官方通知</li>
+        </ul>
+      </div>
+      <div class="adm-card fade-in">
+        <h3><span class="sec-mark mark-lake"></span>学历学位</h3>
+        <ul>
+          <li>暨南大学硕士研究生毕业证书</li>
+          <li>工商管理硕士学位证书</li>
+          <li>双证学历教育，学信网可查</li>
+        </ul>
+      </div>
+    </div>
+    <!-- 报考流程 -->
+    <div class="flow-section fade-in" style="margin-top:48px">
+      <h3 style="text-align:center;font-family:var(--serif);font-size:18px;color:var(--ink);margin-bottom:24px;letter-spacing:2px">报考流程</h3>
+      <div class="flow-steps">
+        <div class="flow-step"><div class="num">01</div><div class="title">网上报名</div><div class="date">10月 · 中国研究生招生信息网</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="num">02</div><div class="title">网上确认</div><div class="date">11月 · 确认报考信息</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="num">03</div><div class="title">全国联考</div><div class="date">12月 · 199管综 + 204英语二</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAMPUS -->
+<section class="campus-grid" id="campus">
+  <div class="campus-grid-inner">
+    <div class="sec-head fade-in" style="margin-bottom:28px">
+      <div class="kicker">CAMPUS</div>
+      <h2>校园掠影</h2>
+      <div class="sub">百年学府 · 华商摇篮</div>
+      <div class="sec-line"></div>
+    </div>
+    <div class="campus-grid-layout">
+      <div class="campus-card span2c fade-in">
+        <img loading="lazy" src="https://zhuanti.liankao.org.cn/jnu-mba/assets/27.png" alt="暨南大学">
+      </div>
+      <div class="campus-card fade-in">
+        <img loading="lazy" src="https://zhuanti.liankao.org.cn/jnu-mba/assets/16.jpg" alt="校园风光">
+      </div>
+      <div class="campus-card fade-in">
+        <img loading="lazy" src="https://zhuanti.liankao.org.cn/jnu-mba/assets/15.jpg" alt="管理学院">
+      </div>
+      <div class="campus-card fade-in">
+        <img loading="lazy" src="https://zhuanti.liankao.org.cn/jnu-mba/assets/11.jpg" alt="校园建筑">
+      </div>
+      <div class="campus-card span2r fade-in">
+        <img loading="lazy" src="https://zhuanti.liankao.org.cn/jnu-mba/assets/35.jpg" alt="教学楼">
+      </div>
+      <div class="campus-card span2c fade-in">
+        <img loading="lazy" src="https://zhuanti.liankao.org.cn/jnu-mba/assets/31.jpg" alt="校园秋色">
+      </div>
+      <div class="campus-card fade-in">
+        <img loading="lazy" src="https://zhuanti.liankao.org.cn/jnu-mba/assets/36.jpg" alt="校园景色">
+      </div>
+      <div class="campus-card span2c fade-in">
+        <img loading="lazy" src="https://zhuanti.liankao.org.cn/jnu-mba/assets/33.jpg" alt="校园全景">
+      </div>
+      <div class="campus-card fade-in">
+        <img loading="lazy" src="https://zhuanti.liankao.org.cn/jnu-mba/assets/12.jpg" alt="学生活动">
+      </div>
+      <div class="campus-card fade-in">
+        <img loading="lazy" src="https://zhuanti.liankao.org.cn/jnu-mba/assets/24.jpg" alt="校园活动">
+      </div>
+      <div class="campus-card fade-in">
+        <img loading="lazy" src="https://zhuanti.liankao.org.cn/jnu-mba/assets/25.jpg" alt="新生入学">
+      </div>
+      <div class="campus-card fade-in">
+        <img loading="lazy" src="https://zhuanti.liankao.org.cn/jnu-mba/assets/campus-new.jpg" alt="暨南大学MBA">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec" id="contact" style="background:var(--white)">
+  <div class="sec-inner">
+    <div class="sec-head fade-in">
+      <div class="kicker">CONTACT</div>
+      <h2>联系我们</h2>
+      <div class="sec-line"></div>
+    </div>
+
+    <div class="sec-head fade-in">
+      <div class="kicker">LOCATIONS</div>
+      <h3>上课地点</h3>
+      <div class="sub">广深 · 新加坡 三地授课</div>
+      <div class="sec-line"></div>
+    </div>
+    <div class="loc-grid fade-in">
+      <div class="loc-card">
+        <h4>广州校本部</h4>
+        <div class="addr">广州市天河区黄埔大道西601号<br>坐落于天河CBD核心商圈<br>地铁3号线岗顶站直达</div>
+      </div>
+      <div class="loc-card">
+        <h4>新加坡</h4>
+        <div class="addr">中文MBA新加坡班授课点<br>面向东南亚华人及在新华人<br>中文授课，同等学历学位</div>
+      </div>
+    </div>
+
+    <div class="ct-grid">
+      <div class="ct-card fade-in">
+        <h3>MBA教育中心（广州）</h3>
+        <div class="info">
+          地址：广州市黄埔大道西601号 暨南大学管理学院205办公室<br>
+          电话：<a href="tel:020-85225916">020-85225916</a><br>
+          邮箱：<a href="mailto:ourjnumba@vip.126.com">ourjnumba@vip.126.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="ct-cta fade-in">
+      <a href="https://mba.jnu.edu.cn/" target="_blank">访问MBA官网</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-certs">
+    <img loading="lazy" src="https://zhuanti.liankao.org.cn/jnu-mba/assets/cert-aacsb-bjtu.png" alt="AACSB 认证">
+    <img loading="lazy" src="https://zhuanti.liankao.org.cn/jnu-mba/assets/cert-amba-bjtu.png" alt="AMBA 认证">
+    <img loading="lazy" src="https://zhuanti.liankao.org.cn/jnu-mba/assets/cert-bga-bjtu.png" alt="BGA 认证">
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-copy">© 2026 暨南大学 工商管理硕士（MBA）招生专题</div>
+</footer>
+
+<script>
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>50));
+document.getElementById('navBtn').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+const secs=document.querySelectorAll('section[id]');
+window.addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(s.id&&scrollY>=s.offsetTop-120)cur=s.id});document.querySelectorAll('.nav-links a').forEach(a=>a.classList.toggle('active','#'+cur===a.getAttribute('href')))});
+</script>
+</body>
+</html>
