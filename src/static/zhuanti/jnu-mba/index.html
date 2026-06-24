@@ -93,7 +93,7 @@ img{max-width:100%;display:block}
 .campus-grid-inner{max-width:1100px;margin:0 auto}
 .campus-grid-layout{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:200px 200px 200px;gap:12px}
 .campus-card{position:relative;border-radius:10px;overflow:hidden;cursor:pointer;box-shadow:var(--shadow-sm)}
-.campus-card img{width:100%;height:100%;object-fit:cover;transition:transform .6s,filter .4s;filter:brightness(.92) saturate(.9)}
+.campus-card img{width:100%;height:100%;object-fit:cover;transition:transform .6s,filter .4s;filter:brightness(.92) saturate(.9);user-select:none;-webkit-user-drag:none;-webkit-touch-callout:none;draggable:false}
 .campus-card:hover img{transform:scale(1.05);filter:brightness(1) saturate(1)}
 .campus-card .cap{position:absolute;bottom:0;left:0;right:0;padding:10px 14px;background:linear-gradient(transparent,rgba(0,0,0,.7));color:var(--white);font-family:var(--serif);font-size:12px;letter-spacing:2px}
 .campus-card .cap .sub{font-size:10px;opacity:.75;margin-top:2px;letter-spacing:1px;font-family:var(--sans)}
@@ -456,7 +456,7 @@ img{max-width:100%;display:block}
   .adv-grid,.prac-grid{grid-template-columns:repeat(2,1fr)}
   .feat-grid{grid-template-columns:repeat(2,1fr)}
   .loc-grid{grid-template-columns:1fr}
-  .campus-grid-layout{display:flex;overflow-x:auto;gap:12px;padding-bottom:8px;scroll-snap-type:x mandatory;scrollbar-width:thin}
+  .campus-grid-layout{display:flex;overflow-x:auto;gap:12px;padding-bottom:8px;scroll-snap-type:x mandatory;scrollbar-width:thin;touch-action:pan-x;-webkit-overflow-scrolling:touch}
   .campus-grid-layout::-webkit-scrollbar{height:4px}
   .campus-grid-layout::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:2px}
   .campus-card{flex:0 0 75%;scroll-snap-align:start;height:180px}
