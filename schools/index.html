@@ -285,6 +285,40 @@
 </div>
 
 
+<div class="school-promo-section">
+  <div class="school-promo-header">
+    <h3 class="school-promo-title">🔥 热门推荐</h3>
+    <span class="school-promo-subtitle">精选优质项目</span>
+  </div>
+  <div class="school-promo-grid">
+    <a href="/schools/mba-tongji-university/" class="school-promo-card">
+      <img src="/img/promo/tongji-mba.jpg" alt="同济大学MBA">
+      <div class="school-promo-overlay">
+        <span class="school-promo-badge">推荐</span>
+      </div>
+    </a>
+    <a href="/schools/mem-cufe/" class="school-promo-card">
+      <img src="/img/promo/cufe-mem.jpg" alt="中央财经大学MEM">
+      <div class="school-promo-overlay">
+        <span class="school-promo-badge">推荐</span>
+      </div>
+    </a>
+    <a href="/schools/mba-qinghua-university/" class="school-promo-card">
+      <img src="/img/promo/tsinghua-mba.jpg" alt="清华大学MBA">
+      <div class="school-promo-overlay">
+        <span class="school-promo-badge">推荐</span>
+      </div>
+    </a>
+    <a href="/schools/mba-fudan-university-international-finance/" class="school-promo-card">
+      <img src="/img/promo/fudan-if-mba.jpg" alt="复旦大学国际金融MBA">
+      <div class="school-promo-overlay">
+        <span class="school-promo-badge">推荐</span>
+      </div>
+    </a>
+  </div>
+</div>
+
+
 <div class="school-list" id="schoolList">
   <a class="school-card" 
      href="https://liankao.org.cn/schools/tsinghua-mem/"
@@ -20759,6 +20793,86 @@
 </div>
 
 <style>
+ 
+.school-promo-section {
+  margin: 24px 0;
+}
+
+.school-promo-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.school-promo-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--content);
+  margin: 0;
+}
+
+.school-promo-subtitle {
+  font-size: 0.8rem;
+  color: var(--secondary);
+}
+
+.school-promo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.school-promo-card {
+  position: relative;
+  display: block;
+  border-radius: 8px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.school-promo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.school-promo-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.school-promo-overlay {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.school-promo-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  background: rgba(255, 87, 34, 0.9);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 500;
+  border-radius: 4px;
+}
+
+ 
+@media (max-width: 900px) {
+  .school-promo-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .school-promo-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
  
 .school-card-badge-sino {
   display: inline-block;
